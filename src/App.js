@@ -1,7 +1,12 @@
-import React from 'react';
+import React, { useState } from 'react';
+import StartGame from './components/StartGame'
 import './App.css';
 
+const playerData = require('./players.json')
+
 function App() {
+  const [ players ] = useState(playerData)
+
   return (
     <div className="App">
       <h3>OOO</h3>
