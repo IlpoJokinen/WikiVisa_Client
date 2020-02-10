@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Table, Badge } from 'react-bootstrap'
 
-const RoundStats = () => {
+const RoundStats = ({ players }) => {
     const [timer, setTimer] = useState(20)
 
     useEffect(() => {
@@ -11,6 +11,24 @@ const RoundStats = () => {
             }
         }, 1000)
     }, [timer])
+
+
+    //hardcoded answer
+    const correctAnswer = "A"
+
+    const checkAnswer = (answerOfUser) => {
+        return answerOfUser === correctAnswer ? "YES" : "NO"
+    }
+
+    const rows = players.map((p, i) => {
+        const answer = p.answers[p.answers.length -1 ]
+        return <tr key = {i}>
+            <td>{i + 1}</td>
+            <td>{p.gamertag}</td>
+            <td>{answer}</td>
+            <td>{checkAnswer(answer)}</td>
+        </tr>
+    })
 
 
     return (
@@ -27,30 +45,8 @@ const RoundStats = () => {
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                        <td>1</td>
-                        <td>User1</td>
-                        <td>A</td>
-                        <td>Yes</td>
-                        </tr>
-                        <tr>
-                        <td>2</td>
-                        <td>User2</td>
-                        <td>B</td>
-                        <td>No</td>
-                        </tr>
-                        <tr>
-                        <td>3</td>
-                        <td>User3</td>
-                        <td>A</td>
-                        <td>Yes</td>
-                        </tr>
-                        <tr>
-                        <td>4</td>
-                        <td>User4</td>
-                        <td>A</td>
-                        <td>Yes</td>
-                        </tr>
+                        {rows}
+                        
                     </tbody>
                 </Table>
             </div>
