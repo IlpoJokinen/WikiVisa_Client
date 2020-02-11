@@ -1,10 +1,54 @@
-.buttons{
+.buttons {
     margin: auto;
     display: flex;
     flex-direction: row;
-    justify-content: center;
-    }
-    
-    h2 {
+    justify-content: center
+}
+
+h2 {
+    text-align: center
+}
+
+.gamerTag {
+    border: 1px solid #eee;
+    padding: 5px 8px;
+    margin-right: 5px;
+    margin-bottom: 5px;
+    border-radius: 4px
+}
+
+.gamerTag:last-of-type {
+    margin-right: 0
+}
+
+.radioButton input[type="radio"] {
+    display: none
+}
+  
+.radioButton label {
+    font-size: 16px;
+    cursor: pointer;
+    width: 100%;
+    height: 100%;
     text-align: center;
-    }
+    margin: 0;
+    padding: 25px 20px;
+    border: 5px solid #B10DC9;
+    letter-spacing: 1px;
+    user-select: none;
+    transition: background-color 300ms, color 100ms
+}
+
+.radioButton input[type="radio"]:checked + label {
+    background-color: #B10DC9;
+    color: #fcfcfc;
+    font-weight: bold
+}
+
+.container .row {
+    margin-bottom: 16px
+}
+
+.wrapper {
+    margin-top: 20px
+}

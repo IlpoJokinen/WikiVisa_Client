@@ -1,64 +1,40 @@
-import React, { useState } from 'react';
-import 'bootstrap/dist/css/bootstrap.min.css';
-import ToggleButton from 'react-bootstrap/ToggleButton';
-import ButtonGroup from 'react-bootstrap/ButtonGroup';
+import React, { useState } from 'react'
+import { Container, Row, Col } from 'react-bootstrap'
+import Question from './UI/Question'
+import Choices from './UI/Choices'
 
 const Counter = () => {
-  const [counter, setCounter ] = useState(5)
-  var  counterTime = setTimeout(
-    () => setCounter(counter - 1),
-    1000
-  )
+    const [counter, setCounter ] = useState(30)
+    let counterTime = setTimeout(() => setCounter(counter - 1), 1000)
+    
+    if(counter === 0) {
+        clearTimeout(counterTime)
+        window.location.href = "/stats"
+    }
 
- if(counter === 0) {
-   clearTimeout(counterTime)
-   window.location.href="/stats"
- }
- return (
-   <div>{counter}</div>
- )
+    return <h1 className="text-center">{ counter }</h1>
 }
-const Button = () => {
 
-  const [answer, setAnswer] = useState('')
-  console.log(answer)
-
-  return (
-    <div className="d-flex flex-column">
-      <ButtonGroup toggle className="mt-3">
-        <ToggleButton type="radio" name="helsinki" defaultChecked value="1" onChange={() => setAnswer('A')}>
-          Helsinki
-        </ToggleButton>
-        <ToggleButton type="radio" name="radio" value="2" onChange={() => setAnswer('B')}>
-          Tukholma
-        </ToggleButton>
-        <ToggleButton type="radio" name="radio" value="3" onChange={() => setAnswer('C')}>
-          Montreal
-        </ToggleButton>
-        <ToggleButton type="radio" name="radio" value="4" onChange={() => setAnswer('D')}>
-          Timbuktu
-        </ToggleButton>
-      </ButtonGroup>
-    </div>
-  )
-}
-const Question = () => {
-  const [question, setQuestion] = useState('Mikä on suomen pääkaupunki?')
-
-  return (
-    <div>
-      <div>{question}</div>
-    </div>
-  )
-}
 const QuestionScreen = () => {
-    return (
-        <div>
-            <Counter />
-            <Question />
-            <Button />
-        </div>
-    )
+    const question = "Mikä on Suomen pääkaupunki",
+        choices = ["Helsinki", "Tukholma", "Montreal", "Timbuktu"]
+    return <Container>
+        <Row>
+            <Col>
+                <Counter />
+            </Col>
+        </Row>
+        <Row>
+            <Col>
+                <Question question={question} />
+            </Col>
+        </Row>
+        <Row>
+            <Col>
+                <Choices choices={choices} />
+            </Col>
+        </Row>
+    </Container>
 }
 
 export default QuestionScreen
