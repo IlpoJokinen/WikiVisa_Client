@@ -3,12 +3,13 @@ import StartGame from './components/StartGame'
 import './App.css';
 import QuestionScreen from './components/QuestionScreen'
 import RoundStats from "./components/RoundStats"
+import WelcomePage from "./components/WelcomePage"
 
 const playerData = require('./players.json')
 
 function App() {
   const [ players ] = useState(playerData)
-  
+
 
   return (
     <div className="App">
