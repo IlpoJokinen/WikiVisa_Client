@@ -2,12 +2,15 @@ import React, { useState, useEffect } from 'react';
 import { Table, Badge } from 'react-bootstrap'
 
 const RoundStats = ({ players }) => {
-    const [timer, setTimer] = useState(20)
+    const [timer, setTimer] = useState(10)
 
     useEffect(() => {
         setTimeout(() => {
             if(timer > 0){
                 setTimer(timer - 1)
+            }
+            if(timer === 0) {
+                window.location.href="/end"
             }
         }, 1000)
     }, [timer])

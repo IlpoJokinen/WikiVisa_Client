@@ -1,13 +1,20 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import Player from './Player'
 
 const StartGame = ({ players }) => {
-    const buttonStyle = {
-        marginTop: 10,
-        marginRight: "auto",
-        marginLeft: "auto",
-        display: "block",
-    }
+    const [timer, setTimer] = useState(20)
+
+    useEffect(() => {
+        setTimeout(() => {
+            if(timer > 0){
+                setTimer(timer - 1)
+            }
+            if(timer === 0) {
+                window.location.href="/question"
+            }
+        }, 1000)
+        
+    }, [timer])
 
     const allPlayers = players.map(player => {
         return (
@@ -19,13 +26,10 @@ const StartGame = ({ players }) => {
 
     return (
         <div>   
-            <h3>Plyers in the game room</h3>
+            <h3>Players in the game room</h3>
             {allPlayers}
-            <h3>Enter room</h3>
-            <form>
-                <input type="text" placeholder="Your gamertag"></input>
-                <input style={buttonStyle} type="submit" value="Enter game"></input>
-            </form>
+            <h3>You have entered the room X</h3>
+            <h6>The game will start in <b>{timer}</b> seconds</h6>
         </div>
     )
 }

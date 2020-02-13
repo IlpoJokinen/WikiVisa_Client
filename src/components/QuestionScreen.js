@@ -4,14 +4,16 @@ import ToggleButton from 'react-bootstrap/ToggleButton';
 import ButtonGroup from 'react-bootstrap/ButtonGroup';
 
 const Counter = () => {
-  const [counter, setCounter ] = useState(30)
+  const [counter, setCounter ] = useState(5)
   var  counterTime = setTimeout(
     () => setCounter(counter - 1),
     1000
   )
 
- if(counter === 0) clearTimeout(counterTime)
-
+ if(counter === 0) {
+   clearTimeout(counterTime)
+   window.location.href="/stats"
+ }
  return (
    <div>{counter}</div>
  )
