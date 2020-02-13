@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import StartGame from './components/StartGame'
 import './App.css';
 import QuestionScreen from './components/QuestionScreen'
@@ -13,10 +13,10 @@ import GameEndScreen from './components/GameEndScreen';
 import io from 'socket.io-client'
 
 const socket = io('http://localhost:3001')
-const playerData = require('./players.json')
+
 
 function App() {
-  const [ players ] = useState(playerData)
+  const [ players, setPlayers ] = useState([])
 
   useEffect(() => {
     socket.on('someoneClicked', (data) => {
@@ -25,6 +25,10 @@ function App() {
 
     socket.on('senderConfirmation', (data) => {
       console.log(data)
+    })
+
+    socket.on("dummyData", (data) => {
+      setPlayers(data)
     })
   })
 
