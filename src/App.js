@@ -19,7 +19,7 @@ function App() {
         socket.on('someoneClicked', (data) => {
             console.log(data)
         })
-
+        
         socket.on('senderConfirmation', (data) => {
             console.log(data)
         })
@@ -28,12 +28,6 @@ function App() {
             setPlayers(data)
         })
     })
-
-    const pingConnectedNodes = (event) => {
-        event.preventDefault()
-        const message = 'Someone clicked...'
-        socket.emit('click', message)
-    }
 
     return <Container className="wrapper" fluid>
         <Row>
@@ -59,7 +53,6 @@ function App() {
                 </Router>
             </Col>
         </Row>
-        
     </Container>
 }
 
