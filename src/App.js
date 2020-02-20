@@ -13,21 +13,32 @@ import './style.css'
 const socket = io('http://localhost:3001')
 
 function App() {
-    const [ players, setPlayers ] = useState([])
+    const [ players, setPlayers ] = useState()
 
     useEffect(() => {
         socket.on('someoneClicked', (data) => {
             console.log(data)
         })
+
         
         socket.on('senderConfirmation', (data) => {
             console.log(data)
         })
 
-        socket.on("dummyData", (data) => {
+        socket.emit("get players")
+
+        socket.on("send players", (data) => {
+            console.log("players", data)
             setPlayers(data)
         })
-    })
+    }, [])
+
+    console.log(players)
+
+
+    function joinGame(gamertag) {
+        socket.emit("join game", gamertag)
+    }
 
     return <Container className="wrapper" fluid>
         <Row>
@@ -35,7 +46,7 @@ function App() {
                 <Router>
                     <Switch>
                         <Route exact path="/">
-                            <WelcomeScreen />
+                            <WelcomeScreen joinGame={joinGame} />
                         </Route>
                         <Route path="/start">
                             <StartScreen players={players} />

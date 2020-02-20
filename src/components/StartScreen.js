@@ -17,6 +17,8 @@ const StartScreen = ({ players }) => {
         return <Player key={player.id} gamertag={player.gamertag} />
     })
 
+
+    console.log(players)
     return <Container>   
         <Row>
             <Col>
