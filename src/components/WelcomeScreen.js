@@ -1,8 +1,9 @@
 import React, {useState} from 'react'
 import { Container, Row, Col, Button, Form } from 'react-bootstrap'
 import PageTitle from './UI/PageTitle'
+import { withRouter } from "react-router-dom"
 
-const WelcomeScreen = ({joinGame}) => {
+const WelcomeScreen = ({joinGame, history}) => {
 
     const [gamertag, setGamertag] = useState("")
 
@@ -15,7 +16,7 @@ const WelcomeScreen = ({joinGame}) => {
         e.preventDefault()
         if(gamertag.length){
             joinGame({gamertag})
-            window.location.href = "/start"
+           history.push("/start")
         } else {
             window.alert("Please enter gamertag")
         }
@@ -47,4 +48,4 @@ const WelcomeScreen = ({joinGame}) => {
 }
 
 
-export default WelcomeScreen
+export default withRouter(WelcomeScreen)
