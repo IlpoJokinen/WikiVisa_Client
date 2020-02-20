@@ -16,7 +16,7 @@ const WelcomeScreen = ({joinGame, history}) => {
         e.preventDefault()
         if(gamertag.length){
             joinGame({gamertag})
-           history.push("/start")
+            history.push("/start")
         } else {
             window.alert("Please enter gamertag")
         }

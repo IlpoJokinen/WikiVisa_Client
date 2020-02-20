@@ -2,13 +2,14 @@ import React, { useState, useEffect } from 'react'
 import { Container, Row, Col } from 'react-bootstrap'
 import PageTitle from './UI/PageTitle'
 import Player from './UI/Player'
+import { withRouter } from "react-router-dom"
 
-const StartScreen = ({ players, startGameCounter }) => {
+const StartScreen = ({ gamertag, players, startGameCounter, history }) => {
     let allPlayers = ''
     console.log(startGameCounter)
     useEffect(() => {
         if(startGameCounter === 0){
-            window.location.href = "/question" 
+            history.push("/question")
         }
         
     }, [startGameCounter])
@@ -17,7 +18,7 @@ const StartScreen = ({ players, startGameCounter }) => {
 
     if(players) {
         allPlayers = players.map(player => {
-            return <Player key={player.id} gamertag={player.gamertag}/> 
+            return  <Player key={player.id} gamertag={player.gamertag} thisPlayersTag={gamertag === player.gamertag}/>  
         })
     }
 
@@ -48,4 +49,4 @@ const StartScreen = ({ players, startGameCounter }) => {
     
 }
 
-export default StartScreen
+export default withRouter(StartScreen)

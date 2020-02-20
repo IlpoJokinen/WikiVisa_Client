@@ -3,7 +3,7 @@ import { Table } from 'react-bootstrap'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import '../../style.css'
 
-const StatsTable = ({ players }) => {
+const StatsTable = ({ players, gamertag }) => {
     //Sort by points and map to table
     let rows = ""
     if(players){
@@ -11,7 +11,7 @@ const StatsTable = ({ players }) => {
         .sort((a, b) => b.points - a.points)
         .map((player, i) => <tr key={i}>
             <td>{ i + 1}</td>
-            <td>{ player.gamertag }</td>
+            {gamertag === player.gamertag ? <td><b>{player.gamertag}</b></td> : <td>{player.gamertag}</td>}
             <td>{ player.points } {i === 0 ? "winner" : "you suck"}</td>
         </tr>
         )

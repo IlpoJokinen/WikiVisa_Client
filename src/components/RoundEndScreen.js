@@ -2,13 +2,14 @@ import React, { useState, useEffect } from 'react'
 import { Alert, Container, Row, Col, Badge } from 'react-bootstrap'
 import RoundStatsTable from './UI/RoundStatsTable'
 import PageTitle from './UI/PageTitle'
+import { withRouter } from "react-router-dom"
 
-const RoundEndScreen = ({ players }) => {
+const RoundEndScreen = ({ gamertag, players, history }) => {
     const [timer, setTimer] = useState(20)
 
     useEffect(() => {
         setTimeout(() => {
-            timer === 0 ? window.location.href = "/end" : setTimer(timer - 1)
+            timer === 0 ? history.push("/end") : setTimer(timer - 1)
         }, 1000)
     }, [timer])
 
@@ -20,7 +21,7 @@ const RoundEndScreen = ({ players }) => {
         </Row>
         <Row>
             <Col>
-                <RoundStatsTable players={players}/>
+                <RoundStatsTable gamertag={gamertag} players={players}/>
             </Col>
         </Row>
         <Row>
@@ -38,4 +39,4 @@ const RoundEndScreen = ({ players }) => {
     </Container>
 }
 
-export default RoundEndScreen
+export default withRouter(RoundEndScreen)

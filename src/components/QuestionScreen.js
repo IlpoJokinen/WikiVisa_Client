@@ -3,22 +3,24 @@ import { Container, Row, Col } from 'react-bootstrap'
 import Question from './UI/Question'
 import Choices from './UI/Choices'
 import io from 'socket.io-client'
+import { withRouter } from "react-router-dom"
 const socket = io('http://localhost:3001')
 
 
-const Counter = () => {
-    const [counter, setCounter ] = useState(100)
+
+const Counter = ({history}) => {
+    const [counter, setCounter ] = useState(30)
     let counterTime = setTimeout(() => setCounter(counter - 1), 1000)
     
     if(counter === 0) {
         clearTimeout(counterTime)
-        window.location.href = "/stats"
+        history.push("/stats")
     }
 
     return <h1 className="text-center">{ counter }</h1>
 }
 
-const QuestionScreen = () => {
+const QuestionScreen = (props) => {
     const [question, setQuestion] = useState('')
     const [choices, setChoices] = useState([])
 
@@ -35,7 +37,7 @@ const QuestionScreen = () => {
     return <Container>
         <Row>
             <Col>
-                <Counter />
+                <Counter history={props.history}/>
             </Col>
         </Row>
         <Row>
@@ -51,4 +53,4 @@ const QuestionScreen = () => {
     </Container>
 }
 
-export default QuestionScreen
+export default withRouter(QuestionScreen)
