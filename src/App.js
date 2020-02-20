@@ -28,12 +28,10 @@ function App() {
         socket.emit("get players")
 
         socket.on("send players", (data) => {
-            console.log("players", data)
             setPlayers(data)
         })
     }, [])
 
-    console.log(players)
 
 
     function joinGame(gamertag) {

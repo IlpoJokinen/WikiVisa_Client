@@ -5,6 +5,7 @@ import Player from './UI/Player'
 
 const StartScreen = ({ players }) => {
     const [timer, setTimer] = useState(20)
+    let allPlayers = ''
 
     useEffect(() => {
         setTimeout(() => {
@@ -13,12 +14,13 @@ const StartScreen = ({ players }) => {
         
     }, [timer])
 
-    const allPlayers = players.map(player => {
-        return <Player key={player.id} gamertag={player.gamertag} />
-    })
 
+    if(players) {
+        allPlayers = players.map(player => {
+            return <Player key={player.id} gamertag={player.gamertag}/> 
+        })
+    }
 
-    console.log(players)
     return <Container>   
         <Row>
             <Col>
