@@ -1,6 +1,8 @@
 import React, { useState } from 'react'
 import { Row } from 'react-bootstrap'
 import Choice from './Choice'
+import '../../style.css'
+
 
 const Choices = ({ choices }) => {
     const [answer, setAnswer] = useState('')

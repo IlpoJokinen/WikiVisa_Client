@@ -7,7 +7,7 @@ const socket = io('http://localhost:3001')
 
 
 const Counter = () => {
-    const [counter, setCounter ] = useState(36000)
+    const [counter, setCounter ] = useState(100)
     let counterTime = setTimeout(() => setCounter(counter - 1), 1000)
     
     if(counter === 0) {
