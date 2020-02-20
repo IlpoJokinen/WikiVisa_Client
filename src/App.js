@@ -14,23 +14,24 @@ const socket = io('http://localhost:3001')
 
 function App() {
     const [ players, setPlayers ] = useState()
+    const [game, setGame] = useState({})
 
     useEffect(() => {
-        socket.on('someoneClicked', (data) => {
-            console.log(data)
-        })
-
-        
-        socket.on('senderConfirmation', (data) => {
-            console.log(data)
-        })
-
+       
         socket.emit("get players")
 
         socket.on("send players", (data) => {
             setPlayers(data)
         })
-    }, [])
+
+        socket.on("send game", (game) => {
+            setGame(game)
+        })
+
+        socket.on("send timer", (timer) => {
+            setGame({...game, startGameCounter: timer})
+        })
+    },[])
 
 
 
@@ -47,7 +48,7 @@ function App() {
                             <WelcomeScreen joinGame={joinGame} />
                         </Route>
                         <Route path="/start">
-                            <StartScreen players={players} />
+                            <StartScreen players={players} startGameCounter={game.startGameCounter}/>
                         </Route>
                         <Route path ="/question">
                             <QuestionScreen />

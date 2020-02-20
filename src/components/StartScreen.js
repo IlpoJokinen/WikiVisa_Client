@@ -3,16 +3,16 @@ import { Container, Row, Col } from 'react-bootstrap'
 import PageTitle from './UI/PageTitle'
 import Player from './UI/Player'
 
-const StartScreen = ({ players }) => {
-    const [timer, setTimer] = useState(20)
+const StartScreen = ({ players, startGameCounter }) => {
     let allPlayers = ''
-
+    console.log(startGameCounter)
     useEffect(() => {
-        setTimeout(() => {
-            timer === 0 ? window.location.href = "/question" : setTimer(timer - 1)
-        }, 1000)
+        if(startGameCounter === 0){
+            window.location.href = "/question" 
+        }
         
-    }, [timer])
+    }, [startGameCounter])
+    
 
 
     if(players) {
@@ -41,7 +41,7 @@ const StartScreen = ({ players }) => {
                 </Row>
             </Col>
             <Col>
-                <h6>The game will start in <b>{ timer }</b> seconds</h6>
+                <h6>The game will start in <b>{ startGameCounter }</b> seconds</h6>
             </Col>
         </Row>
     </Container>
