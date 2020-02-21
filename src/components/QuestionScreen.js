@@ -25,7 +25,6 @@ const QuestionScreen = ({questionCounter,history, gamertag, players}) => {
         if(questionCounter === -2){
             history.push("/stats")
         }
-        
     }, [questionCounter])
     function imReady() {
         setReady(true)
@@ -53,7 +52,7 @@ const QuestionScreen = ({questionCounter,history, gamertag, players}) => {
         </Row>
         <Row>
             <Col>
-                <Button variant="success" size="lg"onClick={imReady}block>Ready</Button>
+                <Button variant="success" size="lg" onClick={imReady} block>Ready</Button>
             </Col>
         </Row>
         <Row>

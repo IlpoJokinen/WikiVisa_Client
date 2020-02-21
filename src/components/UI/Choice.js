@@ -3,8 +3,7 @@ import { Col } from 'react-bootstrap'
 import '../../style.css'
 
 const Choice = ({ choice, value }) => {
-    const id = `${value}`
-  
+    const id = `choice-${value}`
     return <Col className="radioButton">
         <input id={id} type="radio" name="choices" value={value}/>
         <label htmlFor={id}>{ choice }</label>
