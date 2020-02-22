@@ -15,6 +15,8 @@ function App() {
     const [players, setPlayers] = useState([])
     const [game, setGame] = useState({})
     const [gamertag, setGamertag] = useState("")
+    const [currentQuestion, setCurrentQuestion] = useState({})
+    const [correctAnswer, setCorrectAnswer] = useState("")
 
     useEffect(() => {
         socket.emit("get players")
@@ -34,6 +36,9 @@ function App() {
         socket.on("get gamertag", data => {
             setGamertag(data)
         })
+        socket.on("get correct answer", data => {
+            setCorrectAnswer(data)
+        })
     }, [])
 
     useEffect(() => {
@@ -50,8 +55,8 @@ function App() {
     function getPage() {
         switch(game.view) {
             case 1: return <StartScreen players={players} gamertag={gamertag} timer={game.startGameCounter} />
-            case 2: return <QuestionScreen players={players} questions={game.questions} gamertag={gamertag} timer={game.questionCounter} />
-            case 3: return <RoundEndScreen players={players} gamertag={gamertag} timer={game.roundEndCounter} />
+            case 2: return <QuestionScreen players={players} gamertag={gamertag} timer={game.questionCounter} questions={game.questions} />
+            case 3: return <RoundEndScreen players={players} gamertag={gamertag} timer={game.roundEndCounter} correctAnswer={correctAnswer} />
             case 4: return <GameEndScreen players={players} gamertag={gamertag} />
             default: 
                 return <WelcomeScreen joinGame={joinGame} />

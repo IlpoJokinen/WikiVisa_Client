@@ -1,12 +1,14 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { Container, Row, Col, Badge } from 'react-bootstrap'
 import CircleTimer from './UI/CircleTimer'
 import { CountdownCircleTimer } from 'react-countdown-circle-timer'
 import RoundStatsTable from './UI/RoundStatsTable'
 import PageTitle from './UI/PageTitle'
+import io from 'socket.io-client'
 
-const RoundEndScreen = ({ gamertag, players, timer }) => {
+const socket = io('http://localhost:3001')
 
+const RoundEndScreen = ({ correctAnswer, gamertag, players, timer }) => {
     return <Container>
         <Row>
             <Col>
@@ -20,7 +22,7 @@ const RoundEndScreen = ({ gamertag, players, timer }) => {
         </Row>
         <Row>
             <Col>
-                <h4 className="text-center">Correct answer <Badge variant="success">A</Badge></h4>
+                <h4 className="text-center">Correct answer <Badge variant="success">{ correctAnswer }</Badge></h4>
             </Col>
         </Row>
         <Row>
