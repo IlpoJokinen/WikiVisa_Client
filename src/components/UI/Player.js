@@ -1,11 +1,17 @@
 import React from 'react'
+import { Row, Col } from 'react-bootstrap'
 import '../../style.css'
 
 const Player = ({ gamertag, thisPlayersTag }) => {
-    if(thisPlayersTag){
-        return <div className="gamerTag"><b>{ gamertag }</b></div>
-    }
-    return <div className="gamerTag">{ gamertag }</div>
+    return <Row>
+        <Col>
+            <div className="gamerTag">
+                {
+                    thisPlayersTag ? <b>{gamertag}</b> : gamertag
+                }
+            </div>
+        </Col>
+    </Row>
 }
 
 export default Player

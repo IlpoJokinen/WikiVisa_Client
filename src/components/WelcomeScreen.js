@@ -1,31 +1,17 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
 import { Container, Row, Col, Button, Form } from 'react-bootstrap'
 import PageTitle from './UI/PageTitle'
-import { withRouter } from "react-router-dom"
+import { PlayFill, ArrowClockwise } from 'react-bootstrap-icons'
 
-const WelcomeScreen = ({joinGame, history, startGameCounter}) => {
+
+const WelcomeScreen = ({ joinGame }) => {
 
     const [gamertag, setGamertag] = useState("")
+    const [joining, setJoining] = useState(null)
 
-    const onChange = (e) => {
-        e.preventDefault()
-        setGamertag(e.target.value)
-    }
-
-    //create guest + random 4 digit Integer gamertag
-    useEffect(() => {
-        const tag = 'guest'+Math.floor(1000 + Math.random() * 9000);
-        setGamertag(tag);
-
-      }, []);
-
-    const onSubmit = (e) => {
-        e.preventDefault()
-        if(gamertag.length){
-            joinGame({gamertag})
-            history.push("/start")
-        } 
-        
+    const startJoining = () => {
+        setJoining(true)
+        joinGame(gamertag)
     }
 
     return <Container>
@@ -36,21 +22,23 @@ const WelcomeScreen = ({joinGame, history, startGameCounter}) => {
         </Row>
         <Row>
             <Col>
-                <Form onSubmit={onSubmit}>
+                <Form>
                     <Form.Group>
                         <Form.Label>Enter room code <sup>*</sup></Form.Label>
-                        <Form.Control size="lg" placeholder="Enter room code"/>
+                        <Form.Control disabled={joining} size="lg" placeholder="Enter room code"/>
                     </Form.Group>
                     <Form.Group>
                         <Form.Label>Enter your gamertag</Form.Label>
-                        <Form.Control size="lg" placeholder="Enter your gamertag" onChange={(e) =>onChange(e)}/>
+                        <Form.Control disabled={joining} size="lg" placeholder="Enter your gamertag" onChange={(e) => setGamertag(e.target.value)}/>
                     </Form.Group>
-                    <Button variant="primary" type="submit">Join</Button>
+                    <Button variant={joining ? "secondary" : "primary"} onClick={() => startJoining()} type="button">
+                        { joining ? <ArrowClockwise size={20} className="spin" /> : <PlayFill size={20} /> }
+                        { joining ? " Joining game..." : " Join Game" }
+                    </Button>
                 </Form>
             </Col>
         </Row>
     </Container>
 }
 
-
-export default withRouter(WelcomeScreen)
+export default WelcomeScreen

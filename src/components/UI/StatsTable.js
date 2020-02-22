@@ -11,7 +11,7 @@ const StatsTable = ({ players, gamertag }) => {
         .sort((a, b) => b.points - a.points)
         .map((player, i) => <tr key={i}>
             <td>{ i + 1}</td>
-            {gamertag === player.gamertag ? <td><b>{player.gamertag}</b></td> : <td>{player.gamertag}</td>}
+            <td>{ gamertag === player.gamertag ? <b>{player.gamertag}</b> : player.gamertag }</td>
             <td>{ player.points } {i === 0 ? "winner" : "you suck"}</td>
         </tr>
         )

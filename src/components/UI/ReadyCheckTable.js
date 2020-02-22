@@ -10,7 +10,7 @@ const ReadyCheckTable = ({players, gamertag, ready}) => {
             return <tr key={i}>
                 <td>{i + 1}</td>
                 <td>{gamertag === p.gamertag ? <b>{p.gamertag}</b> : p.gamertag}</td>
-                <td>{ready && gamertag === p.gamertag ? <Check color="green" size={40} /> : ""}</td>
+                <td>{ready && gamertag === p.gamertag ? <Check color="green" size={20} /> : ""}</td>
             </tr>
         })
     } 

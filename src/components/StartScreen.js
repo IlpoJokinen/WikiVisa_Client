@@ -1,23 +1,16 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 import { Container, Row, Col } from 'react-bootstrap'
+import CircleTimer from './UI/CircleTimer'
 import { CountdownCircleTimer } from 'react-countdown-circle-timer'
 import PageTitle from './UI/PageTitle'
 import Player from './UI/Player'
-import CircleTimer from './UI/CircleTimer'
-import { withRouter } from "react-router-dom"
 
-const StartScreen = ({ gamertag, players, startGameCounter, history }) => {
-    let allPlayers = ''
-    useEffect(() => {
-        if(startGameCounter === -1){
-            history.push("/question")
-        }
-        
-    }, [startGameCounter])
+const StartScreen = ({ gamertag, players, timer }) => {
+    let allPlayers = "" 
     
-    if(players) {
+    if(players.length) {
         allPlayers = players.map(player => {
-            return  <Player key={player.id} gamertag={player.gamertag} thisPlayersTag={gamertag === player.gamertag}/>  
+            return <Player key={player.id} gamertag={player.gamertag} thisPlayersTag={gamertag === player.gamertag}/>  
         })
     }
 
@@ -42,12 +35,14 @@ const StartScreen = ({ gamertag, players, startGameCounter, history }) => {
             </Col>
             <Col>
                 <Row>
-                    <CountdownCircleTimer
-                        isPlaying
-                        durationSeconds={20}
-                        colors={[["#004777", 0.33], ["#F7B801", 0.33], ["#A30000"]]}
-                        renderTime={CircleTimer}
-                    />
+                    <Col>
+                        <CountdownCircleTimer
+                            isPlaying
+                            durationSeconds={parseInt(timer)}
+                            colors={[["#004777", 0.33], ["#F7B801", 0.33], ["#A30000"]]}
+                            renderTime={CircleTimer}
+                        />
+                    </Col>
                 </Row>
             </Col>
         </Row>
@@ -55,4 +50,4 @@ const StartScreen = ({ gamertag, players, startGameCounter, history }) => {
     
 }
 
-export default withRouter(StartScreen)
+export default StartScreen

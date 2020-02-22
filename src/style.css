@@ -52,24 +52,35 @@ h2 {
 .wrapper {
     margin-top: 20px
 }
+
 .timer {
     font-family: "Montserrat";
     display: flex;
     flex-direction: column;
     align-items: center;
-  }
+}
   
-  .text {
+.text {
     color: #aaa;
-  }
-  
-  .value {
+}
+
+.value {
     font-size: 40px;
-  }
-  
-  .info {
+}
+
+.info {
     max-width: 360px;
     margin: 40px auto 0;
     text-align: center;
     font-size: 16px;
-  }
+}
+
+.spin {
+    -webkit-animation: spin 1.5s linear infinite;
+    -moz-animation: spin 1.5s linear infinite;
+    animation: spin 1.5s linear infinite
+}
+
+@-moz-keyframes spin { 100% { -moz-transform: rotate(360deg) } }
+@-webkit-keyframes spin { 100% { -webkit-transform: rotate(360deg) } }
+@keyframes spin { 100% { -webkit-transform: rotate(360deg); transform:rotate(360deg) } }

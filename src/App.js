@@ -1,5 +1,4 @@
-import React, { useState, useEffect } from 'react'
-import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
+import React, { useState, useEffect} from 'react'
 import { Container, Row, Col } from 'react-bootstrap'
 import WelcomeScreen from './components/WelcomeScreen' 
 import StartScreen from './components/StartScreen'
@@ -13,62 +12,58 @@ import './style.css'
 const socket = io('http://localhost:3001')
 
 function App() {
-    const [ players, setPlayers ] = useState()
+    const [players, setPlayers] = useState([])
     const [game, setGame] = useState({})
     const [gamertag, setGamertag] = useState("")
 
     useEffect(() => {
-       
         socket.emit("get players")
-
         socket.on("send players", (data) => {
             setPlayers(data)
         })
-
         socket.on("send game", (game) => {
             setGame(game)
         })
-        
-        socket.on("send startTimer", (timer) => {
-            setGame({...game, startGameCounter: timer})
-        }) 
-        socket.on("send questionTimer", (timer) => {
-            setGame({...game, questionCounter: timer})
-        }) 
-        socket.on("send roundEndTimer", (timer) => {
-            setGame({...game, roundEndCounter: timer})
-        }) 
-    },[])
+        socket.on("send timer", (timer) => {
+            let timerName = Object.keys(timer)[0];
+            setGame(prevState => ({...prevState, [timerName]: timer[timerName]}))
+        })
+        socket.on("update game view", view => {
+            setGame(prevState => ({...prevState, view: view}))
+        })
+        socket.on("get gamertag", data => {
+            setGamertag(data)
+        })
+    }, [])
 
-
-
+    useEffect(() => {
+        if(game.hasOwnProperty('view') && game.view.length) {
+            socket.emit('get timer', game.view)
+        }
+    }, [game])
+    
     function joinGame(gamertag) {
-        setGamertag(gamertag.gamertag)
+        setGamertag(gamertag);
         socket.emit("join game", gamertag)
+    }
+
+    function getPage() {
+        switch(game.view) {
+            case 1: return <StartScreen players={players} gamertag={gamertag} timer={game.startGameCounter} />
+            case 2: return <QuestionScreen players={players} questions={game.questions} gamertag={gamertag} timer={game.questionCounter} />
+            case 3: return <RoundEndScreen players={players} gamertag={gamertag} timer={game.roundEndCounter} />
+            case 4: return <GameEndScreen players={players} gamertag={gamertag} />
+            default: 
+                return <WelcomeScreen joinGame={joinGame} />
+        }
     }
 
     return <Container className="wrapper" fluid>
         <Row>
             <Col>
-                <Router>
-                    <Switch>
-                        <Route exact path="/">
-                            <WelcomeScreen joinGame={joinGame} />
-                        </Route>
-                        <Route path="/start">
-                            <StartScreen gamertag={gamertag} players={players} startGameCounter={game.startGameCounter}/>
-                        </Route>
-                        <Route path ="/question">
-                            <QuestionScreen players={players} questionCounter={game.questionCounter} gamertag={gamertag}/>
-                        </Route>
-                        <Route path="/stats">
-                            <RoundEndScreen gamertag={gamertag} players={players} roundEndCounter={game.roundEndCounter}/>
-                        </Route>
-                        <Route path="/end">
-                            <GameEndScreen gamertag={gamertag} players={players} />
-                        </Route>
-                    </Switch>
-                </Router>
+                {
+                   getPage()
+                }
             </Col>
         </Row>
     </Container>
