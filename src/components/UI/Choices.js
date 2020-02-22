@@ -1,15 +1,13 @@
-import React, { useState } from 'react'
+import React from 'react'
 import { Row } from 'react-bootstrap'
 import Choice from './Choice'
 import '../../style.css'
 
-const Choices = ({ choices }) => {
-    const [answer, setAnswer] = useState('')
-
+const Choices = ({ setAnswer, choices }) => {
     return <Row>
         { 
             choices.map((choice, i) => 
-                <Choice choice={choice} key={i} value={i}/>
+                <Choice setAnswer={setAnswer} choice={choice} key={i} value={i} />
             )
         }
     </Row>

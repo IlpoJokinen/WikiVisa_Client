@@ -5,15 +5,39 @@ import CircleTimer from './UI/CircleTimer'
 import Question from './UI/Question'
 import Choices from './UI/Choices'
 import ReadyCheckTable from './UI/ReadyCheckTable'
+import io from 'socket.io-client'
+
+const socket = io('http://localhost:3001')
 
 const QuestionScreen = ({ timer, questions, gamertag, players }) => {
     const [ready, setReady] = useState(false)
-    const [question, setQuestion] = useState({title: "", choices: []})
+    const [question, setQuestion] = useState({
+        question_id: null, 
+        title: "", 
+        choices: []
+    })
+    const [answer, setAnswer] = useState(null)
+
     useEffect(() => {
         if(questions.length) {
             setQuestion(questions[0])
         }
     }, [])
+
+    useEffect(() => {
+        if(Number.isInteger(answer)) {
+            submitAnswer()
+        }
+    }, [answer])
+
+    function submitAnswer() {
+        socket.emit("submit answer", {
+            question_id: question.question_id,
+            gamertag: gamertag,
+            answer: answer,
+        })
+    }
+
     return <Container>
         <Row>
             <Col>
@@ -32,7 +56,7 @@ const QuestionScreen = ({ timer, questions, gamertag, players }) => {
         </Row>
         <Row>
             <Col>
-                <Choices choices={question.choices} />
+                <Choices setAnswer={setAnswer} choices={question.choices} />
             </Col>
         </Row>
         <Row>
