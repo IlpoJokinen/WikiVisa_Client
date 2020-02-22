@@ -1,24 +1,14 @@
 import React, { useState, useEffect } from 'react'
 import { Container, Row, Col } from 'react-bootstrap'
+import { CountdownCircleTimer } from 'react-countdown-circle-timer'
+import CircleTimer from './UI/CircleTimer'
 import Question from './UI/Question'
 import Choices from './UI/Choices'
 import io from 'socket.io-client'
+
 const socket = io('http://localhost:3001')
 
-
-const Counter = () => {
-    const [counter, setCounter ] = useState(100)
-    let counterTime = setTimeout(() => setCounter(counter - 1), 1000)
-    
-    if(counter === 0) {
-        clearTimeout(counterTime)
-        window.location.href = "/stats"
-    }
-
-    return <h1 className="text-center">{ counter }</h1>
-}
-
-const QuestionScreen = () => {
+const QuestionScreen = ({questionCounter, players}) => {
     const [question, setQuestion] = useState('')
     const [choices, setChoices] = useState([])
 
@@ -30,12 +20,23 @@ const QuestionScreen = () => {
             setQuestion(data.question)
             setChoices(data.choices)
         })
-    }, [])
+        if(questionCounter === -1){
+            window.location.href = "/stats" 
+        }
+        
+    }, [questionCounter])
+    
 
     return <Container>
         <Row>
             <Col>
-                <Counter />
+                <CountdownCircleTimer
+                    isPlaying
+                    durationSeconds={20}
+                    colors={[["#004777", 0.33], ["#F7B801", 0.33], ["#A30000"]]}
+                    renderTime={CircleTimer}
+                    onComplete={() => [true, 1000]}
+                />
             </Col>
         </Row>
         <Row>

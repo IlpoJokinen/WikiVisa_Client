@@ -2,10 +2,9 @@ import React, {useState} from 'react'
 import { Container, Row, Col, Button, Form } from 'react-bootstrap'
 import PageTitle from './UI/PageTitle'
 
-const WelcomeScreen = ({joinGame}) => {
+const WelcomeScreen = ({joinGame, startGameCounter}) => {
 
     const [gamertag, setGamertag] = useState("")
-
     const onChange = (e) => {
         e.preventDefault()
         setGamertag(e.target.value)

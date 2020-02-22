@@ -27,10 +27,16 @@ function App() {
         socket.on("send game", (game) => {
             setGame(game)
         })
-
-        socket.on("send timer", (timer) => {
+        
+        socket.on("send startTimer", (timer) => {
             setGame({...game, startGameCounter: timer})
-        })
+        }) 
+        socket.on("send questionTimer", (timer) => {
+            setGame({...game, questionCounter: timer})
+        }) 
+        socket.on("send roundEndTimer", (timer) => {
+            setGame({...game, roundEndCounter: timer})
+        }) 
     },[])
 
 
@@ -51,10 +57,10 @@ function App() {
                             <StartScreen players={players} startGameCounter={game.startGameCounter}/>
                         </Route>
                         <Route path ="/question">
-                            <QuestionScreen />
+                            <QuestionScreen players={players} questionCounter={game.questionCounter}/>
                         </Route>
                         <Route path="/stats">
-                            <RoundEndScreen players={players} />
+                            <RoundEndScreen players={players} roundEndCounter={game.roundEndCounter}/>
                         </Route>
                         <Route path="/end">
                             <GameEndScreen players={players} />
