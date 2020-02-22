@@ -15,7 +15,7 @@ function App() {
     const [players, setPlayers] = useState([])
     const [game, setGame] = useState({})
     const [gamertag, setGamertag] = useState("")
-    const [currentQuestion, setCurrentQuestion] = useState({})
+    const [answer, setAnswer] = useState(null)
     const [correctAnswer, setCorrectAnswer] = useState("")
 
     useEffect(() => {
@@ -46,6 +46,24 @@ function App() {
             socket.emit('get timer', game.view)
         }
     }, [game])
+
+    useEffect(() => {
+        if(Number.isInteger(answer)) {
+            submitAnswer()
+        }
+    }, [answer])
+
+    function getQuestionFromQuestions(index) {
+        return game.questions[index]
+    }
+
+    function submitAnswer() {
+        socket.emit("submit answer", {
+            question_id: getQuestionFromQuestions(game.currentQuestionIndex).question_id,
+            gamertag: gamertag,
+            answer: answer,
+        })
+    }
     
     function joinGame(gamertag) {
         setGamertag(gamertag);
@@ -55,7 +73,13 @@ function App() {
     function getPage() {
         switch(game.view) {
             case 1: return <StartScreen players={players} gamertag={gamertag} timer={game.startGameCounter} />
-            case 2: return <QuestionScreen players={players} gamertag={gamertag} timer={game.questionCounter} questions={game.questions} />
+            case 2: return <QuestionScreen 
+                players={players} 
+                gamertag={gamertag} 
+                timer={game.questionCounter} 
+                questions={game.questions}
+                setAnswer={setAnswer} 
+            />
             case 3: return <RoundEndScreen players={players} gamertag={gamertag} timer={game.roundEndCounter} correctAnswer={correctAnswer} />
             case 4: return <GameEndScreen players={players} gamertag={gamertag} />
             default: 
