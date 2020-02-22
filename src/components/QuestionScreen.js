@@ -5,10 +5,11 @@ import CircleTimer from './UI/CircleTimer'
 import Question from './UI/Question'
 import Choices from './UI/Choices'
 import io from 'socket.io-client'
+import { withRouter } from "react-router-dom"
 
 const socket = io('http://localhost:3001')
 
-const QuestionScreen = ({questionCounter, players}) => {
+const QuestionScreen = ({questionCounter, players, history}) => {
     const [question, setQuestion] = useState('')
     const [choices, setChoices] = useState([])
 
@@ -20,8 +21,8 @@ const QuestionScreen = ({questionCounter, players}) => {
             setQuestion(data.question)
             setChoices(data.choices)
         })
-        if(questionCounter === -1){
-            window.location.href = "/stats" 
+        if(questionCounter === -2){
+            history.push("/stats")
         }
         
     }, [questionCounter])
@@ -52,4 +53,4 @@ const QuestionScreen = ({questionCounter, players}) => {
     </Container>
 }
 
-export default QuestionScreen
+export default withRouter(QuestionScreen)

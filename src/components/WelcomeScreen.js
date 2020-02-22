@@ -1,20 +1,28 @@
-import React, {useState} from 'react'
+import React, { useState, useEffect } from 'react'
 import { Container, Row, Col, Button, Form } from 'react-bootstrap'
 import PageTitle from './UI/PageTitle'
+import { withRouter } from "react-router-dom"
 
-const WelcomeScreen = ({joinGame, startGameCounter}) => {
+const WelcomeScreen = ({joinGame, history, startGameCounter}) => {
 
-    const [gamertag, setGamertag] = useState("")
+    const [gamertag, setGamertag] = useState('ILPO')
+
     const onChange = (e) => {
         e.preventDefault()
         setGamertag(e.target.value)
     }
+    //create guest + random 4 digit Integer gamertag
+    useEffect(() => {
+        const tag = 'guest'+Math.floor(1000 + Math.random() * 9000);
+        setGamertag(tag);
+
+      }, [])
 
     const onSubmit = (e) => {
         e.preventDefault()
         if(gamertag.length){
             joinGame({gamertag})
-            window.location.href = "/start"
+            history.push("/start")
         } else {
             window.alert("Please enter gamertag")
         }
@@ -46,4 +54,4 @@ const WelcomeScreen = ({joinGame, startGameCounter}) => {
 }
 
 
-export default WelcomeScreen
+export default withRouter(WelcomeScreen)

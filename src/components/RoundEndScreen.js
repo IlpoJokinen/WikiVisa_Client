@@ -4,12 +4,13 @@ import { CountdownCircleTimer } from 'react-countdown-circle-timer'
 import RoundStatsTable from './UI/RoundStatsTable'
 import PageTitle from './UI/PageTitle'
 import CircleTimer from './UI/CircleTimer'
+import { withRouter } from "react-router-dom"
 
-const RoundEndScreen = ({ players, roundEndCounter }) => {
+const RoundEndScreen = ({ gamertag, players, roundEndCounter, history }) => {
 
     useEffect(() => {
-        if(roundEndCounter === -2){
-            window.location.href = "/end" 
+        if(roundEndCounter === -3){
+            history.push("/end")
         }
     }, [roundEndCounter])
 
@@ -21,7 +22,7 @@ const RoundEndScreen = ({ players, roundEndCounter }) => {
         </Row>
         <Row>
             <Col>
-                <RoundStatsTable players={players}/>
+                <RoundStatsTable gamertag={gamertag} players={players}/>
             </Col>
         </Row>
         <Row>
@@ -45,4 +46,4 @@ const RoundEndScreen = ({ players, roundEndCounter }) => {
     </Container>
 }
 
-export default RoundEndScreen
+export default withRouter(RoundEndScreen)

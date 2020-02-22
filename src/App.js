@@ -15,6 +15,7 @@ const socket = io('http://localhost:3001')
 function App() {
     const [ players, setPlayers ] = useState()
     const [game, setGame] = useState({})
+    const [gamertag, setGamertag] = useState("")
 
     useEffect(() => {
        
@@ -42,6 +43,7 @@ function App() {
 
 
     function joinGame(gamertag) {
+        setGamertag(gamertag.gamertag)
         socket.emit("join game", gamertag)
     }
 
@@ -54,16 +56,16 @@ function App() {
                             <WelcomeScreen joinGame={joinGame} />
                         </Route>
                         <Route path="/start">
-                            <StartScreen players={players} startGameCounter={game.startGameCounter}/>
+                            <StartScreen gamertag={gamertag} players={players} startGameCounter={game.startGameCounter}/>
                         </Route>
                         <Route path ="/question">
                             <QuestionScreen players={players} questionCounter={game.questionCounter}/>
                         </Route>
                         <Route path="/stats">
-                            <RoundEndScreen players={players} roundEndCounter={game.roundEndCounter}/>
+                            <RoundEndScreen gamertag={gamertag} players={players} roundEndCounter={game.roundEndCounter}/>
                         </Route>
                         <Route path="/end">
-                            <GameEndScreen players={players} />
+                            <GameEndScreen gamertag={gamertag} players={players} />
                         </Route>
                     </Switch>
                 </Router>
