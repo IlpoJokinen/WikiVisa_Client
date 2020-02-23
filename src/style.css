@@ -60,15 +60,15 @@ h2 {
     align-items: center;
 }
   
-.text {
+.timer .text {
     color: #aaa;
 }
 
-.value {
+.timer .value {
     font-size: 40px;
 }
 
-.info {
+.timer .info {
     max-width: 360px;
     margin: 40px auto 0;
     text-align: center;
@@ -79,6 +79,15 @@ h2 {
     -webkit-animation: spin 1.5s linear infinite;
     -moz-animation: spin 1.5s linear infinite;
     animation: spin 1.5s linear infinite
+}
+
+.correct { 
+    background-color: #2ECC40 !important; 
+    color: #0E3E14 !important
+}
+.wrong { 
+    background-color: #FF4136 !important; 
+    color: #800600 !important
 }
 
 @-moz-keyframes spin { 100% { -moz-transform: rotate(360deg) } }

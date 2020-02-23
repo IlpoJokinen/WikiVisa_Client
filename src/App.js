@@ -15,8 +15,8 @@ function App() {
     const [players, setPlayers] = useState([])
     const [game, setGame] = useState({})
     const [gamertag, setGamertag] = useState("")
-    const [answer, setAnswer] = useState(null)
-    const [correctAnswer, setCorrectAnswer] = useState("")
+    const [answer, setAnswer] = useState("")
+    const [correctAnswer, setCorrectAnswer] = useState({})
 
     useEffect(() => {
         socket.emit("get players")
@@ -48,18 +48,46 @@ function App() {
     }, [game])
 
     useEffect(() => {
-        if(Number.isInteger(answer)) {
+        if(typeof answer === 'object') {
             submitAnswer()
         }
     }, [answer])
 
-    function getQuestionFromQuestions(index) {
+    function getQuestionFromQuestionsByIndex(index) {
         return game.questions[index]
+    }
+
+    function createPlayersAnswersObject() {
+        let currentQuestion = getQuestionFromQuestionsByIndex(game.currentQuestionIndex)
+        return getPlayersAnswers(currentQuestion)
+    }
+
+    // Helper function for later use
+    function getQuestionByQuestionId(question_id) {
+        let question = false
+        game.questions.forEach(q => {
+            if(q.question_id === question_id) {
+                question = q
+            }
+        }) 
+        return question
+    }
+
+    function getPlayersAnswers(question) {
+        let answers = {}
+        players.forEach(p => {
+            p.answers.forEach(a => {
+                if(a.question_id === question.question_id) {
+                    answers[p.gamertag] = a.answer
+                }
+            })
+        })
+        return answers
     }
 
     function submitAnswer() {
         socket.emit("submit answer", {
-            question_id: getQuestionFromQuestions(game.currentQuestionIndex).question_id,
+            question_id: getQuestionFromQuestionsByIndex(game.currentQuestionIndex).question_id,
             gamertag: gamertag,
             answer: answer,
         })
@@ -80,7 +108,12 @@ function App() {
                 questions={game.questions}
                 setAnswer={setAnswer} 
             />
-            case 3: return <RoundEndScreen players={players} gamertag={gamertag} timer={game.roundEndCounter} correctAnswer={correctAnswer} />
+            case 3: return <RoundEndScreen 
+                answers={createPlayersAnswersObject()} 
+                gamertag={gamertag} 
+                timer={game.roundEndCounter} 
+                correctAnswer={correctAnswer} 
+            />
             case 4: return <GameEndScreen players={players} gamertag={gamertag} />
             default: 
                 return <WelcomeScreen joinGame={joinGame} />

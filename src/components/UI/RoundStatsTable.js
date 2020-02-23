@@ -3,15 +3,14 @@ import { Table } from 'react-bootstrap'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import '../../style.css'
 
-const RoundStatsTable = ({ gamertag, players }) => {
+const RoundStatsTable = ({ gamertag, answers, correctAnswer }) => {
     let rows = ""
-    if(players){
-        rows = players.map((p, i) => {
-            const answer = p.answers[p.answers.length -1]
-            return <tr key = {i}>
+    if(answers){
+        rows = Object.keys(answers).map((p, i) => {
+            return <tr key={i} className={answers[p].value === correctAnswer.value ? 'correct' : 'wrong'}>
                 <td>{i + 1}</td>
-                <td>{gamertag === p.gamertag ? <b>{p.gamertag}</b> : p.gamertag}</td>
-                <td>{answer}</td>
+                <td>{gamertag === p ? <b>{p}</b> : p}</td>
+                <td>{answers[p].name}</td>
             </tr>
         })
     }
