@@ -1,18 +1,19 @@
 import React, { useState, useEffect } from 'react'
-import { Container, Row, Col } from 'react-bootstrap'
+import { Container, Row, Col, Button } from 'react-bootstrap'
 import { CountdownCircleTimer } from 'react-countdown-circle-timer'
 import CircleTimer from './UI/CircleTimer'
 import Question from './UI/Question'
 import Choices from './UI/Choices'
 import io from 'socket.io-client'
 import { withRouter } from "react-router-dom"
+import ReadyCheckTable from './UI/ReadyCheckTable'
 
 const socket = io('http://localhost:3001')
 
-const QuestionScreen = ({questionCounter, players, history}) => {
+const QuestionScreen = ({questionCounter,history, gamertag, players}) => {
     const [question, setQuestion] = useState('')
     const [choices, setChoices] = useState([])
-
+    const [ready, setReady] = useState(false)
     useEffect(() => {
         socket.emit('get question', () => {
             console.log('Getting question...')
@@ -26,8 +27,9 @@ const QuestionScreen = ({questionCounter, players, history}) => {
         }
         
     }, [questionCounter])
-    
-
+    function imReady() {
+        setReady(true)
+    } 
     return <Container>
         <Row>
             <Col>
@@ -36,7 +38,6 @@ const QuestionScreen = ({questionCounter, players, history}) => {
                     durationSeconds={20}
                     colors={[["#004777", 0.33], ["#F7B801", 0.33], ["#A30000"]]}
                     renderTime={CircleTimer}
-                    onComplete={() => [true, 1000]}
                 />
             </Col>
         </Row>
@@ -47,7 +48,17 @@ const QuestionScreen = ({questionCounter, players, history}) => {
         </Row>
         <Row>
             <Col>
-                <Choices choices={choices} />
+                <Choices choices={choices}/>
+            </Col>
+        </Row>
+        <Row>
+            <Col>
+                <Button variant="success" size="lg"onClick={imReady}block>Ready</Button>
+            </Col>
+        </Row>
+        <Row>
+            <Col>
+                <ReadyCheckTable imReady={imReady} players={players} gamertag={gamertag} ready={ready}/>
             </Col>
         </Row>
     </Container>

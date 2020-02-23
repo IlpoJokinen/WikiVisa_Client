@@ -47,7 +47,6 @@ const StartScreen = ({ gamertag, players, startGameCounter, history }) => {
                         durationSeconds={20}
                         colors={[["#004777", 0.33], ["#F7B801", 0.33], ["#A30000"]]}
                         renderTime={CircleTimer}
-                        onComplete={() => [true, 1000]}
                     />
                 </Row>
             </Col>

@@ -59,7 +59,7 @@ function App() {
                             <StartScreen gamertag={gamertag} players={players} startGameCounter={game.startGameCounter}/>
                         </Route>
                         <Route path ="/question">
-                            <QuestionScreen players={players} questionCounter={game.questionCounter}/>
+                            <QuestionScreen players={players} questionCounter={game.questionCounter} gamertag={gamertag}/>
                         </Route>
                         <Route path="/stats">
                             <RoundEndScreen gamertag={gamertag} players={players} roundEndCounter={game.roundEndCounter}/>

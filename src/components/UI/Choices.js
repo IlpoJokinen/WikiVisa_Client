@@ -6,10 +6,11 @@ import '../../style.css'
 
 const Choices = ({ choices }) => {
     const [answer, setAnswer] = useState('')
+
     return <Row>
         { 
             choices.map((choice, i) => 
-                <Choice choice={choice} key={i} value={i} />
+                <Choice choice={choice} key={i} value={i}/>
             )
         }
     </Row>
