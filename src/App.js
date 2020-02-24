@@ -17,6 +17,7 @@ function App() {
     const [gamertag, setGamertag] = useState("")
     const [answer, setAnswer] = useState("")
     const [correctAnswer, setCorrectAnswer] = useState({})
+    const [joiningState, setJoiningState] = useState(false)
 
     useEffect(() => {
         socket.emit("get players")
@@ -38,6 +39,11 @@ function App() {
         })
         socket.on("get correct answer", data => {
             setCorrectAnswer(data)
+        })
+        socket.on("gamertag taken", data => {
+            setGamertag(data)
+            setJoiningState(false)
+            window.alert(`Gamertag '${data} is already taken!'`)
         })
     }, [])
 
@@ -95,12 +101,17 @@ function App() {
     
     function joinGame(gamertag) {
         setGamertag(gamertag);
+        setJoiningState(true)
         socket.emit("join game", gamertag)
     }
 
     function getPage() {
         switch(game.view) {
-            case 1: return <StartScreen players={players} gamertag={gamertag} timer={game.startGameCounter} />
+            case 1: return <StartScreen 
+                players={players} 
+                gamertag={gamertag} 
+                timer={game.startGameCounter} 
+            />
             case 2: return <QuestionScreen 
                 players={players} 
                 gamertag={gamertag} 
@@ -114,9 +125,14 @@ function App() {
                 timer={game.roundEndCounter} 
                 correctAnswer={correctAnswer} 
             />
-            case 4: return <GameEndScreen players={players} gamertag={gamertag} />
-            default: 
-                return <WelcomeScreen joinGame={joinGame} />
+            case 4: return <GameEndScreen 
+                players={players} 
+                gamertag={gamertag} 
+            />
+            default: return <WelcomeScreen 
+                joiningState={joiningState}
+                joinGame={joinGame}
+            />
         }
     }
 
