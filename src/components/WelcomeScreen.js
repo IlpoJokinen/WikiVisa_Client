@@ -1,10 +1,7 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
 import { Container, Row, Col, Button, Form } from 'react-bootstrap'
 import PageTitle from './UI/PageTitle'
 import { PlayFill, ArrowClockwise } from 'react-bootstrap-icons'
-import io from 'socket.io-client'
-
-const socket = io('http://localhost:3001')
 
 const WelcomeScreen = ({ joiningState, joinGame }) => {
     const [gamertag, setGamertag] = useState("")
