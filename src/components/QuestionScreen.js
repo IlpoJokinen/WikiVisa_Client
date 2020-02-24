@@ -6,19 +6,8 @@ import Question from './UI/Question'
 import Choices from './UI/Choices'
 import ReadyCheckTable from './UI/ReadyCheckTable'
 
-const QuestionScreen = ({ setAnswer, timer, questions, gamertag, players }) => {
+const QuestionScreen = ({ setAnswer, timer, question, gamertag, players }) => {
     const [ready, setReady] = useState(false)
-    const [question, setQuestion] = useState({
-        question_id: null, 
-        title: "", 
-        choices: []
-    })
-
-    useEffect(() => {
-        if(questions.length) {
-            setQuestion(questions[0])
-        }
-    }, [])
 
     return <Container>
         <Row>

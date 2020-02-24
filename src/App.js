@@ -21,18 +21,21 @@ function App() {
 
     useEffect(() => {
         socket.emit("get players")
-        socket.on("send players", (data) => {
+        socket.on("send players", data => {
             setPlayers(data)
         })
-        socket.on("send game", (game) => {
+        socket.on("send game", game => {
             setGame(game)
         })
-        socket.on("send timer", (timer) => {
+        socket.on("send timer", timer => {
             let timerName = Object.keys(timer)[0];
             setGame(prevState => ({...prevState, [timerName]: timer[timerName]}))
         })
         socket.on("update game view", view => {
             setGame(prevState => ({...prevState, view: view}))
+        })
+        socket.on("update question index", index => {
+            setGame(prevState => ({...prevState, currentQuestionIndex: index}))
         })
         socket.on("get gamertag", data => {
             setGamertag(data)
@@ -116,7 +119,7 @@ function App() {
                 players={players} 
                 gamertag={gamertag} 
                 timer={game.questionCounter} 
-                questions={game.questions}
+                question={getQuestionFromQuestionsByIndex(game.currentQuestionIndex)}
                 setAnswer={setAnswer} 
             />
             case 3: return <RoundEndScreen 
