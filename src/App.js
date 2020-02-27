@@ -16,6 +16,7 @@ function App() {
     const [game, setGame] = useState({})
     const [gamertag, setGamertag] = useState("")
     const [answer, setAnswer] = useState("")
+    const [ready, setReady] = useState(false) 
     const [correctAnswer, setCorrectAnswer] = useState({})
     const [joiningState, setJoiningState] = useState(false)
 
@@ -52,6 +53,10 @@ function App() {
             socket.emit('get timer', game.view)
         }
     }, [game])
+
+    useEffect(() => {
+        socket.emit("set ready",  {ready: ready, gamertag: gamertag})
+    }, [ready])
 
     useEffect(() => {
         if(typeof answer === 'object') {
@@ -95,7 +100,7 @@ function App() {
         socket.emit("submit answer", {
             question_id: getQuestionFromQuestionsByIndex(game.currentQuestionIndex).question_id,
             gamertag: gamertag,
-            answer: answer,
+            answer: answer
         })
     }
     
@@ -117,7 +122,8 @@ function App() {
                 gamertag={gamertag} 
                 timer={game.questionCounter} 
                 questions={game.questions}
-                setAnswer={setAnswer} 
+                setAnswer={setAnswer}
+                setReady={setReady} 
             />
             case 3: return <RoundEndScreen 
                 answers={createPlayersAnswersObject()} 

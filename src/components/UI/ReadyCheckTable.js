@@ -3,14 +3,14 @@ import { Table } from 'react-bootstrap'
 import { Check } from 'react-bootstrap-icons'
 import 'bootstrap/dist/css/bootstrap.min.css'
 
-const ReadyCheckTable = ({players, gamertag, ready}) => {
+const ReadyCheckTable = ({players, gamertag }) => {
     let rows = ''
     if (players) {
         rows = players.map((p, i) => {
             return <tr key={i}>
                 <td>{i + 1}</td>
                 <td>{gamertag === p.gamertag ? <b>{p.gamertag}</b> : p.gamertag}</td>
-                <td>{ready && gamertag === p.gamertag ? <Check color="green" size={20} /> : ""}</td>
+                <td>{ p.ready ? <Check color="green" size={20} /> : ""}</td>
             </tr>
         })
     } 

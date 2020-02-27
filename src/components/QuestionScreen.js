@@ -6,8 +6,7 @@ import Question from './UI/Question'
 import Choices from './UI/Choices'
 import ReadyCheckTable from './UI/ReadyCheckTable'
 
-const QuestionScreen = ({ setAnswer, timer, questions, gamertag, players }) => {
-    const [ready, setReady] = useState(false)
+const QuestionScreen = ({ setAnswer, timer, questions, gamertag, players, setReady }) => {
     const [question, setQuestion] = useState({
         question_id: null, 
         title: "", 
@@ -48,7 +47,7 @@ const QuestionScreen = ({ setAnswer, timer, questions, gamertag, players }) => {
         </Row>
         <Row>
             <Col>
-                <ReadyCheckTable players={players} gamertag={gamertag} ready={ready} />
+                <ReadyCheckTable players={players} gamertag={gamertag} />
             </Col>
         </Row>
     </Container>
