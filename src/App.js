@@ -16,7 +16,6 @@ function App() {
     const [game, setGame] = useState({})
     const [gamertag, setGamertag] = useState("")
     const [answer, setAnswer] = useState("")
-    const [ready, setReady] = useState(false) 
     const [correctAnswer, setCorrectAnswer] = useState({})
     const [joiningState, setJoiningState] = useState(false)
 
@@ -53,10 +52,6 @@ function App() {
             socket.emit('get timer', game.view)
         }
     }, [game])
-
-    useEffect(() => {
-        socket.emit("set ready",  {ready: ready, gamertag: gamertag})
-    }, [ready])
 
     useEffect(() => {
         if(typeof answer === 'object') {
@@ -108,6 +103,10 @@ function App() {
         setGamertag(gamertag);
         setJoiningState(true)
         socket.emit("join game", gamertag)
+    }
+
+    function setReady() {
+        socket.emit("set ready",  { gamertag: gamertag })
     }
 
     function getPage() {

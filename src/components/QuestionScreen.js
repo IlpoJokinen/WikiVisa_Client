@@ -42,7 +42,7 @@ const QuestionScreen = ({ setAnswer, timer, questions, gamertag, players, setRea
         </Row>
         <Row>
             <Col>
-                <Button variant="success" size="lg" onClick={() => setReady(true)} block>Ready</Button>
+                <Button variant="success" size="lg" onClick={() => setReady()} block>Ready</Button>
             </Col>
         </Row>
         <Row>
