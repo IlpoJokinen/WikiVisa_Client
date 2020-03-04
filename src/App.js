@@ -5,6 +5,7 @@ import StartScreen from './components/StartScreen'
 import QuestionScreen from './components/QuestionScreen'
 import RoundEndScreen from './components/RoundEndScreen'
 import GameEndScreen from './components/GameEndScreen'
+import LoginScreen from './components/LoginScreen'
 import io from 'socket.io-client'
 import './App.css'
 import './style.css'
@@ -18,6 +19,7 @@ function App() {
     const [answer, setAnswer] = useState("")
     const [correctAnswer, setCorrectAnswer] = useState({})
     const [joiningState, setJoiningState] = useState(false)
+    const [ready, setReady] = useState(false)
 
     useEffect(() => {
         socket.emit("get players")
@@ -95,7 +97,7 @@ function App() {
         socket.emit("submit answer", {
             question_id: getQuestionFromQuestionsByIndex(game.currentQuestionIndex).question_id,
             gamertag: gamertag,
-            answer: answer
+            answer: answer,
         })
     }
     
@@ -103,10 +105,6 @@ function App() {
         setGamertag(gamertag);
         setJoiningState(true)
         socket.emit("join game", gamertag)
-    }
-
-    function setReady() {
-        socket.emit("set ready",  { gamertag: gamertag })
     }
 
     function getPage() {
@@ -121,8 +119,7 @@ function App() {
                 gamertag={gamertag} 
                 timer={game.questionCounter} 
                 questions={game.questions}
-                setAnswer={setAnswer}
-                setReady={setReady} 
+                setAnswer={setAnswer} 
             />
             case 3: return <RoundEndScreen 
                 answers={createPlayersAnswersObject()} 
@@ -140,6 +137,15 @@ function App() {
             />
         }
     }
+
+    function readyPlayers() {
+        
+        setReady(true)
+        socket.emit('ready', ready)
+    }
+
+
+
 
     return <Container className="wrapper" fluid>
         <Row>
