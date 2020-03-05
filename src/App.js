@@ -19,6 +19,7 @@ function App() {
     const [answer, setAnswer] = useState("")
     const [correctAnswer, setCorrectAnswer] = useState({})
     const [joiningState, setJoiningState] = useState(false)
+    const [creatingState, setCreatingState] = useState(false)
     const [ready, setReady] = useState(false)
 
     useEffect(() => {
@@ -46,6 +47,10 @@ function App() {
             setGamertag(data)
             setJoiningState(false)
             window.alert(`Gamertag '${data} is already taken!'`)
+        })
+        socket.on("roomcode not found", error => {
+            setJoiningState(false)
+            window.alert(error)
         })
     }, [])
 
@@ -101,10 +106,17 @@ function App() {
         })
     }
     
-    function joinGame(gamertag) {
-        setGamertag(gamertag);
+    function joinGame(gamertag, roomCode) {
+        setGamertag(gamertag)
         setJoiningState(true)
-        socket.emit("join game", gamertag)
+        socket.emit("join game", {gamertag, roomCode})
+    }
+
+    function createGame(gamertag, roomCode) {
+        setGamertag(gamertag)
+        setJoiningState(true)
+        setCreatingState(true)
+        socket.emit('create game', {gamertag, roomCode})
     }
 
     function getPage() {
@@ -112,7 +124,8 @@ function App() {
             case 1: return <StartScreen 
                 players={players} 
                 gamertag={gamertag} 
-                timer={game.startGameCounter} 
+                timer={game.startGameCounter}
+                roomCode={game.roomCode} 
             />
             case 2: return <QuestionScreen 
                 players={players} 
@@ -134,6 +147,8 @@ function App() {
             default: return <WelcomeScreen 
                 joiningState={joiningState}
                 joinGame={joinGame}
+                createGame={createGame}
+                creatingState={creatingState}
             />
         }
     }

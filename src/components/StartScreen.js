@@ -5,7 +5,7 @@ import { CountdownCircleTimer } from 'react-countdown-circle-timer'
 import PageTitle from './UI/PageTitle'
 import Player from './UI/Player'
 
-const StartScreen = ({ gamertag, players, timer }) => {
+const StartScreen = ({ gamertag, players, timer, roomCode }) => {
     let allPlayers = "" 
     
     if(players.length) {
@@ -17,7 +17,7 @@ const StartScreen = ({ gamertag, players, timer }) => {
     return <Container>   
         <Row>
             <Col>
-                <PageTitle title="Room X" />
+                <PageTitle title={`Room ${roomCode}`}/>
             </Col>
         </Row>
         <Row>
