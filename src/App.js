@@ -20,7 +20,6 @@ function App() {
     const [correctAnswer, setCorrectAnswer] = useState({})
     const [joiningState, setJoiningState] = useState(false)
     const [creatingState, setCreatingState] = useState(false)
-    const [ready, setReady] = useState(false)
 
     useEffect(() => {
         socket.emit("get players")
@@ -133,6 +132,7 @@ function App() {
                 timer={game.questionCounter} 
                 questions={game.questions}
                 setAnswer={setAnswer} 
+                setReady={setReady}
             />
             case 3: return <RoundEndScreen 
                 answers={createPlayersAnswersObject()} 
@@ -153,10 +153,8 @@ function App() {
         }
     }
 
-    function readyPlayers() {
-        
-        setReady(true)
-        socket.emit('ready', ready)
+    function setReady() {
+        socket.emit("set ready",  { gamertag: gamertag })
     }
 
 
