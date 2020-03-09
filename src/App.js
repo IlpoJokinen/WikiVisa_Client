@@ -13,19 +13,16 @@ import './style.css'
 const socket = io('http://localhost:3001')
 
 function App() {
-    const [players, setPlayers] = useState([])
     const [game, setGame] = useState({})
     const [gamertag, setGamertag] = useState("")
     const [answer, setAnswer] = useState("")
     const [correctAnswer, setCorrectAnswer] = useState({})
     const [joiningState, setJoiningState] = useState(false)
     const [creatingState, setCreatingState] = useState(false)
-    const [ready, setReady] = useState(false)
 
     useEffect(() => {
-        socket.emit("get players")
-        socket.on("send players", (data) => {
-            setPlayers(data)
+        socket.on("send players", (players) => {
+            setGame(prevState => ({...prevState, players: players}))
         })
         socket.on("send game", (game) => {
             setGame(game)
@@ -37,7 +34,7 @@ function App() {
         socket.on("update game view", view => {
             setGame(prevState => ({...prevState, view: view}))
         })
-        socket.on("get gamertag", data => {
+        socket.on("send gamertag", data => {
             setGamertag(data)
         })
         socket.on("get correct answer", data => {
@@ -88,7 +85,7 @@ function App() {
 
     function getPlayersAnswers(question) {
         let answers = {}
-        players.forEach(p => {
+        game.players.forEach(p => {
             p.answers.forEach(a => {
                 if(a.question_id === question.question_id) {
                     answers[p.gamertag] = a.answer
@@ -103,6 +100,7 @@ function App() {
             question_id: getQuestionFromQuestionsByIndex(game.currentQuestionIndex).question_id,
             gamertag: gamertag,
             answer: answer,
+            roomCode: game.roomCode
         })
     }
     
@@ -119,20 +117,26 @@ function App() {
         socket.emit('create game', {gamertag, roomCode})
     }
 
+    function setReady() {
+        socket.emit("set ready",  { gamertag: gamertag, roomCode: game.roomCode })
+    }
+
+
     function getPage() {
         switch(game.view) {
             case 1: return <StartScreen 
-                players={players} 
+                players={game.players} 
                 gamertag={gamertag} 
                 timer={game.startGameCounter}
                 roomCode={game.roomCode} 
             />
             case 2: return <QuestionScreen 
-                players={players} 
+                players={game.players} 
                 gamertag={gamertag} 
                 timer={game.questionCounter} 
                 questions={game.questions}
                 setAnswer={setAnswer} 
+                setReady={setReady}
             />
             case 3: return <RoundEndScreen 
                 answers={createPlayersAnswersObject()} 
@@ -141,7 +145,7 @@ function App() {
                 correctAnswer={correctAnswer} 
             />
             case 4: return <GameEndScreen 
-                players={players} 
+                players={game.players} 
                 gamertag={gamertag} 
             />
             default: return <WelcomeScreen 
@@ -152,16 +156,7 @@ function App() {
             />
         }
     }
-
-    function readyPlayers() {
-        
-        setReady(true)
-        socket.emit('ready', ready)
-    }
-
-
-
-
+    
     return <Container className="wrapper" fluid>
         <Row>
             <Col>
