@@ -24,19 +24,27 @@ function App() {
         socket.on("send players", (players) => {
             setGame(prevState => ({...prevState, players: players}))
         })
-        socket.on("send game", (game) => {
+    
+        socket.on("send game", game => {
             setGame(game)
         })
-        socket.on("send timer", (timer) => {
+        socket.on("send timer", timer => {
             let timerName = Object.keys(timer)[0];
             setGame(prevState => ({...prevState, [timerName]: timer[timerName]}))
         })
         socket.on("update game view", view => {
             setGame(prevState => ({...prevState, view: view}))
         })
+        socket.on("update question index", index => {
+            setGame(prevState => ({...prevState, currentQuestionIndex: index}))
+        })
         socket.on("send gamertag", data => {
             setGamertag(data)
         })
+        socket.on('reset timers', data => {
+            setGame(prevState => ({...prevState, questionCounter: data.questionCounter, roundEndCounter: data.roundEndCounter}))
+        })
+
         socket.on("get correct answer", data => {
             setCorrectAnswer(data)
         })
@@ -53,7 +61,7 @@ function App() {
 
     useEffect(() => {
         if(game.hasOwnProperty('view') && game.view.length) {
-            socket.emit('get timer', game.view)
+            socket.emit('get timer', {viewIndex: game.view, game_id: game.game_id})
         }
     }, [game])
 
@@ -117,11 +125,6 @@ function App() {
         socket.emit('create game', {gamertag, roomCode})
     }
 
-    function setReady() {
-        socket.emit("set ready",  { gamertag: gamertag, roomCode: game.roomCode })
-    }
-
-
     function getPage() {
         switch(game.view) {
             case 1: return <StartScreen 
@@ -134,7 +137,7 @@ function App() {
                 players={game.players} 
                 gamertag={gamertag} 
                 timer={game.questionCounter} 
-                questions={game.questions}
+                question={getQuestionFromQuestionsByIndex(game.currentQuestionIndex)}
                 setAnswer={setAnswer} 
                 setReady={setReady}
             />

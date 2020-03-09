@@ -4,21 +4,9 @@ import { CountdownCircleTimer } from 'react-countdown-circle-timer'
 import CircleTimer from './UI/CircleTimer'
 import Question from './UI/Question'
 import Choices from './UI/Choices'
-
-const QuestionScreen = ({ setAnswer, timer, questions, gamertag, players, setReady }) => {
+  
+const QuestionScreen = ({ setAnswer, timer, question, gamertag, players, setReady }) => {
     const [playersReady, setPlayersReady] = useState(0)
-
-    const [question, setQuestion] = useState({
-        question_id: null, 
-        title: "", 
-        choices: []
-    })
-
-    useEffect(() => {
-        if(questions.length) {
-            setQuestion(questions[0])
-        }
-    }, [])
 
     useEffect(() => {
         let num = players.filter(p => p.ready === true).length
