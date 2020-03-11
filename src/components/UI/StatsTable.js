@@ -1,5 +1,6 @@
 import React from 'react'
 import { Table } from 'react-bootstrap'
+import { Trophy } from 'react-bootstrap-icons'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import '../../style.css'
 
@@ -12,7 +13,7 @@ const StatsTable = ({ players, gamertag }) => {
         .map((player, i) => <tr key={i}>
             <td>{ i + 1}</td>
             <td>{ gamertag === player.gamertag ? <b>{player.gamertag}</b> : player.gamertag }</td>
-            <td>{ player.points } {i === 0 ? "winner" : "you suck"}</td>
+            <td>{ player.points } {i === 0 ? <Trophy color='#00cc66' size={30}/> : "you suck"}</td>
         </tr>
         )
     }
