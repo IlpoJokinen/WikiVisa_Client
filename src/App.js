@@ -58,10 +58,10 @@ function App() {
             window.alert(error)
         })
     }, [])
-
+    //huomasin, että tää ei mene tuosta if lauseesta läpi ja ei siten ikinä mene servulle - ei korjattu
     useEffect(() => {
         if(game.hasOwnProperty('view') && game.view.length) {
-            socket.emit('get timer', {viewIndex: game.view, game_id: game.game_id})
+            socket.emit('get timer', {viewIndex: game.view, game_id: game.id})
         }
     }, [game])
 
@@ -95,7 +95,7 @@ function App() {
         let answers = {}
         game.players.forEach(p => {
             p.answers.forEach(a => {
-                if(a.question_id === question.question_id) {
+                if(a.question_id === question.id) {
                     answers[p.gamertag] = a.answer
                 }
             })
@@ -105,10 +105,10 @@ function App() {
 
     function submitAnswer() {
         socket.emit("submit answer", {
-            question_id: getQuestionFromQuestionsByIndex(game.currentQuestionIndex).question_id,
+            question_id: getQuestionFromQuestionsByIndex(game.currentQuestionIndex).id,
             gamertag: gamertag,
             answer: answer,
-            roomCode: game.roomCode
+            game_id: game.id
         })
     }
     
@@ -161,7 +161,7 @@ function App() {
     }
 
     function setReady() {
-        socket.emit("set ready",  { gamertag: gamertag, roomCode: game.roomCode })
+        socket.emit("set ready",  { gamertag: gamertag, game_id: game.id })
     }
 
     return <Container className="wrapper" fluid>
