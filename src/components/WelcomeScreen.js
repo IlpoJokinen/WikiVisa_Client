@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, Link } from 'react'
 import { Container, Row, Col, Button, Form } from 'react-bootstrap'
 import PageTitle from './UI/PageTitle'
 import { PlayFill, ArrowClockwise } from 'react-bootstrap-icons'
@@ -16,7 +16,7 @@ const WelcomeScreen = ({ joiningState, joinGame, createGame, creatingState }) =>
         <Row>
             <Col>
                 <Form>
-                    <Form.Group>
+                    <Form.Group>                
                         <Form.Label id='roomcodelabel'>Enter room code <sup>*</sup></Form.Label>
                         <Form.Control id='roomcode' disabled={joiningState} size="lg" placeholder="Enter room code" onChange={(e) => setRoomCode(e.target.value)}/>
                     </Form.Group>

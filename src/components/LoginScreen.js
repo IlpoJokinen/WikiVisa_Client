@@ -2,7 +2,16 @@ import React, { useState } from 'react'
 import { Container, Row, Col, Button, Form } from 'react-bootstrap'
 import PageTitle from './UI/PageTitle'
 
-const LoginScreen = () => {
+
+const LoginScreen = ({ loggingState, createUser}) => {
+
+    const [username, setUsername] = useState("")
+    const [password, setPassword] = useState("")
+
+    const message = () => {
+        alert("Logged in as " +username)
+    }
+    
 
     return <Container>
         <Row>
@@ -14,14 +23,16 @@ const LoginScreen = () => {
             <Col>
                 <Form>
                     <Form.Group>
-                        <Form.Label>Enter username</Form.Label>
-                        <Form.Control placeholder="Username"/>
+                        <Form.Label id="usernamelabel">Enter username</Form.Label>
+                        <Form.Control id="username" placeholder="Username" onChange={(e) => setUsername(e.target.value)}/>
                     </Form.Group>
                     <Form.Group>
-                        <Form.Label>Enter password</Form.Label>
-                        <Form.Control placeholder="Password"/>
+                        <Form.Label id="passwordlabel">Enter password</Form.Label>
+                        <Form.Control id="password" placeholder="Password" onChange={(e) => setPassword(e.target.value)}/>
                     </Form.Group>
-                    <Button>Login</Button>
+                    <Button id='loginbutton' variant={loggingState ? "secondary" : "primary"} type="button" onClick={message}  >         
+                        { loggingState ? " Logging in..." : " Login" }
+                    </Button>
                 </Form>
             </Col>
         </Row>

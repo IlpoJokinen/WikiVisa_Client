@@ -151,7 +151,7 @@ function App() {
                 players={game.players} 
                 gamertag={gamertag} 
             />
-            default: return <WelcomeScreen 
+            default: return <WelcomeScreen
                 joiningState={joiningState}
                 joinGame={joinGame}
                 createGame={createGame}
@@ -166,8 +166,9 @@ function App() {
 
     return <Container className="wrapper" fluid>
         <Row>
+            
             <Col>
-                {
+                { 
                    getPage()
                 }
             </Col>
