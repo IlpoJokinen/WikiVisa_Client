@@ -48,7 +48,7 @@ function App() {
             setJoiningState(false)
             window.alert(`Gamertag '${data} is already taken!'`)
         })
-        socket.on("roomcode not found", error => {
+        socket.on("error while joining", error => {
             setJoiningState(false)
             window.alert(error)
         })
@@ -75,11 +75,16 @@ function App() {
     function getPlayersAnswers() {
         let answers = {}
         game.players.forEach(p => {
+            let answeredThisRound = false
             p.answers.forEach(a => {
                 if(a.question_id === game.question.id) {
                     answers[p.gamertag] = a.answer
+                    answeredThisRound = true
                 }
             })
+            if(!answeredThisRound){
+                answers[p.gamertag] = {name: "No answer for this round"}
+            }
         })
         return answers
     }
