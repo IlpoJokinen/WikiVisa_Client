@@ -21,10 +21,9 @@ function App() {
     const [creatingState, setCreatingState] = useState(false)
 
     useEffect(() => {
-        socket.on("send players", (players) => {
+        socket.on("send players", players => {
             setGame(prevState => ({...prevState, players: players}))
         })
-    
         socket.on("send game", game => {
             setGame(game)
         })
@@ -44,7 +43,6 @@ function App() {
         socket.on('reset timers', data => {
             setGame(prevState => ({...prevState, questionCounter: data.questionCounter, roundEndCounter: data.roundEndCounter}))
         })
-
         socket.on("get correct answer", data => {
             setCorrectAnswer(data)
         })
@@ -80,7 +78,6 @@ function App() {
         return getPlayersAnswers(currentQuestion)
     }
 
-    // Helper function for later use
     function getQuestionByQuestionId(question_id) {
         let question = false
         game.questions.forEach(q => {
@@ -115,14 +112,18 @@ function App() {
     function joinGame(gamertag, roomCode) {
         setGamertag(gamertag)
         setJoiningState(true)
-        socket.emit("join game", {gamertag, roomCode})
+        socket.emit("join game", { gamertag, roomCode })
     }
 
-    function createGame(gamertag, roomCode) {
+    function createGame(gamertag, roomCode, gameProperties) {
         setGamertag(gamertag)
         setJoiningState(true)
         setCreatingState(true)
-        socket.emit('create game', {gamertag, roomCode})
+        socket.emit('create game', { gamertag, roomCode, gameProperties })
+    }
+
+    function setReady() {
+        socket.emit("set ready", { game_id: game.id, gamertag, roomCode: game.roomCode })
     }
 
     function getPage() {
@@ -158,10 +159,6 @@ function App() {
                 creatingState={creatingState}
             />
         }
-    }
-
-    function setReady() {
-        socket.emit("set ready",  { gamertag: gamertag, game_id: game.id })
     }
 
     return <Container className="wrapper" fluid>

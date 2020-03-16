@@ -5,7 +5,7 @@ import CircleTimer from './UI/CircleTimer'
 import Question from './UI/Question'
 import Choices from './UI/Choices'
   
-const QuestionScreen = ({ setAnswer, timer, question, gamertag, players, setReady }) => {
+const QuestionScreen = ({ setAnswer, timer, question, players, setReady }) => {
     const [playersReady, setPlayersReady] = useState(0)
 
     useEffect(() => {
