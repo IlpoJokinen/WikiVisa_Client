@@ -14,6 +14,10 @@ const WelcomeScreen = ({ joiningState, joinGame, createGame, creatingState }) =>
         counters: {
             answer: "",
             roundEnd: ""
+        },
+        visibility: {
+            public: false,
+            private: false
         }
     })
     const [showCreatePage, setShowCreatePage] = useState(false)
@@ -131,6 +135,31 @@ const WelcomeScreen = ({ joiningState, joinGame, createGame, creatingState }) =>
                         <Form.Text className="text-muted">
                             This is the timer for downtime between each question showing correct answers
                         </Form.Text>
+                    </Form.Group>
+                    <Form.Group>
+                    <fieldset>
+                        <Form.Group as={Row}>
+                        <Form.Label as="legend" column sm={10}>
+                            Visibility
+                        </Form.Label>
+                        <Col sm={10}>
+                            <Form.Check
+                            type="radio"
+                            label="Public"
+                            name="formHorizontalRadios"
+                            id="formHorizontalRadios1"
+                            onChange={e => setGameProperties({...gameProperties, visibility: {public: true}})}
+                            />
+                            <Form.Check
+                            type="radio"
+                            label="Private"
+                            name="formHorizontalRadios"
+                            id="formHorizontalRadios2"
+                            onChange={e => setGameProperties({...gameProperties, visibility: {private: true}})}
+                            />
+                        </Col>
+                        </Form.Group>
+                    </fieldset>
                     </Form.Group>
                 </Col>
             </Row>

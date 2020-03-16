@@ -13,7 +13,6 @@ const StartScreen = ({ gamertag, players, timer, roomCode }) => {
             return <Player key={player.id} gamertag={player.gamertag} thisPlayersTag={gamertag === player.gamertag}/>  
         })
     }
-    console.log(timer)
     return <Container>   
         <Row>
             <Col>
