@@ -106,7 +106,7 @@ const WelcomeScreen = ({ joiningState, joinGame, createGame, creatingState }) =>
                             </Form.Control>
                         </Form.Group>
                         <Form.Text className="text-muted">
-                            Select question categories for your game
+                            Select question categories for your game. Hold Ctrl if you want to select multiple categories!
                         </Form.Text>
                     </Form.Group>
                     <Form.Group>

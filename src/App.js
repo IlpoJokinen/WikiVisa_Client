@@ -34,9 +34,6 @@ function App() {
         socket.on("update game view", view => {
             setGame(prevState => ({...prevState, view: view}))
         })
-        socket.on("update question index", index => {
-            setGame(prevState => ({...prevState, currentQuestionIndex: index}))
-        })
         socket.on("send gamertag", data => {
             setGamertag(data)
         })
@@ -55,29 +52,16 @@ function App() {
             setJoiningState(false)
             window.alert(error)
         })
+        socket.on("send question", question => {
+            setGame(prevState => ({...prevState, question: question}))
+        })
     }, [])
-    //huomasin, että tää ei mene tuosta if lauseesta läpi ja ei siten ikinä mene servulle - ei korjattu
-    useEffect(() => {
-        if(game.hasOwnProperty('view') && game.view.length) {
-            socket.emit('get timer', {viewIndex: game.view, game_id: game.id})
-        }
-    }, [game])
-
     useEffect(() => {
         if(typeof answer === 'object') {
             submitAnswer()
         }
     }, [answer])
-
-    function getQuestionFromQuestionsByIndex(index) {
-        return game.questions[index]
-    }
-
-    function createPlayersAnswersObject() {
-        let currentQuestion = getQuestionFromQuestionsByIndex(game.currentQuestionIndex)
-        return getPlayersAnswers(currentQuestion)
-    }
-
+    
     function getQuestionByQuestionId(question_id) {
         let question = false
         game.questions.forEach(q => {
@@ -88,11 +72,11 @@ function App() {
         return question
     }
 
-    function getPlayersAnswers(question) {
+    function getPlayersAnswers() {
         let answers = {}
         game.players.forEach(p => {
             p.answers.forEach(a => {
-                if(a.question_id === question.id) {
+                if(a.question_id === game.question.id) {
                     answers[p.gamertag] = a.answer
                 }
             })
@@ -102,7 +86,7 @@ function App() {
 
     function submitAnswer() {
         socket.emit("submit answer", {
-            question_id: getQuestionFromQuestionsByIndex(game.currentQuestionIndex).id,
+            question_id: game.question.id,
             gamertag: gamertag,
             answer: answer,
             game_id: game.id
@@ -138,12 +122,12 @@ function App() {
                 players={game.players} 
                 gamertag={gamertag} 
                 timer={game.questionCounter} 
-                question={getQuestionFromQuestionsByIndex(game.currentQuestionIndex)}
+                question={game.question}
                 setAnswer={setAnswer} 
                 setReady={setReady}
             />
             case 3: return <RoundEndScreen 
-                answers={createPlayersAnswersObject()} 
+                answers={getPlayersAnswers()} 
                 gamertag={gamertag} 
                 timer={game.roundEndCounter} 
                 correctAnswer={correctAnswer} 
