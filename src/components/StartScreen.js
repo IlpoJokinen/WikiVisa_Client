@@ -1,11 +1,11 @@
 import React from 'react'
-import { Container, Row, Col } from 'react-bootstrap'
+import { Container, Row, Col, Button } from 'react-bootstrap'
 import CircleTimer from './UI/CircleTimer'
 import { CountdownCircleTimer } from 'react-countdown-circle-timer'
 import PageTitle from './UI/PageTitle'
 import Player from './UI/Player'
 
-const StartScreen = ({ gamertag, players, timer, roomCode }) => {
+const StartScreen = ({ gamertag, players, timer, roomCode, startGame, started, isCreator }) => {
     let allPlayers = "" 
     
     if(players.length) {
@@ -19,6 +19,14 @@ const StartScreen = ({ gamertag, players, timer, roomCode }) => {
                 <PageTitle title={`Room ${roomCode}`}/>
             </Col>
         </Row>
+        {isCreator && !started
+        ? <Row>
+            <Button variant="success" onClick={() => { startGame() }}>
+                Start game
+            </Button>
+        </Row>
+        : null
+        }
         <Row>
             <Col>
                 <Row>
@@ -32,7 +40,8 @@ const StartScreen = ({ gamertag, players, timer, roomCode }) => {
                     </Col>
                 </Row>
             </Col>
-            <Col>
+            {started
+            ? <Col>
                 <Row>
                     <Col>
                         <CountdownCircleTimer
@@ -43,7 +52,10 @@ const StartScreen = ({ gamertag, players, timer, roomCode }) => {
                         />
                     </Col>
                 </Row>
-            </Col>
+            </Col> 
+            : null
+            }
+            
         </Row>
     </Container>
     

@@ -55,6 +55,9 @@ function App() {
         socket.on("send question", question => {
             setGame(prevState => ({...prevState, question: question}))
         })
+        socket.on("game started", () => {
+            setGame(prevState => ({...prevState, started: true}))
+        })
     }, [])
     useEffect(() => {
         if(typeof answer === 'object') {
@@ -115,6 +118,10 @@ function App() {
         socket.emit("set ready", { game_id: game.id, gamertag, roomCode: game.roomCode })
     }
 
+    function startGame() {
+        socket.emit("start game", { game_id: game.id })
+    }
+
     function getPage() {
         switch(game.view) {
             case 1: return <StartScreen 
@@ -122,6 +129,9 @@ function App() {
                 gamertag={gamertag} 
                 timer={game.startGameCounter}
                 roomCode={game.roomCode} 
+                startGame={startGame}
+                started={game.started}
+                isCreator={game.creator}
             />
             case 2: return <QuestionScreen 
                 players={game.players} 
