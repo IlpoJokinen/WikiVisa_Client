@@ -3,6 +3,7 @@ import { Col, Row, Button } from 'react-bootstrap'
 import { Play, Tools } from 'react-bootstrap-icons'
 
 const JoinOrCreateScreen = ({ setScreen }) => {
+    document.title = 'Format Game'
     return <Row>
         <Col className="text-center">
             <Button size="lg" block style={{marginRight: 16}} variant="primary" onClick={() => setScreen('JoinGame')}>

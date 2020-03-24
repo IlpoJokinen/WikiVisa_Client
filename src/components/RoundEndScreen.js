@@ -6,7 +6,7 @@ import RoundStatsTable from './UI/RoundStatsTable'
 import PageTitle from './UI/PageTitle'
 
 const RoundEndScreen = ({ correctAnswer, gamertag, answers, timer }) => {
-
+    document.title = 'Correct Answers'
     return <Container>
         <Row>
             <Col>

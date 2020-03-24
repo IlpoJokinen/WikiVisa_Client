@@ -7,7 +7,7 @@ import Choices from './UI/Choices'
   
 const QuestionScreen = ({ setAnswer, timer, question, players, setReady }) => {
     const [playersReady, setPlayersReady] = useState(0)
-
+    document.title = question.title.toString()
     useEffect(() => {
         let num = players.filter(p => p.ready === true).length
         setPlayersReady(num)

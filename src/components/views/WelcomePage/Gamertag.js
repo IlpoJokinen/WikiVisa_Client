@@ -3,6 +3,7 @@ import { Row, Col, Button, Form } from 'react-bootstrap'
 import PageTitle from '../../UI/PageTitle'
 
 const GamertagScreen = ({ setScreen, setGamertag, gamertag }) => {
+    document.title = 'Welcome!'
     return <Row>
         <Col>
             <Form>

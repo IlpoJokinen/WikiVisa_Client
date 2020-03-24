@@ -1,9 +1,12 @@
 import React from 'react'
 import { Container, Row, Col, Button, ButtonGroup } from 'react-bootstrap'
+import { Trophy } from 'react-bootstrap-icons'
 import PageTitle from './UI/PageTitle'
 import StatsTable from './UI/StatsTable'
 
 const GameEndScreen = ({ gamertag, players }) => {
+    let winner = players.reduce((prev, current) => (prev.points > current.points) ? prev : current)
+    document.title = gamertag === winner.gamertag ? 'Congratulations!' : 'Better Luck Next Time!'
     return <Container>
         <Row>
             <Col>

@@ -7,7 +7,7 @@ import Player from './UI/Player'
 
 const StartScreen = ({ gamertag, players, timer, roomCode, startGame, started, isCreator }) => {
     let allPlayers = "" 
-    
+    document.title = started ? 'Game Is Starting!' : 'Game Lobby'
     if(players.length) {
         allPlayers = players.map(player => {
             return <Player key={player.id} gamertag={player.gamertag} thisPlayersTag={gamertag === player.gamertag}/>  
