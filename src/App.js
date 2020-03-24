@@ -6,6 +6,7 @@ import QuestionScreen from './components/QuestionScreen'
 import RoundEndScreen from './components/RoundEndScreen'
 import GameEndScreen from './components/GameEndScreen'
 import LoginScreen from './components/LoginScreen'
+import PageHeader from './components/UI/PageHeader' 
 import io from 'socket.io-client'
 import './App.css'
 import './style.css'
@@ -13,8 +14,11 @@ import './style.css'
 const socket = io('http://localhost:3001')
 
 function App() {
+    const [pageTitle, setPageTitle] = useState("")
     const [game, setGame] = useState({})
+    const [publicGames, setPublicGames] = useState([])
     const [gamertag, setGamertag] = useState("")
+    const [roomCode, setRoomCode] = useState("")
     const [answer, setAnswer] = useState("")
     const [correctAnswer, setCorrectAnswer] = useState({})
     const [joiningState, setJoiningState] = useState(false)
@@ -58,12 +62,23 @@ function App() {
         socket.on("game started", () => {
             setGame(prevState => ({...prevState, started: true}))
         })
+        socket.on("send public games", games => {
+            games.forEach(game => {
+                game.join = () => joinGame(game.roomCode)
+            })
+            setPublicGames(games)
+        })
     }, [])
+
     useEffect(() => {
         if(typeof answer === 'object') {
             submitAnswer()
         }
     }, [answer])
+
+    function getPublicGames() {
+        socket.emit('get public games')
+    }
     
     function getQuestionByQuestionId(question_id) {
         let question = false
@@ -100,16 +115,13 @@ function App() {
             game_id: game.id
         })
     }
-    
-    function joinGame(gamertag, roomCode) {
-        setGamertag(gamertag)
+
+    function joinGame(roomCode) {
         setJoiningState(true)
         socket.emit("join game", { gamertag, roomCode })
     }
 
-    function createGame(gamertag, roomCode, gameProperties) {
-        setGamertag(gamertag)
-        setJoiningState(true)
+    function createGame(gameProperties) {
         setCreatingState(true)
         socket.emit('create game', { gamertag, roomCode, gameProperties })
     }
@@ -152,23 +164,23 @@ function App() {
                 gamertag={gamertag} 
             />
             default: return <WelcomeScreen
+                setRoomCode={setRoomCode}
+                setGamertag={setGamertag}
+                gamertag={gamertag}
+                roomCode={roomCode}
                 joiningState={joiningState}
                 joinGame={joinGame}
                 createGame={createGame}
                 creatingState={creatingState}
+                getPublicGames={getPublicGames}
+                publicGames={publicGames}
             />
         }
     }
 
-    return <Container className="wrapper" fluid>
-        <Row>
-            
-            <Col>
-                { 
-                   getPage()
-                }
-            </Col>
-        </Row>
+    return <Container className="wrapper full-height full-width center-content-vertically" fluid>
+        <PageHeader title={pageTitle} />
+        { getPage() }
     </Container>
 }
 
