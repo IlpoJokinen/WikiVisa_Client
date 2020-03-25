@@ -19,13 +19,15 @@ const StartScreen = ({ gamertag, players, timer, roomCode, startGame, started, i
                 <PageTitle title={`Room ${roomCode}`}/>
             </Col>
         </Row>
-        {isCreator && !started
-        ? <Row>
-            <Button variant="success" onClick={() => { startGame() }}>
-                Start game
-            </Button>
-        </Row>
-        : null
+        { isCreator && !started
+            ? <Row>
+                <Col>
+                    <Button variant="success" onClick={() => { startGame() }}>
+                        Start game
+                    </Button>
+                </Col>
+            </Row>
+            : null
         }
         <Row>
             <Col>

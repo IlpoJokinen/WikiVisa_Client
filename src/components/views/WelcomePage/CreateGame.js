@@ -48,7 +48,7 @@ const GreateGameScreen = ({setScreen, setRoomCode, creatingState, createGame}) =
                     </Col>
                 </Row>
                 <Row>
-                    <Col>
+                    <Col xs="12" md="6">
                         <Form.Group>
                             <Form.Label>Question categories</Form.Label>
                             <Form.Group controlId="createGameForm.categorySelect" onChange={e => addToSelectedCategories(e)}>
@@ -69,7 +69,7 @@ const GreateGameScreen = ({setScreen, setRoomCode, creatingState, createGame}) =
                             </Form.Text>
                         </Form.Group>
                     </Col>
-                    <Col>
+                    <Col xs="12" md="6">
                         <Form.Group>
                             <Form.Label>Answer time</Form.Label>
                             <Form.Control disabled={creatingState} size="lg" placeholder="Default: 10 seconds" onChange={e => setGameProperties({...gameProperties, counters: {...gameProperties.counters, answer: e.target.value }})} />
@@ -97,12 +97,12 @@ const GreateGameScreen = ({setScreen, setRoomCode, creatingState, createGame}) =
                     </Col>
                 </Row>
                 <Row>
-                    <Col>
+                    <Col xs="auto">
                         <Button onClick={() => setScreen('JoinOrCreate')} type="button">
                             <ArrowLeft size={20} /> Return
                         </Button>
                     </Col>
-                    <Col>
+                    <Col className="text-right">
                         <Button variant={creatingState ? "secondary" : "success"} onClick={() => createGame(gameProperties)} type="button">
                             { creatingState ? <ArrowClockwise size={20} className="spin" /> : <Check size={20} /> }
                             { creatingState ? " Creating game..." : " Create & Join" }
