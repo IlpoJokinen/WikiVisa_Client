@@ -4,7 +4,7 @@ import PageTitle from '../../UI/PageTitle'
 import { ArrowLeft, ArrowClockwise, Check } from 'react-bootstrap-icons/'
 
 
-const GreateGameScreen = ({setScreen, setRoomCode, creatingState, createGame}) => {
+const CreateGameScreen = ({setScreen, setRoomCode, creatingState, createGame}) => {
     const [gameProperties, setGameProperties] = useState({
         question: {
             categories: [],
@@ -14,7 +14,8 @@ const GreateGameScreen = ({setScreen, setRoomCode, creatingState, createGame}) =
             answer: "",
             roundEnd: ""
         },
-        visibility: false
+        visibility: false,
+        losePoints: false
     })
 
     const addToSelectedCategories = event => {
@@ -85,6 +86,16 @@ const GreateGameScreen = ({setScreen, setRoomCode, creatingState, createGame}) =
                             </Form.Text>
                         </Form.Group>
                         <Form.Group>
+                            <Form.Label>Lose Points On Incorrect Answer</Form.Label>
+                            <Form.Check 
+                                type="switch"
+                                id="losePoints-switch"
+                                label={'Player will ' + (gameProperties.losePoints ? '' : 'not') + ' lose points'}
+                                checked={gameProperties.losePoints}
+                                onChange={e => setGameProperties({...gameProperties, losePoints: !gameProperties.losePoints})}
+                            />
+                        </Form.Group>
+                        <Form.Group>
                             <Form.Label>Visibility</Form.Label>
                             <Form.Check 
                                 type="switch"
@@ -114,4 +125,4 @@ const GreateGameScreen = ({setScreen, setRoomCode, creatingState, createGame}) =
     </Row>
 }
 
-export default GreateGameScreen
+export default CreateGameScreen
