@@ -127,6 +127,20 @@ header {
     color: #800600 !important
 }
 
+.green {
+    color: green;
+    font-weight: bold;
+}
+
+.red {
+    color: red;
+    font-weight: bold;
+}
+
+.bold {
+    font-weight: bold;
+}
+
 .btn > svg {
     position: relative;
     top: -2px

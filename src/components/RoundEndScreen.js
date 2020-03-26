@@ -14,13 +14,21 @@ const RoundEndScreen = ({ correctAnswer, gamertag, answers, timer }) => {
             </Col>
         </Row>
         <Row>
-            <Col>
-                <RoundStatsTable correctAnswer={correctAnswer} gamertag={gamertag} answers={answers} />
+            <Col className="text-center">
+                {correctAnswer.value === answers[gamertag].value 
+                ? <p>Your answer was <text className="green">correct</text></p>
+                : <p>Your answer <text className="bold">{answers[gamertag].name}</text> was <text className="red">incorrect</text></p>
+                }
             </Col>
         </Row>
         <Row>
             <Col>
-                <h4 className="text-center">Correct answer <Badge variant="success">{correctAnswer.name}</Badge></h4>
+                <h3 className="text-center">{correctAnswer.answerTitle} <Badge variant="success">{correctAnswer.name}</Badge></h3> 
+            </Col>
+        </Row>
+        <Row>
+            <Col>
+                <RoundStatsTable correctAnswer={correctAnswer} gamertag={gamertag} answers={answers} />
             </Col>
         </Row>
         <Row>
