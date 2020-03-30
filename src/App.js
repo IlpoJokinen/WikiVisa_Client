@@ -66,9 +66,9 @@ function App() {
             setGame(prevState => ({...prevState, started: true}))
         })
         socket.on("send public games", games => {
-            games.forEach(game => {
+           /* games.forEach(game => {
                 game.join = () => joinGame(game.roomCode)
-            })
+            })*/
             setPublicGames(games)
         })
     }, [])

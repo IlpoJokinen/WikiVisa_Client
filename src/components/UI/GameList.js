@@ -2,7 +2,7 @@ import React, { useEffect } from 'react'
 import { ListGroup } from 'react-bootstrap'
 import GameListItem from './GameListItem'
 
-const GameList = ({getPublicGames, publicGames}) => {
+const GameList = ({getPublicGames, publicGames, joinGame}) => {
     useEffect(() => {
         getPublicGames()
     }, [])
@@ -10,7 +10,11 @@ const GameList = ({getPublicGames, publicGames}) => {
     return <ListGroup>
         { 
             publicGames.map((game, i) => 
-                <GameListItem key={i} game={game} />
+                <GameListItem 
+                    key={i} 
+                    game={game} 
+                    joinGame={joinGame} 
+                />
             )
         }
     </ListGroup>

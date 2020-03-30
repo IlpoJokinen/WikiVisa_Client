@@ -8,7 +8,13 @@ const JoinGameScreen = ({ setScreen, setRoomCode, roomCode, joiningState, joinGa
     const [modalVisibility, setModalVisibility] = useState(false)
     
     return <Row>
-        <FindGameModal setModalVisibility={setModalVisibility} visibility={modalVisibility} getPublicGames={getPublicGames} publicGames={publicGames} />
+        <FindGameModal 
+            setModalVisibility={setModalVisibility} 
+            visibility={modalVisibility} 
+            getPublicGames={getPublicGames} 
+            publicGames={publicGames} 
+            joinGame={joinGame}
+        />
         <Col>
             <Row className="text-center">
                 <Col>
@@ -34,7 +40,7 @@ const JoinGameScreen = ({ setScreen, setRoomCode, roomCode, joiningState, joinGa
                         <Button variant="secondary" onClick={() => setModalVisibility(true)} type="button">
                             <Search size={20} /> Find Game
                         </Button>
-                        <Button disabled={!roomCode.length} onClick={() => joinGame(roomCode)} type="button">
+                        <Button disabled={!roomCode.length} onClick={() => joinGame()} type="button">
                             <PlayFill size={20} /> Join Room
                         </Button>
                     </ButtonGroup>
