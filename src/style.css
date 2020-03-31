@@ -58,10 +58,21 @@ header {
     margin-right: 0
 }
 
-.radioButton input[type="radio"] {
-    display: none
+.rowDisabled .radioButton label{
+    pointer-events: none;
+    color: #969696;
+    border: 5px solid #969696;
 }
-  
+.rowDisabled .radioButton input[type="radio"]:checked + label {
+    background-color:#2ECC40;
+    border: 5px solid #3D9970;
+    color: #fcfcfc;
+    font-weight: bold;
+}
+.radioButton input[type="radio"] {
+    display: none;
+}
+
 .radioButton label {
     font-size: 16px;
     cursor: pointer;
@@ -73,13 +84,13 @@ header {
     border: 5px solid #B10DC9;
     letter-spacing: 1px;
     user-select: none;
-    transition: background-color 300ms, color 100ms
+    transition: background-color 300ms, color 100ms;
 }
 
 .radioButton input[type="radio"]:checked + label {
     background-color: #B10DC9;
     color: #fcfcfc;
-    font-weight: bold
+    font-weight: bold;
 }
 
 .container .row {

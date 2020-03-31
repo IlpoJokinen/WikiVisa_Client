@@ -7,12 +7,17 @@ import Choices from './UI/Choices'
   
 const QuestionScreen = ({ setAnswer, timer, question, players, setReady }) => {
     const [playersReady, setPlayersReady] = useState(0)
+    const [disabled, setDisabled] = useState(false)
     document.title = question.title.toString()
+
+    function clickReady() {
+        setReady()
+        setDisabled(true)
+    } 
     useEffect(() => {
         let num = players.filter(p => p.ready === true).length
         setPlayersReady(num)
     }, [players])
-
     return <Container>
         <Row>
             <Col>
@@ -31,12 +36,12 @@ const QuestionScreen = ({ setAnswer, timer, question, players, setReady }) => {
         </Row>
         <Row>
             <Col>
-                <Choices setAnswer={setAnswer} choices={question.choices} />
+                <Choices disabled={disabled} setAnswer={setAnswer} choices={question.choices} />
             </Col>
         </Row>
         <Row>
             <Col>
-                <Button variant="success" size="lg" onClick={() => setReady()} block>Ready</Button>
+                <Button variant="success" size="lg" onClick={() => clickReady()} block>Ready</Button>
             </Col>
         </Row>
         <Row>

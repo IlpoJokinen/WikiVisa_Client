@@ -23,6 +23,7 @@ function App() {
     const [correctAnswer, setCorrectAnswer] = useState({})
     const [joiningState, setJoiningState] = useState(false)
     const [creatingState, setCreatingState] = useState(false)
+    const [rdy, setRdy] = useState(false)
 
     useEffect(() => {
         socket.on("send players", players => {
@@ -70,12 +71,6 @@ function App() {
         })
     }, [])
 
-    useEffect(() => {
-        if(typeof answer === 'object') {
-            submitAnswer()
-        }
-    }, [answer])
-
     function getPublicGames() {
         socket.emit('get public games')
     }
@@ -107,15 +102,6 @@ function App() {
         return answers
     }
 
-    function submitAnswer() {
-        socket.emit("submit answer", {
-            question_id: game.question.id,
-            gamertag: gamertag,
-            answer: answer,
-            game_id: game.id
-        })
-    }
-
     function joinGame(roomCode) {
         setJoiningState(true)
         socket.emit("join game", { gamertag, roomCode })
@@ -126,8 +112,8 @@ function App() {
         socket.emit('create game', { gamertag, roomCode, gameProperties })
     }
 
-    function setReady() {
-        socket.emit("set ready", { game_id: game.id, gamertag, roomCode: game.roomCode })
+    function setAnswerAndPlayerReady() {
+        socket.emit("set ready", { game_id: game.id, gamertag, answer, question_id: game.question.id }) 
     }
 
     function startGame() {
@@ -151,7 +137,7 @@ function App() {
                 timer={game.questionCounter} 
                 question={game.question}
                 setAnswer={setAnswer} 
-                setReady={setReady}
+                setReady={setAnswerAndPlayerReady}
             />
             case 3: return <RoundEndScreen 
                 answers={getPlayersAnswers()} 
