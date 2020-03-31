@@ -38,7 +38,7 @@ const WelcomeScreen = ({ setGamertag, gamertag, setRoomCode, roomCode, joiningSt
 
     return <Container>
         <Row className="justify-content-md-center">
-            <Col sm={8}>
+            <Col lg="8">
                 { getScreen() }
             </Col>
         </Row>

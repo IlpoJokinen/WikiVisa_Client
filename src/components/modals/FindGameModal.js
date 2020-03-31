@@ -3,7 +3,7 @@ import GameList from '../UI/GameList'
 import { Modal, Button } from 'react-bootstrap'
 import { ArrowClockwise } from 'react-bootstrap-icons'
 
-const FindGameModal = ({setModalVisibility, visibility, getPublicGames, publicGames}) => {
+const FindGameModal = ({setModalVisibility, visibility, getPublicGames, publicGames, joinGame}) => {
     return <Modal className="findGameModal" show={visibility} size="md" centered>
         <Modal.Header>
             <Modal.Title>
@@ -14,7 +14,11 @@ const FindGameModal = ({setModalVisibility, visibility, getPublicGames, publicGa
             </Button>
         </Modal.Header>
         <Modal.Body>
-            <GameList getPublicGames={getPublicGames} publicGames={publicGames} />
+            <GameList 
+                getPublicGames={getPublicGames} 
+                publicGames={publicGames} 
+                joinGame={joinGame}
+            />
         </Modal.Body>
         <Modal.Footer>
             <Button onClick={() => setModalVisibility(false)}>Close</Button>

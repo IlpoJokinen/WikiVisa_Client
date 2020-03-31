@@ -4,7 +4,7 @@ import PageTitle from '../../UI/PageTitle'
 import { ArrowLeft, ArrowClockwise, Check } from 'react-bootstrap-icons/'
 
 
-const GreateGameScreen = ({setScreen, setRoomCode, creatingState, createGame}) => {
+const CreateGameScreen = ({setScreen, setRoomCode, creatingState, createGame}) => {
     const [gameProperties, setGameProperties] = useState({
         question: {
             categories: [],
@@ -14,7 +14,8 @@ const GreateGameScreen = ({setScreen, setRoomCode, creatingState, createGame}) =
             answer: "",
             roundEnd: ""
         },
-        visibility: false
+        visibility: false,
+        losePoints: false
     })
 
     const addToSelectedCategories = event => {
@@ -48,7 +49,7 @@ const GreateGameScreen = ({setScreen, setRoomCode, creatingState, createGame}) =
                     </Col>
                 </Row>
                 <Row>
-                    <Col>
+                    <Col xs="12" md="6">
                         <Form.Group>
                             <Form.Label>Question categories</Form.Label>
                             <Form.Group controlId="createGameForm.categorySelect" onChange={e => addToSelectedCategories(e)}>
@@ -69,7 +70,7 @@ const GreateGameScreen = ({setScreen, setRoomCode, creatingState, createGame}) =
                             </Form.Text>
                         </Form.Group>
                     </Col>
-                    <Col>
+                    <Col xs="12" md="6">
                         <Form.Group>
                             <Form.Label>Answer time</Form.Label>
                             <Form.Control disabled={creatingState} size="lg" placeholder="Default: 10 seconds" onChange={e => setGameProperties({...gameProperties, counters: {...gameProperties.counters, answer: e.target.value }})} />
@@ -85,6 +86,16 @@ const GreateGameScreen = ({setScreen, setRoomCode, creatingState, createGame}) =
                             </Form.Text>
                         </Form.Group>
                         <Form.Group>
+                            <Form.Label>Lose Points On Incorrect Answer</Form.Label>
+                            <Form.Check 
+                                type="switch"
+                                id="losePoints-switch"
+                                label={'Player will ' + (gameProperties.losePoints ? '' : 'not') + ' lose points'}
+                                checked={gameProperties.losePoints}
+                                onChange={e => setGameProperties({...gameProperties, losePoints: !gameProperties.losePoints})}
+                            />
+                        </Form.Group>
+                        <Form.Group>
                             <Form.Label>Visibility</Form.Label>
                             <Form.Check 
                                 type="switch"
@@ -97,12 +108,12 @@ const GreateGameScreen = ({setScreen, setRoomCode, creatingState, createGame}) =
                     </Col>
                 </Row>
                 <Row>
-                    <Col>
+                    <Col xs="auto">
                         <Button onClick={() => setScreen('JoinOrCreate')} type="button">
                             <ArrowLeft size={20} /> Return
                         </Button>
                     </Col>
-                    <Col>
+                    <Col className="text-right">
                         <Button variant={creatingState ? "secondary" : "success"} onClick={() => createGame(gameProperties)} type="button">
                             { creatingState ? <ArrowClockwise size={20} className="spin" /> : <Check size={20} /> }
                             { creatingState ? " Creating game..." : " Create & Join" }
@@ -114,4 +125,4 @@ const GreateGameScreen = ({setScreen, setRoomCode, creatingState, createGame}) =
     </Row>
 }
 
-export default GreateGameScreen
+export default CreateGameScreen

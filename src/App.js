@@ -25,6 +25,9 @@ function App() {
     const [creatingState, setCreatingState] = useState(false)
     const [rdy, setRdy] = useState(false)
 
+    window.onresize = () => centerizeWrapper()
+    window.onload = () => centerizeWrapper()
+
     useEffect(() => {
         socket.on("send players", players => {
             setGame(prevState => ({...prevState, players: players}))
@@ -64,12 +67,28 @@ function App() {
             setGame(prevState => ({...prevState, started: true}))
         })
         socket.on("send public games", games => {
-            games.forEach(game => {
+           /* games.forEach(game => {
                 game.join = () => joinGame(game.roomCode)
-            })
+            })*/
             setPublicGames(games)
         })
     }, [])
+
+    function centerizeWrapper() {
+        let wrapper = document.getElementById("wrapper"),
+            root = document.getElementById("root"),
+            wrapperWidth = wrapper.offsetWidth, 
+            wrapperHeight = wrapper.offsetHeight,
+            viewportWidth = Math.max(document.documentElement.clientWidth, window.innerWidth || 0),
+            viewportHeight = Math.max(document.documentElement.clientHeight, window.innerHeight || 0),
+            wrapperCenter = "centerizedWrapper";
+
+        if(wrapperWidth > viewportWidth || wrapperHeight > viewportHeight) {
+            root.classList.remove(wrapperCenter)
+        } else {
+            root.classList.add(wrapperCenter)
+        }
+    }
 
     function getPublicGames() {
         socket.emit('get public games')
@@ -164,7 +183,7 @@ function App() {
         }
     }
 
-    return <Container className="wrapper full-height full-width center-content-vertically" fluid>
+    return <Container id="wrapper" fluid>
         <PageHeader title={pageTitle} />
         { getPage() }
     </Container>

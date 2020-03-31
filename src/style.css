@@ -2,6 +2,16 @@ html, body, #root {
     height: 100%
 }  
 
+#root {
+    margin-top: 16px
+}
+
+#root.centerizedWrapper {
+    margin-top: 0;
+    display: flex;
+    align-items: center
+}
+
 .full-height {
     height: 100%
 }
@@ -126,6 +136,20 @@ header {
 .wrong { 
     background-color: #FF4136 !important; 
     color: #800600 !important
+}
+
+.green {
+    color: green;
+    font-weight: bold;
+}
+
+.red {
+    color: red;
+    font-weight: bold;
+}
+
+.bold {
+    font-weight: bold;
 }
 
 .btn > svg {
