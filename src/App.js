@@ -1,5 +1,5 @@
 import React, { useState, useEffect} from 'react'
-import { Container, Row, Col } from 'react-bootstrap'
+import { Container, Row, Col, InputGroup } from 'react-bootstrap'
 import WelcomeScreen from './components/WelcomeScreen' 
 import StartScreen from './components/StartScreen'
 import QuestionScreen from './components/QuestionScreen'
@@ -11,7 +11,8 @@ import io from 'socket.io-client'
 import './App.css'
 import './style.css'
 
-const socket = io('http://localhost:3001')
+const socket = io('https://wikivisa.herokuapp.com')
+//const socket = io('localhost:3001')
 
 function App() {
     const [pageTitle, setPageTitle] = useState("")
@@ -23,7 +24,6 @@ function App() {
     const [correctAnswer, setCorrectAnswer] = useState({})
     const [joiningState, setJoiningState] = useState(false)
     const [creatingState, setCreatingState] = useState(false)
-    const [rdy, setRdy] = useState(false)
 
     window.onresize = () => centerizeWrapper()
     window.onload = () => centerizeWrapper()
@@ -121,9 +121,13 @@ function App() {
         return answers
     }
 
-    function joinGame(roomCode) {
+    function joinGame(roomcodeGiven = undefined) {
         setJoiningState(true)
-        socket.emit("join game", { gamertag, roomCode })
+        if(roomcodeGiven === undefined) {
+            socket.emit("join game", { gamertag, roomCode })
+        } else {
+            socket.emit("join game", { gamertag, roomCode: roomcodeGiven })
+        }
     }
 
     function createGame(gameProperties) {

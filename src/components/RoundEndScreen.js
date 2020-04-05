@@ -16,8 +16,8 @@ const RoundEndScreen = ({ correctAnswer, gamertag, answers, timer }) => {
         <Row>
             <Col className="text-center">
                 {correctAnswer.value === answers[gamertag].value 
-                ? <p>Your answer was <text className="green">correct</text></p>
-                : <p>Your answer <text className="bold">{answers[gamertag].name}</text> was <text className="red">incorrect</text></p>
+                ? <p>Your answer was <span className="green">correct</span></p>
+                : <p>Your answer <span className="bold">{answers[gamertag].name}</span> was <span className="red">incorrect</span></p>
                 }
             </Col>
         </Row>
