@@ -11,8 +11,7 @@ import io from 'socket.io-client'
 import './App.css'
 import './style.css'
 
-//const socket = io('https://wikivisa.herokuapp.com')
-const socket = io('localhost:3001')
+const socket = io(process.env.REACT_APP_SOCKET_URL || 'localhost:3001')
 
 function App() {
     const [pageTitle, setPageTitle] = useState("")
