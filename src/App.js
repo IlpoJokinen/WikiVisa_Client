@@ -5,7 +5,7 @@ import StartScreen from './components/StartScreen'
 import QuestionScreen from './components/QuestionScreen'
 import RoundEndScreen from './components/RoundEndScreen'
 import GameEndScreen from './components/GameEndScreen'
-import LoginScreen from './components/LoginScreen'
+import LandingPage from './components/LandingPage'
 import PageHeader from './components/UI/PageHeader' 
 import io from 'socket.io-client'
 import './App.css'
@@ -24,8 +24,8 @@ function App() {
     const [joiningState, setJoiningState] = useState(false)
     const [creatingState, setCreatingState] = useState(false)
 
-    window.onresize = () => centerizeWrapper()
-    window.onload = () => centerizeWrapper()
+    //window.onresize = () => centerizeWrapper()
+    //window.onload = () => centerizeWrapper()
 
     useEffect(() => {
         socket.on("send players", players => {
@@ -73,7 +73,7 @@ function App() {
         })
     }, [])
 
-    function centerizeWrapper() {
+    /*function centerizeWrapper() {
         let wrapper = document.getElementById("wrapper"),
             root = document.getElementById("root"),
             wrapperWidth = wrapper.offsetWidth, 
@@ -87,7 +87,7 @@ function App() {
         } else {
             root.classList.add(wrapperCenter)
         }
-    }
+    }*/
 
     function getPublicGames() {
         socket.emit('get public games')
@@ -144,7 +144,7 @@ function App() {
 
     function getPage() {
         switch(game.view) {
-            case 1: return <StartScreen 
+            case 1: return <LandingPage />/*<StartScreen 
                 players={game.players} 
                 gamertag={gamertag} 
                 timer={game.startGameCounter}
@@ -152,7 +152,7 @@ function App() {
                 startGame={startGame}
                 started={game.started}
                 isCreator={game.creator}
-            />
+            />*/
             case 2: return <QuestionScreen 
                 players={game.players} 
                 gamertag={gamertag} 
