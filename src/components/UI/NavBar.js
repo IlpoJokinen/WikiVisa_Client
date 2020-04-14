@@ -4,6 +4,7 @@ import Tab from '@material-ui/core/Tab'
 import Typography from '@material-ui/core/Typography'
 import Box from '@material-ui/core/Box'
 import PropTypes from 'prop-types'
+import PlayPage from '../PlayPage'
 import { makeStyles } from '@material-ui/core/styles'
 
 function TabPanel(props) {
@@ -29,7 +30,7 @@ TabPanel.propTypes = {
     children: PropTypes.node,
     index: PropTypes.any.isRequired,
     value: PropTypes.any.isRequired,
-  } 
+  }
   
   function a11yProps(index) {
     return {
@@ -39,7 +40,6 @@ TabPanel.propTypes = {
   }
 
 export default function VerticalNavBar() {
-    const classes = useStyles()
     const [value, setValue] = useState(0)
   
     const handleChange = (event, newValue) => {
@@ -47,44 +47,31 @@ export default function VerticalNavBar() {
     }
   
     return (
-      <div className={classes.root}>
+      <div style={navBar}>
         <Tabs
+          style={{marginTop: 80}}
           orientation="vertical"
           value={value}
           onChange={handleChange}
           aria-label="Vertical tabs example"
-          className={classes.tabs}
         >
-          <Tab label="Play" {...a11yProps(0)} />
-          <Tab label="Statistics" {...a11yProps(1)} />
-          <Tab label="Profile" {...a11yProps(2)} />
-          <Tab label="Sign In / Sign Up" {...a11yProps(3)} />
+          <Tab label="Play" {...a11yProps(0)} style={{marginTop: 20}}></Tab>
+          <Tab label="Statistics" {...a11yProps(1)} style={{marginTop: 20}}/>
+          <Tab label="Profile" {...a11yProps(2)} style={{marginTop: 20}}/>
+          <Tab label="Sign In / Sign Up" {...a11yProps(3)} style={{marginTop: 20}}/>
         </Tabs>
-        <TabPanel value={value} index={0}>
-        Play
-        </TabPanel>
-        <TabPanel value={value} index={1}>
-        Statistics
-        </TabPanel>
-        <TabPanel value={value} index={2}>
-        Profile
-        </TabPanel>
-        <TabPanel value={value} index={3}>
-        Sign In / Sign Up
+        <TabPanel value={value} index={0} style={{marginLeft: -25, marginTop: -25, marginRight: -25}}>
+          <PlayPage />
         </TabPanel>
       </div>
     )
   }
-const useStyles = makeStyles((theme) => ({
-    root: {
-      flexGrow: 1,
-      backgroundColor: theme.palette.background.paper,
-      display: 'flex',
-      width: 250,
-      height: 1000,
-      color: '#fff'
-    },
-    tabs: {
-      borderRight: `1px solid ${theme.palette.divider}`,
-    },
-  }))
+const navBar = {
+  flexGrow: 1,
+  display: 'flex',
+  height: '100vh',
+  color: '#fff',
+  
+  backgroundColor: '#6674AD'
+}
+

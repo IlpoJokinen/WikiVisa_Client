@@ -1,19 +1,8 @@
 html, body, #root {
-    height: 100%
+    height: 100%;
 }  
-
-#root {
-    margin-top: 16px
-}
-
-#root.centerizedWrapper {
-    margin-top: 0;
-    display: flex;
-    align-items: center
-}
-
 .full-height {
-    height: 100%
+    height: 100%;
 }
 
 .full-width {
