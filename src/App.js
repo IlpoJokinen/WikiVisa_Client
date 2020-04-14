@@ -135,7 +135,8 @@ function App() {
     }
 
     function setAnswerAndPlayerReady() {
-        socket.emit("set ready", { game_id: game.id, gamertag, answer, question_id: game.question.id }) 
+        let timestamp = Date.now()
+        socket.emit("set ready", { game_id: game.id, gamertag, answer, question_id: game.question.id, time: timestamp }) 
     }
 
     function startGame() {
