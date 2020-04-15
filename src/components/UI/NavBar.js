@@ -5,7 +5,7 @@ import Typography from '@material-ui/core/Typography'
 import Box from '@material-ui/core/Box'
 import PropTypes from 'prop-types'
 import PlayPage from '../PlayPage'
-import { makeStyles } from '@material-ui/core/styles'
+import SignIn from '../SignIn'
 
 function TabPanel(props) {
     const { children, value, index, ...other } = props
@@ -63,6 +63,9 @@ export default function VerticalNavBar() {
         <TabPanel value={value} index={0} style={{marginLeft: -25, marginTop: -25, marginRight: -25}}>
           <PlayPage />
         </TabPanel>
+        <TabPanel value={value} index={3} style={{marginLeft: -25, marginTop: -25, marginRight: -25}}>
+          <SignIn />
+        </TabPanel>
       </div>
     )
   }
@@ -71,7 +74,6 @@ const navBar = {
   display: 'flex',
   height: '100vh',
   color: '#fff',
-  
   backgroundColor: '#6674AD'
 }
 

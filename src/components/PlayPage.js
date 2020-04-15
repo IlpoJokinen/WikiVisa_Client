@@ -1,8 +1,8 @@
 import React from 'react'
 import Grid from '@material-ui/core/Grid'
 import Button from '@material-ui/core/Button'
-import { createMuiTheme, withStyles } from '@material-ui/core/styles'
-import { green, blue } from '@material-ui/core/colors'
+import { withStyles } from '@material-ui/core/styles'
+import { blue } from '@material-ui/core/colors'
 
 const alignItemsBlue = {
     fontFamily: 'IBM Plex Sans',
