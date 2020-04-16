@@ -6,6 +6,7 @@ import Box from '@material-ui/core/Box'
 import PropTypes from 'prop-types'
 import PlayPage from '../PlayPage'
 import SignIn from '../SignIn'
+import CreateGame from '../views/LandingPage/CreateGame'
 
 function TabPanel(props) {
     const { children, value, index, ...other } = props
@@ -39,13 +40,13 @@ TabPanel.propTypes = {
     }
   }
 
-export default function VerticalNavBar() {
+export default function VerticalNavBar({createGame}) {
     const [value, setValue] = useState(0)
-  
+    const [checked, setChecked] = useState(false)
+
     const handleChange = (event, newValue) => {
       setValue(newValue);
     }
-  
     return (
       <div style={navBar}>
         <Tabs
@@ -61,10 +62,10 @@ export default function VerticalNavBar() {
           <Tab label="Sign In / Sign Up" {...a11yProps(3)} style={{marginTop: 20}}/>
         </Tabs>
         <TabPanel value={value} index={0} style={{marginLeft: -25, marginTop: -25, marginRight: -25}}>
-          <PlayPage />
+          <PlayPage createGame={createGame}/>
         </TabPanel>
         <TabPanel value={value} index={3} style={{marginLeft: -25, marginTop: -25, marginRight: -25}}>
-          <SignIn />
+          <SignIn checked={checked} setChecked={setChecked}/>
         </TabPanel>
       </div>
     )
@@ -74,6 +75,7 @@ const navBar = {
   display: 'flex',
   height: '100vh',
   color: '#fff',
-  backgroundColor: '#6674AD'
+  backgroundColor: '#6674AD',
+  marginBottom: -100
 }
 

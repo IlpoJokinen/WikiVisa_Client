@@ -25,12 +25,11 @@ const option = {
     marginTop: 55
 }
 
-const SwitchComponent = ({setChecked, checked}) => {
-    const handleChange = (event) => {
-      setChecked(!checked);
+const SwitchComponent = ({setChecked, checked, switchString}) => {
+    function handleChange() {
+      setChecked(!checked)
     }
-  
-    return (
+      return (
         <Grid container style={option}>
             <Grid item>
                 <PurpleSwitch checked={checked} onChange={handleChange} name="checked" />
@@ -39,6 +38,6 @@ const SwitchComponent = ({setChecked, checked}) => {
                 {checked ? <h6><b>Sign Up</b></h6> : <h6><b>Sign In</b></h6>}
             </Grid>
         </Grid>
-    )
+      )
 }
 export default SwitchComponent

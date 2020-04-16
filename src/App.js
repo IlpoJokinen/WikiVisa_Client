@@ -144,7 +144,7 @@ function App() {
 
     function getPage() {
         switch(game.view) {
-            case 1: return <LandingPage />/*<StartScreen 
+            case 1: return <StartScreen 
                 players={game.players} 
                 gamertag={gamertag} 
                 timer={game.startGameCounter}
@@ -152,7 +152,7 @@ function App() {
                 startGame={startGame}
                 started={game.started}
                 isCreator={game.creator}
-            />*/
+            />
             case 2: return <QuestionScreen 
                 players={game.players} 
                 gamertag={gamertag} 
@@ -171,7 +171,7 @@ function App() {
                 players={game.players} 
                 gamertag={gamertag} 
             />
-            default: return <WelcomeScreen
+            default: return <LandingPage
                 setRoomCode={setRoomCode}
                 setGamertag={setGamertag}
                 gamertag={gamertag}
@@ -182,7 +182,18 @@ function App() {
                 creatingState={creatingState}
                 getPublicGames={getPublicGames}
                 publicGames={publicGames}
-            />
+            />/*<WelcomeScreen
+                setRoomCode={setRoomCode}
+                setGamertag={setGamertag}
+                gamertag={gamertag}
+                roomCode={roomCode}
+                joiningState={joiningState}
+                joinGame={joinGame}
+                createGame={createGame}
+                creatingState={creatingState}
+                getPublicGames={getPublicGames}
+                publicGames={publicGames}
+            />*/
         }
     }
 

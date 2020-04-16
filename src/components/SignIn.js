@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import Grid from '@material-ui/core/Grid'
 import SignInForm from './UI/SignInForm'
 import SignUpForm from './UI/SignUpForm'
@@ -13,8 +13,8 @@ const signInComponent= {
     width: 900
 }
 
-const SignIn = () => {
-    const [checked, setChecked] = useState(false)
+const SignIn = ({checked, setChecked}) => {
+ 
     return (
         <div style={{position: 'absolute', top: 0, bottom: 0}}>
             <Grid container>
