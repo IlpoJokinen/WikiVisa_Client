@@ -48,7 +48,7 @@ export default function VerticalNavBar({createGame}) {
       setValue(newValue);
     }
     return (
-      <div style={navBar}>
+      <div id='leftBlock' style={navBar}>
         <Tabs
           style={{marginTop: 80}}
           orientation="vertical"
