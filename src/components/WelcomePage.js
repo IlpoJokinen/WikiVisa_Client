@@ -63,9 +63,9 @@ const WelcomePage = ({setScreen}) => {
                 <Grid item style ={{width: '40%', height: '100vh'}}>
                     <div style={alignItemsWhite}>
                         <h2>How would you like to play?</h2>
-                        <div><BlueButton style={buttons} variant="contained" color="primary">Quick Game</BlueButton></div>
-                        <div><BlueButton style={buttons} variant="contained" color="primary" onClick={() => setScreen('createGame')}>Create Game</BlueButton></div>
-                        <div><BlueButton style={buttons} variant="contained" color="primary">Find Game</BlueButton></div>
+                        <div><BlueButton id="QuickGameButton" style={buttons} variant="contained" color="primary">Quick Game</BlueButton></div>
+                        <div><BlueButton id='CreateGameButton' style={buttons} variant="contained" color="primary" onClick={() => setScreen('createGame')}>Create Game</BlueButton></div>
+                        <div><BlueButton id='FindGameButton' style={buttons} variant="contained" color="primary">Find Game</BlueButton></div>
                     </div>
                 </Grid>
             </Grid>
