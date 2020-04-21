@@ -1,20 +1,16 @@
-import React, { useState, useEffect} from 'react'
-import { Container, Row, Col, InputGroup } from 'react-bootstrap'
-import WelcomeScreen from './components/WelcomeScreen' 
+import React, { useState, useEffect } from 'react'
+import { Container, Toolbar, Drawer, AppBar, makeStyles } from '@material-ui/core/'
+import { Menu } from '@material-ui/icons/'
 import StartScreen from './components/StartScreen'
 import QuestionScreen from './components/QuestionScreen'
 import RoundEndScreen from './components/RoundEndScreen'
 import GameEndScreen from './components/GameEndScreen'
 import LandingPage from './components/LandingPage'
-import PageHeader from './components/UI/PageHeader' 
 import io from 'socket.io-client'
-import './App.css'
-import './style.css'
 
 const socket = io(process.env.REACT_APP_SOCKET_URL || 'localhost:3001')
 
 function App() {
-    const [pageTitle, setPageTitle] = useState("")
     const [game, setGame] = useState({})
     const [publicGames, setPublicGames] = useState([])
     const [gamertag, setGamertag] = useState("")
@@ -23,9 +19,6 @@ function App() {
     const [correctAnswer, setCorrectAnswer] = useState({})
     const [joiningState, setJoiningState] = useState(false)
     const [creatingState, setCreatingState] = useState(false)
-
-    //window.onresize = () => centerizeWrapper()
-    //window.onload = () => centerizeWrapper()
 
     useEffect(() => {
         socket.on("send players", players => {
@@ -66,41 +59,12 @@ function App() {
             setGame(prevState => ({...prevState, started: true}))
         })
         socket.on("send public games", games => {
-           /* games.forEach(game => {
-                game.join = () => joinGame(game.roomCode)
-            })*/
             setPublicGames(games)
         })
     }, [])
 
-    /*function centerizeWrapper() {
-        let wrapper = document.getElementById("wrapper"),
-            root = document.getElementById("root"),
-            wrapperWidth = wrapper.offsetWidth, 
-            wrapperHeight = wrapper.offsetHeight,
-            viewportWidth = Math.max(document.documentElement.clientWidth, window.innerWidth || 0),
-            viewportHeight = Math.max(document.documentElement.clientHeight, window.innerHeight || 0),
-            wrapperCenter = "centerizedWrapper";
-
-        if(wrapperWidth > viewportWidth || wrapperHeight > viewportHeight) {
-            root.classList.remove(wrapperCenter)
-        } else {
-            root.classList.add(wrapperCenter)
-        }
-    }*/
-
     function getPublicGames() {
         socket.emit('get public games')
-    }
-    
-    function getQuestionByQuestionId(question_id) {
-        let question = false
-        game.questions.forEach(q => {
-            if(q.question_id === question_id) {
-                question = q
-            }
-        }) 
-        return question
     }
 
     function getPlayersAnswers() {
@@ -197,9 +161,53 @@ function App() {
         }
     }
 
-    return <Container id="wrapper" fluid>
-        <PageHeader title={pageTitle} />
-        { getPage() }
+    const drawerWidth = 240;
+
+    const useStyles = makeStyles((theme) => ({
+        root: {
+            display: 'flex',
+        },
+        drawer: {
+            [theme.breakpoints.up('sm')]: {
+                width: drawerWidth,
+                flexShrink: 0,
+            },
+        },
+        appBar: {
+            [theme.breakpoints.up('sm')]: {
+                width: `calc(100% - ${drawerWidth}px)`,
+                marginLeft: drawerWidth,
+            },
+        },
+        menuButton: {
+            marginRight: theme.spacing(2),
+            [theme.breakpoints.up('sm')]: {
+                display: 'none',
+            },
+        },
+        // necessary for content to be below app bar
+        toolbar: theme.mixins.toolbar,
+        drawerPaper: {
+            width: drawerWidth,
+        },
+        content: {
+            flexGrow: 1,
+            padding: theme.spacing(3),
+        },
+    }));
+ 
+    return <Container>
+        <AppBar position="fixed">
+            <Toolbar>
+                <MenuIcon />
+                Test
+            </Toolbar>
+
+        </AppBar>
+
+        <Drawer>
+
+        </Drawer>
     </Container>
 }
 
