@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
-import { Container, Toolbar, Drawer, AppBar, makeStyles } from '@material-ui/core/'
-import { Menu } from '@material-ui/icons/'
+import { IconButton, Toolbar, Typography, AppBar, makeStyles } from '@material-ui/core/'
+import MyDrawer from './components/UI/MyDrawer' 
+import MenuIcon from '@material-ui/icons/Menu'
 import StartScreen from './components/StartScreen'
 import QuestionScreen from './components/QuestionScreen'
 import RoundEndScreen from './components/RoundEndScreen'
@@ -11,6 +12,7 @@ import io from 'socket.io-client'
 const socket = io(process.env.REACT_APP_SOCKET_URL || 'localhost:3001')
 
 function App() {
+    const [pageTitle, setPageTitle] = useState('Welcome to WikiVisa')
     const [game, setGame] = useState({})
     const [publicGames, setPublicGames] = useState([])
     const [gamertag, setGamertag] = useState("")
@@ -19,6 +21,7 @@ function App() {
     const [correctAnswer, setCorrectAnswer] = useState({})
     const [joiningState, setJoiningState] = useState(false)
     const [creatingState, setCreatingState] = useState(false)
+    const [openStatus, setOpenStatus] = useState(false)
 
     useEffect(() => {
         socket.on("send players", players => {
@@ -62,6 +65,20 @@ function App() {
             setPublicGames(games)
         })
     }, [])
+
+    const classes = useStyles()
+
+    const useStyles = makeStyles((theme) => ({
+        root: {
+            display: 'flex',
+        },
+        menuButton: {
+            marginRight: theme.spacing(2)
+        },
+        appBar: {
+            backgroundColor: '#879DFA'
+        }
+    }))
 
     function getPublicGames() {
         socket.emit('get public games')
@@ -146,69 +163,29 @@ function App() {
                 creatingState={creatingState}
                 getPublicGames={getPublicGames}
                 publicGames={publicGames}
-            />/*<WelcomeScreen
-                setRoomCode={setRoomCode}
-                setGamertag={setGamertag}
-                gamertag={gamertag}
-                roomCode={roomCode}
-                joiningState={joiningState}
-                joinGame={joinGame}
-                createGame={createGame}
-                creatingState={creatingState}
-                getPublicGames={getPublicGames}
-                publicGames={publicGames}
-            />*/
+            />
         }
     }
 
-    const drawerWidth = 240;
-
-    const useStyles = makeStyles((theme) => ({
-        root: {
-            display: 'flex',
-        },
-        drawer: {
-            [theme.breakpoints.up('sm')]: {
-                width: drawerWidth,
-                flexShrink: 0,
-            },
-        },
-        appBar: {
-            [theme.breakpoints.up('sm')]: {
-                width: `calc(100% - ${drawerWidth}px)`,
-                marginLeft: drawerWidth,
-            },
-        },
-        menuButton: {
-            marginRight: theme.spacing(2),
-            [theme.breakpoints.up('sm')]: {
-                display: 'none',
-            },
-        },
-        // necessary for content to be below app bar
-        toolbar: theme.mixins.toolbar,
-        drawerPaper: {
-            width: drawerWidth,
-        },
-        content: {
-            flexGrow: 1,
-            padding: theme.spacing(3),
-        },
-    }));
- 
-    return <Container>
-        <AppBar position="fixed">
+    return <div className={classes.root}>
+        <AppBar position="fixed" className={classes.appBar}>
             <Toolbar>
+                <IconButton
+                    color="inherit"
+                    aria-label="open drawer"
+                    edge="start"
+                    onClick={() => setOpenStatus(!openStatus)} 
+                    className={classes.menuButton}
+                >
                 <MenuIcon />
-                Test
+                </IconButton>
+                <Typography variant="h6" noWrap>
+                    { pageTitle }
+                </Typography>
             </Toolbar>
-
         </AppBar>
-
-        <Drawer>
-
-        </Drawer>
-    </Container>
+        <MyDrawer setOpenStatus={setOpenStatus} openStatus={openStatus} />
+    </div>
 }
 
 export default App
