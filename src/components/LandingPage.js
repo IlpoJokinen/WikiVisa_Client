@@ -1,15 +1,20 @@
-import React from 'react'
-import VerticalNavBar from './UI/NavBar'
-import Grid from '@material-ui/core/Grid'
+import React, { useState } from 'react'
+import { Box } from '@material-ui/core/'
+import PlayPage from './PlayPage'
+import SignIn from './SignIn'
 
 const LandingPage = ({createGame}) => {
-    return (
-        <div style={{marginRight: -20, marginLeft: -20, position: 'relative'}}>
-            <Grid container>
-                <Grid item><VerticalNavBar createGame={createGame}/></Grid>
-            </Grid>
-        </div>
-    )
+    const [page, setPage] = useState('play')
+    const getPage = () => {
+        switch(page){
+            case 'play': return <PlayPage createGame={createGame}/>
+            case 'statistic': return <Box></Box>
+            case 'profile': return <Box></Box>
+            case 'login': return <SignIn />
+            default: return <PlayPage createGame={createGame}/>
+        }
+    } 
+    return getPage()
 }
 
 export default LandingPage

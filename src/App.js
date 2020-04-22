@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { IconButton, Toolbar, Typography, AppBar, makeStyles } from '@material-ui/core/'
+import {Grid, Container, IconButton, Toolbar, Typography, AppBar, makeStyles } from '@material-ui/core/'
 import MyDrawer from './components/UI/MyDrawer' 
 import MenuIcon from '@material-ui/icons/Menu'
 import StartScreen from './components/StartScreen'
@@ -8,6 +8,7 @@ import RoundEndScreen from './components/RoundEndScreen'
 import GameEndScreen from './components/GameEndScreen'
 import LandingPage from './components/LandingPage'
 import io from 'socket.io-client'
+import '../src/style.css'
 
 const socket = io(process.env.REACT_APP_SOCKET_URL || 'localhost:3001')
 
@@ -66,11 +67,10 @@ function App() {
         })
     }, [])
 
-    const classes = useStyles()
-
     const useStyles = makeStyles((theme) => ({
         root: {
             display: 'flex',
+            height: '100%'
         },
         menuButton: {
             marginRight: theme.spacing(2)
@@ -79,6 +79,8 @@ function App() {
             backgroundColor: '#879DFA'
         }
     }))
+
+    const classes = useStyles()
 
     function getPublicGames() {
         socket.emit('get public games')
@@ -185,6 +187,9 @@ function App() {
             </Toolbar>
         </AppBar>
         <MyDrawer setOpenStatus={setOpenStatus} openStatus={openStatus} />
+        <Grid style={{marginTop: 64}} container>
+            { getPage() }
+        </Grid>
     </div>
 }
 

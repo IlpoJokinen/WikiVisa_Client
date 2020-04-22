@@ -1,198 +1,64 @@
+
+* {
+    font-family: 'IBM Plex Sans', sans-serif 
+}
+
 html, body, #root {
-    height: 100%;
-}  
-.full-height {
-    height: 100%;
+    height: 100%
 }
 
-.full-width {
-    width: 100%
+.radioButton {
+    text-align: 'center';
+    margin-bottom: '20px'
 }
 
-header {
-    position: fixed;
-    top: 0;
-    left: 0;
-    background-color: #eee;
-    width: 100%;
-}
-
-.center-content-vertically {
-    display: flex;
-    align-items: center
-}
-
-.pull-right {
-    float: right
-}
-
-.pull-left {
-    float: left
-}
-
-.buttons {
-    margin: auto;
-    display: flex;
-    flex-direction: row;
-    justify-content: center
-}
-
-.text-center {
-    text-align: center
-}
-
-.text-right {
-    text-align: right
-}
-
-.gamerTag {
-    border: 1px solid #eee;
-    padding: 5px 8px;
-    margin-right: 5px;
-    margin-bottom: 5px;
-    border-radius: 4px
-}
-
-.gamerTag:last-of-type {
-    margin-right: 0
-}
-
-.rowDisabled .radioButton label{
-    pointer-events: none;
-    color: #969696;
-    border: 5px solid #969696;
-}
-.rowDisabled .radioButton input[type="radio"]:checked + label {
-    background-color:#2ECC40;
-    border: 5px solid #3D9970;
-    color: #fcfcfc;
-    font-weight: bold;
-}
-.radioButton input[type="radio"] {
-    display: none;
-}
-
-.radioButton label {
+.radioButton label, .gameButton {
     font-size: 16px;
+    font-family: IBM Plex Sans;
+    font-weight: 400;
+    color: #879DFA;
     cursor: pointer;
+    max-width: 400px;
     width: 100%;
     height: 100%;
     text-align: center;
-    margin: 0;
     padding: 25px 20px;
-    border: 5px solid #B10DC9;
+    border: 2px solid #A3B4FF;
+    border-radius: 10px;
     letter-spacing: 1px;
     user-select: none;
-    transition: background-color 300ms, color 100ms;
+    transition: background-color 300ms, color 100ms
 }
 
+.welcomePageGameButtonList .gameButton {
+    margin-bottom: 24px
+}
+
+.welcomePageGameButtonList .gameButton:last-child {
+    margin-bottom: 0
+}
+
+.gameButton {
+    color: white;
+    border: none;
+    background-color: #879DFA
+}
+    
 .radioButton input[type="radio"]:checked + label {
-    background-color: #B10DC9;
+    background-color: #A3B4FF;
     color: #fcfcfc;
-    font-weight: bold;
+    font-family: IBM Plex Sans;
+    font-weight: 600
 }
 
-.container .row {
-    margin-bottom: 16px
+.radioButton input[type="radio"] {
+    display: none
 }
 
-.timer {
-    font-family: "Montserrat";
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+.statusBox {
+    background-color: 'white';
+    padding: 15px;
+    color: '#879DFA';
+    border-radius: 10px;
+    box-shadow: '1px 2px rgba(0,0,0,0.5)'
 }
-  
-.timer .text {
-    color: #aaa;
-}
-
-.timer .value {
-    font-size: 40px;
-}
-
-.timer .info {
-    max-width: 360px;
-    margin: 40px auto 0;
-    text-align: center;
-    font-size: 16px;
-}
-
-.correct { 
-    background-color: #2ECC40 !important; 
-    color: #0E3E14 !important
-}
-.wrong { 
-    background-color: #FF4136 !important; 
-    color: #800600 !important
-}
-
-.green {
-    color: green;
-    font-weight: bold;
-}
-
-.red {
-    color: red;
-    font-weight: bold;
-}
-
-.bold {
-    font-weight: bold;
-}
-
-.btn > svg {
-    position: relative;
-    top: -2px
-}
-
-.findGameModal .modal-body {
-    padding: 0
-}
-
-.findGameModal .modal-body .list-group {
-    overflow-y: scroll;
-    max-height: 250px
-}
-
-.findGameModal .modal-body .list-group .list-group-item div:not(.row) {
-    justify-self: center;
-    display: inline-block;
-    align-self: center
-}
-
-.findGameModal .modal-body .list-group .list-group-item:nth-child(odd) {
-    background-color: #f7f7f7
-}
-
-.findGameModal .modal-body .list-group .list-group-item:first-of-type {
-    border-top: 0
-}
-
-.findGameModal .modal-body .list-group .list-group-item:last-of-type {
-    border-bottom: 0
-}
-
-.findGameModal .modal-body .list-group .list-group-item .row .col {
-    text-overflow: ellipsis;
-    white-space: nowrap;
-    overflow: hidden
-}
-
-.findGameModal .findGameModalRefreshBtn {
-    text-decoration: none
-}
-
-.spin {
-    -webkit-animation: spin 1.5s linear infinite;
-    -moz-animation: spin 1.5s linear infinite;
-    animation: spin 1.5s linear infinite
-}
-
-@-moz-keyframes spin { 100% { -moz-transform: rotate(360deg) } }
-@-webkit-keyframes spin { 100% { -webkit-transform: rotate(360deg) } }
-@keyframes spin { 100% { -webkit-transform: rotate(360deg); transform: rotate(360deg) } }
-
-@-moz-keyframes spinhalf { 100% { -moz-transform: rotate(180deg) } }
-@-webkit-keyframes spinhalf { 100% { -webkit-transform: rotate(180deg) } }
-@keyframes spinhalf { 100% { -webkit-transform: rotate(180deg); transform: rotate(180deg) } }

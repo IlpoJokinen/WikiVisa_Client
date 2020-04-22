@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import WelcomePage from './WelcomePage'
+import WelcomePage from './views/LandingPage/WelcomePage'
 import CreateGame from './views/LandingPage/CreateGame'
 import Grid from '@material-ui/core/Grid'
 
@@ -11,12 +11,7 @@ const PlayPage = ({createGame}) => {
             default: return <WelcomePage setScreen={setScreen}/>
         }
     }
-    return <Grid container>
-            <Grid item>
-                { getScreen() }
-            </Grid>
-        </Grid>
-
+    return getScreen()
 }
 
 export default PlayPage

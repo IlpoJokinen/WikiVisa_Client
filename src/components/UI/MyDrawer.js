@@ -6,10 +6,7 @@ const MyDrawer = ({setOpenStatus, openStatus}) => {
     const drawerWidth = 240
     const useStyles = makeStyles((theme) => ({
         drawer: {
-            [theme.breakpoints.up('sm')]: {
-                width: drawerWidth,
-                flexShrink: 0,
-            },
+            
         },
         drawerPaper: {
             backgroundColor: '#6674AD',
