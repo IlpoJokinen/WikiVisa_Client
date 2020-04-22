@@ -5,9 +5,6 @@ import ChevronLeftIcon from '@material-ui/icons/ChevronLeft'
 const MyDrawer = ({setOpenStatus, openStatus}) => {
     const drawerWidth = 240
     const useStyles = makeStyles((theme) => ({
-        drawer: {
-            
-        },
         drawerPaper: {
             backgroundColor: '#6674AD',
             width: drawerWidth,
@@ -24,13 +21,12 @@ const MyDrawer = ({setOpenStatus, openStatus}) => {
             color: 'white'
         }
     }))
-
     const classes = useStyles()
 
     return <Drawer
         open={openStatus}
         className={classes.drawer}
-        variant="persistent"
+        variant={'persistent'}
         anchor={'left'}
         classes={{
             paper: classes.drawerPaper,

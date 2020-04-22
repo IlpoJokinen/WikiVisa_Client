@@ -13,7 +13,7 @@ const LandingPage = ({createGame}) => {
             case 'login': return <SignIn />
             default: return <PlayPage createGame={createGame}/>
         }
-    } 
+    }
     return getPage()
 }
 

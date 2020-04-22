@@ -3,8 +3,12 @@
     font-family: 'IBM Plex Sans', sans-serif 
 }
 
-html, body, #root {
+html, body, #root, #page {
     height: 100%
+}
+
+#page {
+    width: 100%
 }
 
 .radioButton {
@@ -30,7 +34,12 @@ html, body, #root {
     transition: background-color 300ms, color 100ms
 }
 
+.welcomePageGameButtonList {
+    text-align: center
+}
+
 .welcomePageGameButtonList .gameButton {
+    max-width: initial;
     margin-bottom: 24px
 }
 
@@ -56,9 +65,9 @@ html, body, #root {
 }
 
 .statusBox {
-    background-color: 'white';
+    background-color: #fcfcfc;
     padding: 15px;
-    color: '#879DFA';
+    color: #879DFA;
     border-radius: 10px;
-    box-shadow: '1px 2px rgba(0,0,0,0.5)'
+    box-shadow: 1px 2px rgba(0,0,0,0.5)
 }

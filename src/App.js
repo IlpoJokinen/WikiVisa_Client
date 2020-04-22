@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react'
-import {Grid, Container, IconButton, Toolbar, Typography, AppBar, makeStyles } from '@material-ui/core/'
+import { IconButton, Toolbar, Typography, AppBar, makeStyles } from '@material-ui/core/'
+import PropTypes from 'prop-types'
 import MyDrawer from './components/UI/MyDrawer' 
 import MenuIcon from '@material-ui/icons/Menu'
 import StartScreen from './components/StartScreen'
@@ -75,6 +76,7 @@ function App() {
         menuButton: {
             marginRight: theme.spacing(2)
         },
+        toolbar: theme.mixins.toolbar,
         appBar: {
             backgroundColor: '#879DFA'
         }
@@ -169,6 +171,17 @@ function App() {
         }
     }
 
+    const Page = props => {
+        return <div id="page">
+            <div className={classes.toolbar}></div>
+            { props.children }
+        </div>
+    }
+
+    Page.propTypes = {
+        children: PropTypes.node
+    }
+
     return <div className={classes.root}>
         <AppBar position="fixed" className={classes.appBar}>
             <Toolbar>
@@ -187,9 +200,9 @@ function App() {
             </Toolbar>
         </AppBar>
         <MyDrawer setOpenStatus={setOpenStatus} openStatus={openStatus} />
-        <Grid style={{marginTop: 64}} container>
+        <Page>
             { getPage() }
-        </Grid>
+        </Page>
     </div>
 }
 
