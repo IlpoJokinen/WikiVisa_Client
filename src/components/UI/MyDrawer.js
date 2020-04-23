@@ -27,6 +27,11 @@ const MyDrawer = ({view, setOpenStatus, setView, openStatus}) => {
     }))
     const classes = useStyles()
 
+    const changePage = url => {
+        setOpenStatus(!openStatus)
+        setView(url)
+    }
+
     return <Drawer
         open={openStatus}
         className={classes.drawer}
@@ -49,7 +54,7 @@ const MyDrawer = ({view, setOpenStatus, setView, openStatus}) => {
                 {name: 'Profile', url: 'profile'}, 
                 {name: 'Sign In & Sign Up', url: 'login'}
             ].map((obj, index) => 
-                    <ListItem button onClick={() => setView(obj.url)} key={index} className={view == obj.url ? classes.listItemActive : classes.listItem}>
+                    <ListItem button onClick={() => changePage(obj.url)} key={index} className={view == obj.url ? classes.listItemActive : classes.listItem}>
                         <ListItemText  className={classes.listItemText} primary={obj.name} />
                     </ListItem>
                 )
