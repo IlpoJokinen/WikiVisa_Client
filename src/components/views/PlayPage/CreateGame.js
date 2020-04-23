@@ -84,7 +84,7 @@ const MenuProps = {
     },
   },
 }
-const CreateGame = ({createGame}) => {
+const CreateGame = ({setView, createGame}) => {
     const [gameProperties, setGameProperties] = useState({
         question: {
             categories: [],
@@ -128,9 +128,7 @@ const CreateGame = ({createGame}) => {
         setcategoryCheck(event.target.value);
       }
  
-    return (
-        <div>
-            <Grid container style={centeredElement}>
+    return <Grid container style={centeredElement}>
                 <Grid item xs={12} style={header}><h1>Setup your personal game</h1></Grid>
                 <Grid item  xs={12} style={roomCodeInput}>
                     <FormControl className={clsx(classes.margin, classes.textField)} style={{width: '100%'}}>
@@ -226,6 +224,8 @@ const CreateGame = ({createGame}) => {
                         label={state.checked3 ? 'Game will be public' : 'Game will be private'}
                     />
                     <Grid item style={{marginTop: 50}}><BlueButton variant="contained" color="primary" onClick={() => createGame(gameProperties)}>Create Game</BlueButton></Grid>
+                    <Grid item style={{marginTop: 50}}><BlueButton variant="contained" color="primary" onClick={() => setView('play')}>GO BACK</BlueButton></Grid>
+                        
                 </Grid>
                 <Grid item xs={6} style={{height: '70.5%'}}>
                      <Grid item xs={12} style={blueText}><h5 style={{textAlign: 'center', marginTop: 20, marginBottom: 20}}>Advanced settings</h5></Grid>
@@ -337,8 +337,6 @@ const CreateGame = ({createGame}) => {
                     />
                 </Grid>
             </Grid>
-        </div>
-    )
 }
 
 export default CreateGame

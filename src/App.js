@@ -7,7 +7,7 @@ import StartScreen from './components/StartScreen'
 import QuestionScreen from './components/QuestionScreen'
 import RoundEndScreen from './components/RoundEndScreen'
 import GameEndScreen from './components/GameEndScreen'
-import LandingPage from './components/LandingPage'
+import LandingPage from './components/MainMenu'
 import io from 'socket.io-client'
 import '../src/style.css'
 
@@ -24,6 +24,7 @@ function App() {
     const [joiningState, setJoiningState] = useState(false)
     const [creatingState, setCreatingState] = useState(false)
     const [openStatus, setOpenStatus] = useState(false)
+    const [view, setView] = useState('play')
 
     useEffect(() => {
         socket.on("send players", players => {
@@ -157,6 +158,8 @@ function App() {
                 gamertag={gamertag} 
             />
             default: return <LandingPage
+                view={view}
+                setView={setView}
                 setRoomCode={setRoomCode}
                 setGamertag={setGamertag}
                 gamertag={gamertag}
@@ -199,7 +202,7 @@ function App() {
                 </Typography>
             </Toolbar>
         </AppBar>
-        <MyDrawer setOpenStatus={setOpenStatus} openStatus={openStatus} />
+        <MyDrawer view={view} setOpenStatus={setOpenStatus} setView={setView} openStatus={openStatus} />
         <Page>
             { getPage() }
         </Page>

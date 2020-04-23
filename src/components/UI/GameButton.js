@@ -1,7 +1,7 @@
 import React from 'react'
  
-const GameButton = ({ id, title }) => {
-    return <button id={id} className="gameButton">{ title }</button>
+const GameButton = ({ id, title, onClickFunc }) => {
+    return <button id={id} onClick={onClickFunc} className="gameButton">{ title }</button>
 }
  
 export default GameButton

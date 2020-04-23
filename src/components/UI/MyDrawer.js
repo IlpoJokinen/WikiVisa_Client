@@ -2,7 +2,7 @@ import React from 'react'
 import { Drawer, Divider, List, ListItem, ListItemText, IconButton, makeStyles } from '@material-ui/core/'
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft'
 
-const MyDrawer = ({setOpenStatus, openStatus}) => {
+const MyDrawer = ({view, setOpenStatus, setView, openStatus}) => {
     const drawerWidth = 240
     const useStyles = makeStyles((theme) => ({
         drawerPaper: {
@@ -10,12 +10,16 @@ const MyDrawer = ({setOpenStatus, openStatus}) => {
             width: drawerWidth,
         },
         listItemText: {
-            fontFamily: 'IBM Plex Sans, Verdana !important',
+            fontFamily: 'IBM Plex Sans',
             color: 'white',
             textAlign : 'center'
         },
         listItem: {
             marginBottom: 10
+        },
+        listItemActive: {
+            marginBottom: 10,
+            backgroundColor: 'rgba(255,255,255,0.3)'
         },
         backIcon: {
             color: 'white'
@@ -40,9 +44,13 @@ const MyDrawer = ({setOpenStatus, openStatus}) => {
         <Divider />
         <List>
             {
-                ['Play Game', 'Statistics', 'Profile', 'Sign In & Sign Up'].map((text, index) => 
-                    <ListItem button key={text} className={classes.listItem}>
-                        <ListItemText  className={classes.listItemText}  primary={text} />
+                [{name: 'Play Game', url: 'play'}, 
+                {name: 'Statistics', url: 'statistics'}, 
+                {name: 'Profile', url: 'profile'}, 
+                {name: 'Sign In & Sign Up', url: 'login'}
+            ].map((obj, index) => 
+                    <ListItem button onClick={() => setView(obj.url)} key={index} className={view == obj.url ? classes.listItemActive : classes.listItem}>
+                        <ListItemText  className={classes.listItemText} primary={obj.name} />
                     </ListItem>
                 )
             }

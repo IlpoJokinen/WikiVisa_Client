@@ -1,7 +1,6 @@
 import React from 'react'
 import { Grid, withStyles } from '@material-ui/core/'
 import GameButton from '../../UI/GameButton'
-import StatusBox from '../../UI/StatusBox'
 
 const CustomGridItem = withStyles((theme) => ({
     root: {
@@ -15,7 +14,7 @@ const CustomGridItem = withStyles((theme) => ({
     },
 }))(Grid)
 
-const WelcomePage = ({setScreen}) => {
+const WelcomePage = ({setView}) => {
     return <Grid container style={{height: '100%'}}>
         <CustomGridItem style={{backgroundColor: '#879DFA', color: '#ffffff'}} item xs={12} md={7}>
             <Grid direction="column" container style={{marginTop: 60}}>
@@ -37,9 +36,9 @@ const WelcomePage = ({setScreen}) => {
                     <h2>How would you like to play?</h2>
                 </Grid>
                 <Grid xs={12} sm={6} item className="welcomePageGameButtonList" style={{marginTop: 30}}>
-                    <GameButton id="QuickGameButton" title="Quick Game" />
-                    <GameButton id='CreateGameButton' title="Create Game" onClick={() => setScreen('createGame')} />
-                    <GameButton id='FindGameButton' title="Find Game" />
+                    <GameButton id="QuickGameButton" title="Quick Game" onClickFunc={() => setView('play_quick')} />
+                    <GameButton id='CreateGameButton' title="Create Game" onClickFunc={() => setView('play_create')} />
+                    <GameButton id='FindGameButton' title="Find Game" onClickFunc={() => setView('play_find')} />
                 </Grid>
             </Grid>
         </CustomGridItem>
