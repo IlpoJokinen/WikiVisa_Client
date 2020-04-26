@@ -1,6 +1,7 @@
 import React from 'react'
 import { Grid, withStyles } from '@material-ui/core/'
 import GameButton from '../../UI/GameButton'
+import Header from '../../UI/Header'
 
 const CustomGridItem = withStyles((theme) => ({
     root: {
@@ -20,7 +21,7 @@ const WelcomePage = ({setView}) => {
             <Grid direction="column" container style={{marginTop: 60}}>
                 <Grid direction="column" alignItems="center" container>
                     <Grid xs={12} sm={6} item>
-                        <h1>Welcome to WikiQuiz!</h1>
+                        <Header white size={1}>Welcome to WikiQuiz!</Header>
                     </Grid>
                 </Grid>
                 <Grid direction="column" alignItems="center" container>
@@ -33,7 +34,7 @@ const WelcomePage = ({setView}) => {
         <CustomGridItem item xs={12} md={5}>
             <Grid direction="column" alignItems="center" container style={{marginTop: 60, textAlign: 'center'}}>
                 <Grid xs={12} sm={6} item>
-                    <h2>How would you like to play?</h2>
+                    <Header size={2}>How would you like to play?</Header>
                 </Grid>
                 <Grid xs={12} sm={6} item className="welcomePageGameButtonList" style={{marginTop: 30}}>
                     <GameButton id="QuickGameButton" title="Quick Game" onClickFunc={() => setView('play_quick')} />
