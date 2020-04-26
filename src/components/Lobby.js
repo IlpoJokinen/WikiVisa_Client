@@ -1,10 +1,11 @@
 import React from 'react'
-import { Grid, withStyles } from '@material-ui/core/'
+import { Grid } from '@material-ui/core/'
 import Player2 from "./UI/Player2"
 import BlueDivider from "./UI/BlueDivider"
 import GameButton from "./UI/GameButton"
+import Chat from "./UI/chat/Chat"
 
-const Lobby = ({ gamertag, players, timer, roomCode, startGame, started, isCreator, setPlayerReadyLobby }) => {
+const Lobby = ({ gamertag, players, timer, roomCode, startGame, started, isCreator, setPlayerReadyLobby, messages }) => {
 
    let allPlayers = ""
     document.title = started ? 'Game Is Starting!' : 'Game Lobby'
@@ -31,7 +32,7 @@ const Lobby = ({ gamertag, players, timer, roomCode, startGame, started, isCreat
                         <h5 style={{color:"#879DFA"}}>Players</h5>
                     </Grid>
                     {allPlayers}
-                    <Grid container >
+                    <Grid container style={{marginBottom:20}}>
                         <Grid item>
                             <GameButton id="lobbyReadyButton" title="I'm Ready To Play" onClickFunc={setPlayerReadyLobby}></GameButton>
                         </Grid>
@@ -45,7 +46,7 @@ const Lobby = ({ gamertag, players, timer, roomCode, startGame, started, isCreat
                     </Grid>
                     
                 </Grid>
-                <Grid item>
+                <Grid item sm={6} xs={12}>
                     <Grid container direction="column">
                         {started
                         ?<Grid item>
@@ -53,7 +54,7 @@ const Lobby = ({ gamertag, players, timer, roomCode, startGame, started, isCreat
                         </Grid>
                         : null
                         }   
-                        <Grid item sm={6}>chatti</Grid>
+                        <Chat messages={messages} ></Chat>
                     </Grid>
                 </Grid>
                 
