@@ -3,7 +3,7 @@ import { Grid, Box } from '@material-ui/core/'
 import { Done } from '@material-ui/icons/'
 import "../../style.css"
 
-const Player2 = ({ gamertag, thisPlayersTag, lobbyReady }) => {
+const Player = ({ gamertag, thisPlayersTag, lobbyReady }) => {
     return (
                 <Grid container direction="row" alingItems="center">
                     <Grid item xs={10}  style={{maxWidth:"80%"}}>
@@ -11,7 +11,7 @@ const Player2 = ({ gamertag, thisPlayersTag, lobbyReady }) => {
                     </Grid>
                     {lobbyReady 
                     ? <Grid container xs={2} alignItems="center" justify="center">
-                        <Done className='doneIconLobby'></Done>
+                        <Done className='doneIconLobby' style={{fontSize:40}}></Done>
                     </Grid>
                     :<Grid item xs={2} sm={2}></Grid>}
                     
@@ -19,4 +19,4 @@ const Player2 = ({ gamertag, thisPlayersTag, lobbyReady }) => {
     )
 }
 
-export default Player2
+export default Player
