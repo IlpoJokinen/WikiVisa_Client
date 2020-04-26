@@ -82,4 +82,20 @@ h1, h2, h3, h4, h5, h6 {
     width: 100%;
     height: min-content;
     font-size: 30px
+.gamertagLobby {
+    padding: 10px 150px 10px 10px;
+    margin: 5px 15px 5px 0px;
+    border: 1px solid #879DFA;
+    border-radius: 6px;
+}
+
+.gamertagTextLobby {
+    font-size: 11px;
+    color: #879DFA;
+    margin-bottom:0px;
+}
+
+.doneIconLobby {
+    font-size: 40px;
+    color: #879DFA
 }
