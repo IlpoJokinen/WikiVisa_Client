@@ -3,32 +3,8 @@ import { Container, TextField, Grid, Slider, List, ListItem, ListItemText, ListI
 import PlayCircleOutlineRoundedIcon from '@material-ui/icons/PlayCircleOutlineRounded'
 import GameButton from '../../UI/GameButton'
 import BlueDivider from '../../UI/BlueDivider'
-import BlueCheckbox from '../../UI/BlueCheckbox'
 import Header from '../../UI/Header'
-
-const CategoryListing = ({ selectedCategories, setSelectedCategories, categories }) => {
-
-    const addToSelectedCategories = categoryId => {
-        let exists = selectedCategories.find((id) => id === categoryId)
-        if(exists) {
-            setSelectedCategories(selectedCategories.filter((id) => { 
-                return id !== categoryId 
-            }))
-        } else {
-            setSelectedCategories([...selectedCategories, categoryId])
-        }        
-    }
-
-    return <Grid container spacing={2} className="questionCategoriesCheckboxList">
-        {
-            categories.map((category, i) => {
-                return <Grid item xs={6} sm={6} md={4} key={i}>
-                    <BlueCheckbox label={`${category.prettyName} ${i}`} name={`category-${i}`} onClick={() => addToSelectedCategories(category.id)} /> 
-                </Grid>
-            })
-        }
-    </Grid>
-}
+import CategoryListing from '../../UI/CategoryListing'
 
 const GameList = ({ games }) => {
     return <List className="gameList">

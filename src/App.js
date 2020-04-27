@@ -17,7 +17,7 @@ import RoundEndView from './components/RoundEndView'
 const socket = io(process.env.REACT_APP_SOCKET_URL || 'localhost:3001')
 
 function App() {
-    const [pageTitle, setPageTitle] = useState('Welcome to WikiVisa')
+    const [pageTitle, setPageTitle] = useState('Welcome to WikiQuiz')
     const [game, setGame] = useState({})
     const [publicGames, setPublicGames] = useState([])
     const [gamertag, setGamertag] = useState("")
@@ -27,7 +27,7 @@ function App() {
     const [joiningState, setJoiningState] = useState(false)
     const [creatingState, setCreatingState] = useState(false)
     const [openStatus, setOpenStatus] = useState(false)
-    const [view, setView] = useState('play_find')
+    const [view, setView] = useState('play_create')
 
     useEffect(() => {
         socket.on("send players", players => {
@@ -205,7 +205,7 @@ function App() {
                 >
                 <MenuIcon />
                 </IconButton>
-                <Typography variant="h6" noWrap>
+                <Typography variant="p" noWrap>
                     { pageTitle }
                 </Typography>
             </Toolbar>
