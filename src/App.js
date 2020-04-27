@@ -24,7 +24,7 @@ function App() {
     const [joiningState, setJoiningState] = useState(false)
     const [creatingState, setCreatingState] = useState(false)
     const [openStatus, setOpenStatus] = useState(false)
-    const [view, setView] = useState('play')
+    const [view, setView] = useState('play_find')
 
     useEffect(() => {
         socket.on("send players", players => {
