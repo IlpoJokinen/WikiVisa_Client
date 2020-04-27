@@ -4,6 +4,8 @@ import Button from '@material-ui/core/Button'
 import { withStyles } from '@material-ui/core/styles'
 import { blue } from '@material-ui/core/colors'
 
+document.title = 'Welcome!'
+
 const alignItemsBlue = {
     fontFamily: 'IBM Plex Sans',
     color: 'white',
