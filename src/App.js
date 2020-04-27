@@ -11,9 +11,6 @@ import Lobby from './components/Lobby'
 import io from 'socket.io-client'
 import '../src/style.css'
 
-import QuestionView from './components/QuestionView'
-import RoundEndView from './components/RoundEndView'
-
 const socket = io(process.env.REACT_APP_SOCKET_URL || 'localhost:3001')
 
 function App() {
@@ -27,7 +24,7 @@ function App() {
     const [joiningState, setJoiningState] = useState(false)
     const [creatingState, setCreatingState] = useState(false)
     const [openStatus, setOpenStatus] = useState(false)
-    const [view, setView] = useState('play_find')
+    const [view, setView] = useState('play')
 
     useEffect(() => {
         socket.on("send players", players => {
