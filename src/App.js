@@ -8,6 +8,7 @@ import QuestionScreen from './components/QuestionScreen'
 import RoundEndScreen from './components/RoundEndScreen'
 import GameEndScreen from './components/GameEndScreen'
 import LandingPage from './components/MainMenu'
+import Lobby from './components/Lobby'
 import io from 'socket.io-client'
 import '../src/style.css'
 
@@ -124,13 +125,17 @@ function App() {
         socket.emit("set ready", { game_id: game.id, gamertag, answer, question_id: game.question.id }) 
     }
 
+    function setPlayerReadyLobby() {
+        socket.emit("set lobby ready", { game_id: game.id, gamertag: gamertag })
+    }
+
     function startGame() {
         socket.emit("start game", { game_id: game.id })
     }
 
     function getPage() {
         switch(game.view) {
-            case 1: return <StartScreen 
+            case 1: return <Lobby
                 players={game.players} 
                 gamertag={gamertag} 
                 timer={game.startGameCounter}
@@ -138,6 +143,7 @@ function App() {
                 startGame={startGame}
                 started={game.started}
                 isCreator={game.creator}
+                setPlayerReadyLobby={setPlayerReadyLobby}
             />
             case 2: return <QuestionScreen 
                 players={game.players} 
@@ -204,8 +210,10 @@ function App() {
         </AppBar>
         <MyDrawer view={view} setOpenStatus={setOpenStatus} setView={setView} openStatus={openStatus} />
         <Page>
-            { getPage() }
+        { getPage() }
         </Page>
+        
+        
     </div>
 }
 
