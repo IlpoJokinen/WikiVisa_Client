@@ -1,10 +1,10 @@
 import React, { useState } from 'react'
 import { Container, TextField, Grid, Slider, List, ListItem, ListItemText, ListItemSecondaryAction, Typography, IconButton } from '@material-ui/core/'
 import PlayCircleOutlineRoundedIcon from '@material-ui/icons/PlayCircleOutlineRounded'
+import CategoryList from '../../UI/CategoryList'
 import GameButton from '../../UI/GameButton'
 import BlueDivider from '../../UI/BlueDivider'
 import Header from '../../UI/Header'
-import CategoryListing from '../../UI/CategoryListing'
 
 const GameList = ({ games }) => {
     return <List className="gameList">
@@ -65,7 +65,7 @@ const FindGame = ({ joinGame, setView }) => {
                 <Grid container spacing={5}>
                     <Grid xs={12} sm={6} item>
                         <Header size={3}>Categories in a Game</Header>
-                        <CategoryListing 
+                        <CategoryList 
                             selectedCategories={selectedCategories} 
                             setSelectedCategories={setSelectedCategories} 
                             categories={categories} 

@@ -9,6 +9,13 @@ const MyDrawer = ({view, setOpenStatus, setView, openStatus}) => {
             backgroundColor: '#6674AD',
             width: drawerWidth,
         },
+        drawerHeader: {
+            display: 'flex',
+            alignItems: 'center',
+            padding: theme.spacing(0, 1),
+            ...theme.mixins.toolbar,
+            justifyContent: 'flex-end',
+        },
         listItemText: {
             fontFamily: 'IBM Plex Sans',
             color: 'white',
@@ -26,12 +33,10 @@ const MyDrawer = ({view, setOpenStatus, setView, openStatus}) => {
         }
     }))
     const classes = useStyles()
-
     const changePage = url => {
         setOpenStatus(!openStatus)
         setView(url)
     }
-
     return <Drawer
         open={openStatus}
         className={classes.drawer}
@@ -43,9 +48,11 @@ const MyDrawer = ({view, setOpenStatus, setView, openStatus}) => {
         ModalProps={{
             keepMounted: true
         }}>
-        <IconButton onClick={() => setOpenStatus(false)}>
-            <ChevronLeftIcon className={classes.backIcon} />
-        </IconButton>
+        <div className={classes.drawerHeader}>
+            <IconButton onClick={() => setOpenStatus(false)}>
+                <ChevronLeftIcon className={classes.backIcon} />
+            </IconButton>
+        </div>
         <Divider />
         <List>
             {

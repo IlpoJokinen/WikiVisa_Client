@@ -84,7 +84,7 @@ const CreateGame = ({setView, createGame}) => {
     return <Grid container style={{height: '100%'}}>
                 <BlueDivider textAlign>Setup your personal game</BlueDivider>
                 <Grid item style={{marginBottom: 10, marginLeft: 20}}>
-                        <GameButton id="createGamePageButton" title="Return" onClickFunc={() => setView('play')}/>
+                    <GameButton id="createGamePageButton" title="Return" onClickFunc={() => setView('play')}/>
                 </Grid>
                 <Grid xs={12} item style={{marginBottom: 25, marginLeft: 20}}>
                     <FormControl>
