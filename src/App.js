@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react'
-import { IconButton, Toolbar, Typography, AppBar, makeStyles } from '@material-ui/core/'
+import { makeStyles } from '@material-ui/core/'
 import PropTypes from 'prop-types'
 import MyDrawer from './components/UI/MyDrawer' 
-import MenuIcon from '@material-ui/icons/Menu'
+import NavBar from './components/UI/NavBar'
 import QuestionScreen from './components/QuestionScreen'
 import RoundEndScreen from './components/RoundEndScreen'
 import GameEndScreen from './components/GameEndScreen'
@@ -74,13 +74,7 @@ function App() {
             display: 'flex',
             height: '100%'
         },
-        menuButton: {
-            marginRight: theme.spacing(2)
-        },
-        toolbar: theme.mixins.toolbar,
-        appBar: {
-            backgroundColor: '#879DFA'
-        }
+        toolbar: theme.mixins.toolbar
     }))
 
     const classes = useStyles()
@@ -191,26 +185,9 @@ function App() {
     }
 
     return <div className={classes.root}>
-        <AppBar position="fixed" className={classes.appBar}>
-            <Toolbar>
-                <IconButton
-                    color="inherit"
-                    aria-label="open drawer"
-                    edge="start"
-                    onClick={() => setOpenStatus(!openStatus)} 
-                    className={classes.menuButton}
-                >
-                <MenuIcon />
-                </IconButton>
-                <Typography variant="h6" noWrap>
-                    { pageTitle }
-                </Typography>
-            </Toolbar>
-        </AppBar>
+        <NavBar title={pageTitle} toggle={() => setOpenStatus(!openStatus)} />
         <MyDrawer view={view} setOpenStatus={setOpenStatus} setView={setView} openStatus={openStatus} />
-        <Page>
-            { getPage() }
-        </Page>
+        <Page>{ getPage() }</Page>
     </div>
 }
 
