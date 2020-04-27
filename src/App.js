@@ -3,11 +3,10 @@ import { IconButton, Toolbar, Typography, AppBar, makeStyles } from '@material-u
 import PropTypes from 'prop-types'
 import MyDrawer from './components/UI/MyDrawer' 
 import MenuIcon from '@material-ui/icons/Menu'
-import StartScreen from './components/StartScreen'
 import QuestionScreen from './components/QuestionScreen'
 import RoundEndScreen from './components/RoundEndScreen'
 import GameEndScreen from './components/GameEndScreen'
-import LandingPage from './components/MainMenu'
+import MainMenu from './components/MainMenu'
 import Lobby from './components/Lobby'
 import io from 'socket.io-client'
 import '../src/style.css'
@@ -163,7 +162,7 @@ function App() {
                 players={game.players} 
                 gamertag={gamertag} 
             />
-            default: return <LandingPage
+            default: return <MainMenu
                 view={view}
                 setView={setView}
                 setRoomCode={setRoomCode}
@@ -210,10 +209,8 @@ function App() {
         </AppBar>
         <MyDrawer view={view} setOpenStatus={setOpenStatus} setView={setView} openStatus={openStatus} />
         <Page>
-        { getPage() }
+            { getPage() }
         </Page>
-        
-        
     </div>
 }
 
