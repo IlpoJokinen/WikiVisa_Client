@@ -85,22 +85,26 @@ header {
 
 .radioButton label {
     font-size: 16px;
+    font-family: IBM Plex Sans;
+    font-weight: 400;
+    color: #879DFA;
     cursor: pointer;
-    width: 100%;
+    width: 400px;
     height: 100%;
     text-align: center;
-    margin: 0;
     padding: 25px 20px;
-    border: 5px solid #B10DC9;
+    border: 2px solid #A3B4FF;
+    border-radius: 10px;
     letter-spacing: 1px;
     user-select: none;
     transition: background-color 300ms, color 100ms;
 }
 
 .radioButton input[type="radio"]:checked + label {
-    background-color: #B10DC9;
+    background-color:  #A3B4FF;
     color: #fcfcfc;
-    font-weight: bold;
+    font-family: IBM Plex Sans;
+    font-weight: 600;
 }
 
 .container .row {

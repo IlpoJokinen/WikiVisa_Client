@@ -11,6 +11,9 @@ import io from 'socket.io-client'
 import './App.css'
 import './style.css'
 
+import QuestionView from './components/QuestionView'
+import RoundEndView from './components/RoundEndView'
+
 const socket = io(process.env.REACT_APP_SOCKET_URL || 'localhost:3001')
 
 function App() {
@@ -186,10 +189,11 @@ function App() {
         }
     }
 
-    return <Container id="wrapper" fluid>
-        <PageHeader title={pageTitle} />
-        { getPage() }
-    </Container>
+    return (
+        <div>
+            <QuestionView />
+        </div>
+    )
 }
 
 export default App

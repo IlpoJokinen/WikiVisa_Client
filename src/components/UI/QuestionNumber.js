@@ -1,21 +1,21 @@
 import React from 'react'
 
-const Question = ({question}) => {
+const QuestionNumber = ({number}) => {
     const textStyle = {
         textAlign: 'center',
         color: 'white',
-        marginTop: -30,
+        marginTop: -16,
         paddingTop: 50,
-        fontSize: '22px',
         fontFamily: 'IBM Plex Sans',
-        fontWeight: 600
+        fontWeight: 600,
+        fontSize: '20px'
     }
 
     return (
         <div>
-            <h4 style={textStyle}>{question}</h4>
+            <h3 style={textStyle}>{`${number}/10`}</h3>
         </div>
     )
 }
 
-export default Question
+export default QuestionNumber
