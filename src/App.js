@@ -1,15 +1,15 @@
-import React, { useState, useEffect} from 'react'
-import { Container, Row, Col, InputGroup } from 'react-bootstrap'
-import WelcomeScreen from './components/WelcomeScreen' 
-import StartScreen from './components/StartScreen'
+import React, { useState, useEffect } from 'react'
+import { IconButton, Toolbar, Typography, AppBar, makeStyles } from '@material-ui/core/'
+import PropTypes from 'prop-types'
+import MyDrawer from './components/UI/MyDrawer' 
+import MenuIcon from '@material-ui/icons/Menu'
 import QuestionScreen from './components/QuestionScreen'
 import RoundEndScreen from './components/RoundEndScreen'
 import GameEndScreen from './components/GameEndScreen'
-import LandingPage from './components/LandingPage'
-import PageHeader from './components/UI/PageHeader' 
+import MainMenu from './components/MainMenu'
+import Lobby from './components/Lobby'
 import io from 'socket.io-client'
-import './App.css'
-import './style.css'
+import '../src/style.css'
 
 import QuestionView from './components/QuestionView'
 import RoundEndView from './components/RoundEndView'
@@ -17,7 +17,7 @@ import RoundEndView from './components/RoundEndView'
 const socket = io(process.env.REACT_APP_SOCKET_URL || 'localhost:3001')
 
 function App() {
-    const [pageTitle, setPageTitle] = useState("")
+    const [pageTitle, setPageTitle] = useState('Welcome to WikiVisa')
     const [game, setGame] = useState({})
     const [publicGames, setPublicGames] = useState([])
     const [gamertag, setGamertag] = useState("")
@@ -26,9 +26,8 @@ function App() {
     const [correctAnswer, setCorrectAnswer] = useState({})
     const [joiningState, setJoiningState] = useState(false)
     const [creatingState, setCreatingState] = useState(false)
-
-    //window.onresize = () => centerizeWrapper()
-    //window.onload = () => centerizeWrapper()
+    const [openStatus, setOpenStatus] = useState(false)
+    const [view, setView] = useState('play_find')
 
     useEffect(() => {
         socket.on("send players", players => {
@@ -69,41 +68,28 @@ function App() {
             setGame(prevState => ({...prevState, started: true}))
         })
         socket.on("send public games", games => {
-           /* games.forEach(game => {
-                game.join = () => joinGame(game.roomCode)
-            })*/
             setPublicGames(games)
         })
     }, [])
 
-    /*function centerizeWrapper() {
-        let wrapper = document.getElementById("wrapper"),
-            root = document.getElementById("root"),
-            wrapperWidth = wrapper.offsetWidth, 
-            wrapperHeight = wrapper.offsetHeight,
-            viewportWidth = Math.max(document.documentElement.clientWidth, window.innerWidth || 0),
-            viewportHeight = Math.max(document.documentElement.clientHeight, window.innerHeight || 0),
-            wrapperCenter = "centerizedWrapper";
-
-        if(wrapperWidth > viewportWidth || wrapperHeight > viewportHeight) {
-            root.classList.remove(wrapperCenter)
-        } else {
-            root.classList.add(wrapperCenter)
+    const useStyles = makeStyles((theme) => ({
+        root: {
+            display: 'flex',
+            height: '100%'
+        },
+        menuButton: {
+            marginRight: theme.spacing(2)
+        },
+        toolbar: theme.mixins.toolbar,
+        appBar: {
+            backgroundColor: '#879DFA'
         }
-    }*/
+    }))
+
+    const classes = useStyles()
 
     function getPublicGames() {
         socket.emit('get public games')
-    }
-    
-    function getQuestionByQuestionId(question_id) {
-        let question = false
-        game.questions.forEach(q => {
-            if(q.question_id === question_id) {
-                question = q
-            }
-        }) 
-        return question
     }
 
     function getPlayersAnswers() {
@@ -141,13 +127,17 @@ function App() {
         socket.emit("set ready", { game_id: game.id, gamertag, answer, question_id: game.question.id }) 
     }
 
+    function setPlayerReadyLobby() {
+        socket.emit("set lobby ready", { game_id: game.id, gamertag: gamertag })
+    }
+
     function startGame() {
         socket.emit("start game", { game_id: game.id })
     }
 
     function getPage() {
         switch(game.view) {
-            case 1: return <LandingPage />/*<StartScreen 
+            case 1: return <Lobby
                 players={game.players} 
                 gamertag={gamertag} 
                 timer={game.startGameCounter}
@@ -155,7 +145,8 @@ function App() {
                 startGame={startGame}
                 started={game.started}
                 isCreator={game.creator}
-            />*/
+                setPlayerReadyLobby={setPlayerReadyLobby}
+            />
             case 2: return <QuestionScreen 
                 players={game.players} 
                 gamertag={gamertag} 
@@ -174,7 +165,9 @@ function App() {
                 players={game.players} 
                 gamertag={gamertag} 
             />
-            default: return <WelcomeScreen
+            default: return <MainMenu
+                view={view}
+                setView={setView}
                 setRoomCode={setRoomCode}
                 setGamertag={setGamertag}
                 gamertag={gamertag}
@@ -189,11 +182,39 @@ function App() {
         }
     }
 
-    return (
-        <div>
-            <QuestionView />
+    const Page = props => {
+        return <div id="page">
+            <div className={classes.toolbar}></div>
+            { props.children }
         </div>
-    )
+    }
+
+    Page.propTypes = {
+        children: PropTypes.node
+    }
+
+    return <div className={classes.root}>
+        <AppBar position="fixed" className={classes.appBar}>
+            <Toolbar>
+                <IconButton
+                    color="inherit"
+                    aria-label="open drawer"
+                    edge="start"
+                    onClick={() => setOpenStatus(!openStatus)} 
+                    className={classes.menuButton}
+                >
+                <MenuIcon />
+                </IconButton>
+                <Typography variant="h6" noWrap>
+                    { pageTitle }
+                </Typography>
+            </Toolbar>
+        </AppBar>
+        <MyDrawer view={view} setOpenStatus={setOpenStatus} setView={setView} openStatus={openStatus} />
+        <Page>
+            { getPage() }
+        </Page>
+    </div>
 }
 
 export default App
