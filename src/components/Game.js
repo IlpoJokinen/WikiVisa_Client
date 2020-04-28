@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import QuestionScreen from './QuestionScreen'
 import RoundEndScreen from './RoundEndScreen'
 import GameEndScreen from './GameEndScreen'
-import Lobby from './Lobby'
+import Lobby from './views/LobbyPage/Lobby'
 
 const Game = ({socket, game, setGame}) => {
     const [answer, setAnswer] = useState("")
@@ -42,6 +42,9 @@ const Game = ({socket, game, setGame}) => {
         socket.on('test3', (data) => {
             console.log('data:', data)
         })
+        socket.on("send messages", messages => {
+            setGame(prevState => ({...prevState, messages: messages}))
+        })
     }, [])
 
     function setAnswerAndPlayerReady() {
@@ -73,6 +76,10 @@ const Game = ({socket, game, setGame}) => {
         return answers
     }
 
+    function sendMessage(message) {
+        socket.emit("send lobby message", {/*gamertag: gamertag,*/ message: message, game_id: game.id})
+    }
+
     function getPage() {
         switch(game.view) {
             case 1: return <Lobby
@@ -84,6 +91,8 @@ const Game = ({socket, game, setGame}) => {
                 started={game.started}
                 isCreator={game.creator}
                 setPlayerReadyLobby={setPlayerReadyLobby}
+                messages={game.messages}
+                sendMessage={sendMessage}
             />
             case 2: return <QuestionScreen 
                 players={game.players} 

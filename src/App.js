@@ -22,9 +22,6 @@ function App() {
             setGame(game)
             toggleGame(!showGame)
         })
-        socket.on("send messages", messages => {
-            setGame(prevState => ({...prevState, messages: messages}))
-        })
     }, [])
 
     const useStyles = makeStyles((theme) => ({
