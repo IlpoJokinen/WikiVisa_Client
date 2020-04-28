@@ -1,7 +1,6 @@
 import React from 'react'
 import { Grid, Box } from '@material-ui/core/'
 import { Done } from '@material-ui/icons/'
-import "../../style.css"
 
 const Player = ({ gamertag, thisPlayersTag, lobbyReady }) => {
     return (

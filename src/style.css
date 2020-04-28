@@ -123,7 +123,7 @@ h1, h2, h3, h4, h5, h6 {
     transition: background-color 300ms, color 100ms
 }
 
-#lobbyStartButton {
+#lobbyStartButton  {
     font-size: 9px;
     font-family: IBM Plex Sans;
     font-weight: 400;
@@ -142,8 +142,25 @@ h1, h2, h3, h4, h5, h6 {
     background-color: rgb(15, 189, 9);
     transition: background-color 300ms, color 100ms
 }
-/*
-background-color: rgb(69, 188, 209);*/
+
+#lobbySendMessageButton {
+    font-size: 9px;
+    font-family: IBM Plex Sans;
+    font-weight: 400;
+    color: #ffffff;
+    cursor: pointer;
+    width:100%;
+    height: 90%;
+    text-align: center;
+    padding: 8px 6px;
+    border: 2px solid #A3B4FF;
+    border-radius: 6px;
+    letter-spacing: 1px;
+    user-select: none;
+    margin: 2px 0px 0px 4px;
+    transition: background-color 300ms, color 100ms
+}
+
 .chatBox {
     height: 250px;
     border: 1px solid #A3B4FF;
@@ -151,7 +168,24 @@ background-color: rgb(69, 188, 209);*/
     margin-bottom: 30px;
 }
 
+.messageOwn {
+    background-color: rgb(154, 247, 131);
+    margin: 4px;
+    border-radius:6px;
+    align-self: flex-end;
+    max-width: 65%;
+    padding: 13px;
+}
+
+.messageOther {
+    background-color: rgb(202, 210, 245);
+    margin: 4px;
+    align-self: flex-start;
+    max-width: 65%;
+    padding: 4px;
+
+}
+
 .chatTextField {
-    margin-top: 30px;
     
 }

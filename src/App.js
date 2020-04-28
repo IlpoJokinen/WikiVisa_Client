@@ -8,7 +8,7 @@ import QuestionScreen from './components/QuestionScreen'
 import RoundEndScreen from './components/RoundEndScreen'
 import GameEndScreen from './components/GameEndScreen'
 import LandingPage from './components/MainMenu'
-import Lobby from './components/Lobby'
+import Lobby from './components/views/LobbyPage/Lobby'
 import io from 'socket.io-client'
 import '../src/style.css'
 
@@ -67,6 +67,9 @@ function App() {
         })
         socket.on("send public games", games => {
             setPublicGames(games)
+        })
+        socket.on("send messages", messages => {
+            setGame(prevState => ({...prevState, messages: messages}))
         })
     }, [])
 
@@ -133,6 +136,10 @@ function App() {
         socket.emit("start game", { game_id: game.id })
     }
 
+    function sendMessage(message){
+        socket.emit("send lobby message", {game_id: game.id, gamertag: gamertag, message: message})
+    }
+
     function getPage() {
         switch(game.view) {
             case 1: return <Lobby
@@ -144,6 +151,8 @@ function App() {
                 started={game.started}
                 isCreator={game.creator}
                 setPlayerReadyLobby={setPlayerReadyLobby}
+                messages={game.messages}
+                sendMessage={sendMessage}
             />
             case 2: return <QuestionScreen 
                 players={game.players} 
@@ -190,7 +199,18 @@ function App() {
     Page.propTypes = {
         children: PropTypes.node
     }
-
+/*{ getPage() } <Lobby
+players={game.players} 
+gamertag={gamertag} 
+timer={game.startGameCounter}
+roomCode={game.roomCode} 
+startGame={startGame}
+started={game.started}
+isCreator={game.creator}
+setPlayerReadyLobby={setPlayerReadyLobby}
+messages={messages}
+sendMessage={sendMessage}
+/>*/
     return <div className={classes.root}>
         <AppBar position="fixed" className={classes.appBar}>
             <Toolbar>
@@ -211,6 +231,7 @@ function App() {
         <MyDrawer view={view} setOpenStatus={setOpenStatus} setView={setView} openStatus={openStatus} />
         <Page>
         { getPage() }
+        
         </Page>
         
         
