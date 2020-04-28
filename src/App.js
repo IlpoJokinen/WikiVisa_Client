@@ -24,11 +24,7 @@ function App() {
     const [joiningState, setJoiningState] = useState(false)
     const [creatingState, setCreatingState] = useState(false)
     const [openStatus, setOpenStatus] = useState(false)
-<<<<<<< HEAD
     const [view, setView] = useState('play_create')
-=======
-    const [view, setView] = useState('play')
->>>>>>> 5feea557cc22f81d11da6070659b8fa84243314a
 
     useEffect(() => {
         socket.on("send players", players => {
@@ -166,7 +162,6 @@ function App() {
                 setRoomCode={setRoomCode}
                 setGamertag={setGamertag}
                 gamertag={gamertag}
-                roomCode={roomCode}
                 joiningState={joiningState}
                 joinGame={joinGame}
                 createGame={createGame}
