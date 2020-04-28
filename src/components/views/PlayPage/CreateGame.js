@@ -15,7 +15,7 @@ const optimizedItem = {
     marginBottom: 10
 }
 
-const CreateGame = ({setView, createGame, setRoomCode2, creatingState}) => {
+const CreateGame = ({setView, createGame, setRoomCode, creatingState}) => {
     const [selectedCategories, setSelectedCategories] = useState([])
     const [state, setState] = useState({
     checked1: false,
@@ -72,7 +72,7 @@ const CreateGame = ({setView, createGame, setRoomCode2, creatingState}) => {
                                     <Grid item xs={12}>
                                         <FormControl disabled={creatingState}>
                                             <InputLabel htmlFor="roomcode-input" style={{color: '#879DFA'}}>Enter Roomcode</InputLabel>
-                                            <Input id="roomcode-input" onChange={e => setRoomCode2(e.target.value)}/>
+                                            <Input id="roomcode-input" onChange={e => setRoomCode(e.target.value)}/>
                                             <FormHelperText style={{color: '#879DFA'}}>You can specify a room code or leave it empty to let us generate it for you</FormHelperText>
                                         </FormControl>
                                     </Grid>
