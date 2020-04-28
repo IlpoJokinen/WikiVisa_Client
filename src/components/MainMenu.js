@@ -28,17 +28,14 @@ const MainMenu = ({ toggleGame, view, setView, socket }) => {
             socket.emit("join game", { gamertag, roomCode: roomcodeGiven })
         }
     }
-    function asd() {
-        socket.emit('test2')
-    }
     const getPage = () => {
         switch(view){
             case 'play': return <WelcomePage setView={setView} />
             case 'play_create': return  <CreateGame createGame={createGame} setView={setView} setRoomCode={setRoomCode} creatingState={creatingState}/>
             case 'play_find': return <FindGamePage setView={setView} joinGame={joinGame} setRoomCode={setRoomCode}/>
-            case 'play_quick': return <Box><input type="button" value="GO BACK" onClick={() =>  asd()}></input></Box>
-            case 'statistics': return <Box><input type="button" value="GO BACK" onClick={() => setView('statistics')}></input></Box>
-            case 'profile': return <Box><input type="button" value="GO BACK" onClick={() => setView('profile')}></input></Box>
+            case 'play_quick': return <Box><input type="button" value="GO BACK" onClick={() =>  setView('play')}></input></Box>
+            case 'statistics': return <Box><input type="button" value="GO BACK" onClick={() => setView('play')}></input></Box>
+            case 'profile': return <Box><input type="button" value="GO BACK" onClick={() => setView('play')}></input></Box>
             case 'login': return <LoginPage setView={setView} />
             default: return <WelcomePage setView={setView} />
         }

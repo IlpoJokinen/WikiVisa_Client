@@ -1,11 +1,12 @@
 import React from 'react'
-import { Grid, withStyles } from '@material-ui/core/'
+import { Grid } from '@material-ui/core/'
 import Player2 from "./UI/Player2"
 import BlueDivider from "./UI/BlueDivider"
 import GameButton from "./UI/GameButton"
+import Header from './UI/Header'
 
-const Lobby = ({ gamertag, players, timer, roomCode, startGame, started, isCreator, setPlayerReadyLobby }) => {
-
+const Lobby = ({ gamertag, players, timer, roomCode, startGame, started, isCreator, setPlayerReadyLobby, game }) => {
+    console.log(game)
    let allPlayers = ""
     document.title = started ? 'Game Is Starting!' : 'Game Lobby'
     if (players.length) {
@@ -19,17 +20,13 @@ const Lobby = ({ gamertag, players, timer, roomCode, startGame, started, isCreat
         <Grid container direction="column">
             <Grid container sm={12} >
                 <Grid item sm={12} style={{ textAlign:"center", width:"100%"}}>
-                    <BlueDivider>
-                        <h2 >Room Code</h2>
-                    </BlueDivider>
+                    <BlueDivider textCenter>{roomCode}</BlueDivider>
                 </Grid>
             </Grid>
             
             <Grid container className="lobbyPlayers">
                 <Grid container sm={6} direction="column">
-                    <Grid item>
-                        <h5 style={{color:"#879DFA"}}>Players</h5>
-                    </Grid>
+                    <Grid item><Header size={5}>Players</Header></Grid>
                     {allPlayers}
                     <Grid container >
                         <Grid item>

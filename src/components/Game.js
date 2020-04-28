@@ -76,6 +76,7 @@ const Game = ({socket, game, setGame}) => {
     function getPage() {
         switch(game.view) {
             case 1: return <Lobby
+                game={game}
                 players={game.players} 
                // gamertag={gamertag} 
                 timer={game.startGameCounter}
