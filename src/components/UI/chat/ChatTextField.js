@@ -19,7 +19,7 @@ const ChatTextField = ({ sendMessage }) => {
     return (
         <Grid container>
             <Grid item className="chatTextField" sm={8} xs={8}>
-                <TextField value={message} id="outlined-basic" label="Send Message" variant="outlined" fullWidth multiLine size="small" onChange={handleChange} />
+                <TextField value={message}  label="Send Message" variant="outlined" fullWidth multiline size="small" onChange={handleChange} />
             </Grid>
             <Grid item sm={4} xs={4}>
                 <GameButton id="lobbySendMessageButton" title="Send" onClickFunc={() => handleClick(message)}></GameButton>

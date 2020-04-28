@@ -1,45 +1,16 @@
 import React from 'react'
 import { Grid } from '@material-ui/core/'
-import Player2 from "./components/Player2"
+import Player2 from "./components/Player"
 import BlueDivider from "../../UI/BlueDivider"
 import GameButton from "../../UI/GameButton"
 import Chat from "../../UI/chat/Chat"
 
 const Lobby = ({ gamertag, players, timer, roomCode, startGame, started, isCreator, setPlayerReadyLobby, messages, sendMessage }) => {
 
-    let playerz = [
-        {
-            id: 0,
-            gamertag: "lkjdkjgld"
-        },
-        {
-            id:1,
-            gamertag: "LDKGJDFKLJ"
-        },
-        {
-            id:2,
-            gamertag: "klhzjgfd",
-            lobbyReady: true
-        }, {
-            id: 0,
-            gamertag: "lkjdkjgld"
-        },
-        {
-            id:1,
-            gamertag: "LDKGJDFKLJ"
-        },
-        {
-            id:2,
-            gamertag: "klhzjgfd",
-            lobbyReady: true
-        }
-    ]
-
-
     let allPlayers = ""
     document.title = started ? 'Game Is Starting!' : 'Game Lobby'
-    if (playerz.length) {
-        allPlayers = playerz.map(player => {
+    if (players.length) {
+        allPlayers = players.map(player => {
             return <Player2 key={player.id} gamertag={player.gamertag} thisPlayersTag={gamertag === player.gamertag} lobbyReady={player.lobbyReady} />
         })
     }
@@ -72,8 +43,8 @@ const Lobby = ({ gamertag, players, timer, roomCode, startGame, started, isCreat
                             : null
                         }
                     </Grid>
-                    
                 </Grid>
+
                 <Grid item sm={6} xs={12}>
                     <Grid container direction="column">
                         {started
@@ -82,6 +53,9 @@ const Lobby = ({ gamertag, players, timer, roomCode, startGame, started, isCreat
                         </Grid>
                         : null
                         }   
+                        <Grid item>
+                            <h5 style={{color:"#879DFA"}}>Chat</h5>
+                        </Grid>
                         <Chat gamertag={gamertag} messages={messages} sendMessage={sendMessage}></Chat>
                     </Grid>
                 </Grid>
