@@ -1,9 +1,9 @@
 import React, { useState } from 'react'
 import { Container, Row, Col, Image, ListGroup, Tab, Form } from 'react-bootstrap'
-import Stats from './views/ProfilePage/Stats'
-import Settings from './views/ProfilePage/Settings'
-import Account from './views/ProfilePage/Account'
-import Preferences from './views/ProfilePage/Preferences'
+import Stats from './Stats'
+import Settings from './Settings'
+import Account from './Account'
+import Preferences from './Preferences'
 
 const ProfileScreen = () => {
 

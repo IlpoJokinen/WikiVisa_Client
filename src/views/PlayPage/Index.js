@@ -1,7 +1,7 @@
 import React from 'react'
 import { Grid, withStyles } from '@material-ui/core/'
-import GameButton from '../../UI/GameButton'
-import Header from '../../UI/Header'
+import GameButton from '../../components/UI/GameButton'
+import Header from '../../components/UI/Header'
 
 const CustomGridItem = withStyles((theme) => ({
     root: {

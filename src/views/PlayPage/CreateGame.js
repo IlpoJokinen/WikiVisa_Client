@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react'
 import { Grid, FormHelperText, FormControl, InputLabel, Input, FormControlLabel, Switch, Container} from '@material-ui/core'
-import GameButton from '../../UI/GameButton'
-import CategoryList from '../../UI/CategoryList'
-import Header from '../../UI/Header'
-import BlueDivider from '../../UI/BlueDivider'
-import RadioSelector from '../../UI/RadioSelector'
+import GameButton from '../../components/UI/GameButton'
+import CategoryList from '../../components/UI/CategoryList'
+import Header from '../../components/UI/Header'
+import BlueDivider from '../../components/UI/BlueDivider'
+import RadioSelector from '../../components/UI/RadioSelector'
 
 const blueText = {
     fontFamily: 'IBM Plex Sans',

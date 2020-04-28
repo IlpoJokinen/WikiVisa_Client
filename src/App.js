@@ -3,8 +3,8 @@ import { makeStyles } from '@material-ui/core/'
 import PropTypes from 'prop-types'
 import MyDrawer from './components/UI/MyDrawer' 
 import NavBar from './components/UI/NavBar'
-import MainMenu from './components/MainMenu'
-import Game from './components/Game'
+import MainMenu from './views/MainMenu'
+import Game from './views/Game'
 import '../src/style.css'
 import io from 'socket.io-client'
 
@@ -15,7 +15,7 @@ function App() {
     const [openStatus, setOpenStatus] = useState(false)
     const [showGame, toggleGame] = useState(false)
     const [pageTitle, setPageTitle] = useState('Welcome to WikiQuiz')
-    const [view, setView] = useState('play_create')
+    const [view, setView] = useState('play')
 
     useEffect(() => {
         socket.on("send game", game => {

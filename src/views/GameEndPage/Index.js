@@ -1,8 +1,7 @@
 import React from 'react'
 import { Container, Row, Col, Button, ButtonGroup } from 'react-bootstrap'
-import { Trophy } from 'react-bootstrap-icons'
-import PageTitle from './UI/PageTitle'
-import StatsTable from './UI/StatsTable'
+import PageTitle from '../../components/UI/PageTitle'
+import StatsTable from '../../components/UI/StatsTable'
 
 const GameEndScreen = ({ gamertag, players }) => {
     let winner = players.reduce((prev, current) => (prev.points > current.points) ? prev : current)

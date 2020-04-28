@@ -61,7 +61,7 @@ const MyDrawer = ({view, setOpenStatus, setView, openStatus}) => {
                 {name: 'Profile', url: 'profile'}, 
                 {name: 'Sign In & Sign Up', url: 'login'}
             ].map((obj, index) => 
-                    <ListItem button onClick={() => changePage(obj.url)} key={index} className={view == obj.url ? classes.listItemActive : classes.listItem}>
+                    <ListItem button onClick={() => changePage(obj.url)} key={index} className={view === obj.url ? classes.listItemActive : classes.listItem}>
                         <ListItemText  className={classes.listItemText} primary={obj.name} />
                     </ListItem>
                 )

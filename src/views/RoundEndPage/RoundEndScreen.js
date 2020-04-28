@@ -1,9 +1,9 @@
 import React from 'react'
 import { Container, Row, Col, Badge } from 'react-bootstrap'
-import CircleTimer from './UI/CircleTimer'
+import CircleTimer from '../../components/UI/CircleTimer'
 import { CountdownCircleTimer } from 'react-countdown-circle-timer'
-import RoundStatsTable from './UI/RoundStatsTable'
-import PageTitle from './UI/PageTitle'
+import RoundStatsTable from '../../components/UI/RoundStatsTable'
+import PageTitle from '../../components/UI/PageTitle'
 
 const RoundEndScreen = ({ correctAnswer, gamertag, answers, timer }) => {
     document.title = 'Correct Answers'

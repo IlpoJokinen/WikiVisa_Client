@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from 'react'
-import QuestionScreen from './QuestionScreen'
-import RoundEndScreen from './RoundEndScreen'
-import GameEndScreen from './GameEndScreen'
-import Lobby from './views/LobbyPage/Lobby'
+import Button from '@material-ui/core/Button'
+import QuestionScreen from './QuestionPage/Index'
+import RoundEndScreen from './RoundEndPage/Index'
+import GameEndScreen from './GameEndPage/Index'
+import LobbyScreen from './LobbyPage/Index'
 
 const Game = ({socket, game, setGame}) => {
     const [answer, setAnswer] = useState("")
@@ -82,7 +83,7 @@ const Game = ({socket, game, setGame}) => {
 
     function getPage() {
         switch(game.view) {
-            case 1: return <Lobby
+            case 1: return <LobbyScreen
                 game={game}
                 players={game.players} 
                // gamertag={gamertag} 
@@ -113,6 +114,7 @@ const Game = ({socket, game, setGame}) => {
                 players={game.players} 
                // gamertag={gamertag} 
             />
+            default: return <Button onClick={() => window.location.reload()}>Reload</Button>
         }
     }
     return getPage()

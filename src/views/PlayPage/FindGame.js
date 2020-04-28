@@ -1,10 +1,10 @@
 import React, { useState } from 'react'
 import { Container, TextField, Grid, Slider, List, ListItem, ListItemText, ListItemSecondaryAction, Typography, IconButton } from '@material-ui/core/'
 import PlayCircleOutlineRoundedIcon from '@material-ui/icons/PlayCircleOutlineRounded'
-import CategoryList from '../../UI/CategoryList'
-import GameButton from '../../UI/GameButton'
-import BlueDivider from '../../UI/BlueDivider'
-import Header from '../../UI/Header'
+import CategoryList from '../../components/UI/CategoryList'
+import GameButton from '../../components/UI/GameButton'
+import BlueDivider from '../../components/UI/BlueDivider'
+import Header from '../../components/UI/Header'
 
 const GameList = ({ games }) => {
     return <List className="gameList">
@@ -29,15 +29,6 @@ const GameList = ({ games }) => {
 const FindGame = ({ joinGame, setView, setRoomCode }) => {
     const [maximumQuestionCount, setMaximumQuestionCount] = useState(5)
     const [selectedCategories, setSelectedCategories] = useState([])
-    const [categories, setCategories] = useState([
-        {prettyName: 'Category', id: 0},
-        {prettyName: 'Category', id: 1},
-        {prettyName: 'Category', id: 2},
-        {prettyName: 'Category', id: 3},
-        {prettyName: 'Category', id: 4},
-        {prettyName: 'Category', id: 5},
-        {prettyName: 'Category', id: 6}
-    ])
     const [games, setGames] = useState([
         {roomCode: '6b2', currentPlayers: 5, maxPlayers: 6},
         {roomCode: '6b2', currentPlayers: 4, maxPlayers: 5},
@@ -68,7 +59,6 @@ const FindGame = ({ joinGame, setView, setRoomCode }) => {
                         <CategoryList 
                             selectedCategories={selectedCategories} 
                             setSelectedCategories={setSelectedCategories} 
-                            categories={categories} 
                         />
                     </Grid>
                     <Grid xs={12} sm={6} item>

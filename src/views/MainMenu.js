@@ -1,9 +1,9 @@
 import React, { useState } from 'react'
 import { Box } from '@material-ui/core/'
-import WelcomePage from './views/PlayPage/Index'
-import CreateGame from './views/PlayPage/CreateGame'
-import FindGamePage from './views/PlayPage/FindGame'
-import LoginPage from './views/LoginPage/Index'
+import WelcomePage from './PlayPage/Index'
+import CreateGame from './PlayPage/CreateGame'
+import FindGamePage from './PlayPage/FindGame'
+import LoginPage from './LoginPage/Index'
 
 const MainMenu = ({ toggleGame, view, setView, socket }) => {
     const [roomCode, setRoomCode] = useState('')

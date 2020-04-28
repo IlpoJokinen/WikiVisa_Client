@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react'
 import { Container, Row, Col, Button, ProgressBar} from 'react-bootstrap'
 import { CountdownCircleTimer } from 'react-countdown-circle-timer'
-import CircleTimer from './UI/CircleTimer'
-import Question from './UI/Question'
-import Choices from './UI/Choices'
+import CircleTimer from '../../components/UI/CircleTimer'
+import Question from '../../components/UI/Question'
+import Choices from '../../components/UI/Choices'
   
 const QuestionScreen = ({ setAnswer, timer, question, players, setReady }) => {
     const [playersReady, setPlayersReady] = useState(0)

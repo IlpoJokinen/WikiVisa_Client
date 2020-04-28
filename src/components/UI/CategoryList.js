@@ -2,10 +2,8 @@ import React, { useState, useEffect } from 'react'
 import Grid from '@material-ui/core/Grid'
 import BlueCheckbox from './BlueCheckbox'
 
-const CategoryList = ({ selectedCategories, setSelectedCategories, setGameProperties, gameProperties }) => {
+const CategoryList = ({ selectedCategories, setSelectedCategories }) => {
     const [categories, setCategories] = useState([])
-    let question = gameProperties.question
-
     useEffect(() => {
         fetch('http://localhost:3001/api/categories')
         .then(res => res.json())
@@ -13,7 +11,6 @@ const CategoryList = ({ selectedCategories, setSelectedCategories, setGameProper
             setCategories(data)
         })
     }, [])
-    console.log(selectedCategories)
     const addToSelectedCategories = categoryId => {
         let exists = selectedCategories.find((id) => id === categoryId)
         if(exists) {
