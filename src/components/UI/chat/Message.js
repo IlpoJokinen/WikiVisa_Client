@@ -14,7 +14,7 @@ const Message = ({ gamertag, message }) => {
                     <Typography color="textSecondary" gutterBottom style={{fontSize:12}} align={gamertag === message.gamertag ? "right" : "left"}>
                         {gamertag === message.gamertag ? "You": message.gamertag}
                     </Typography>
-                    <Typography color="#666699" gutterBottom style={{fontSize:15, overFlowWrap: "break-word", wordWrap: "break-word", hyphens: "auto", marginBottom:2}}>
+                    <Typography color="#666699" gutterBottom style={{fontSize:15, overFlowWrap: "break-word", wordWrap: "break-word", hyphens: "auto", marginBottom:2, paddingRight:20}}>
                         {message.message}
                     </Typography>
                 </CardContent>

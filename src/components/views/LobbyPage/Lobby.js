@@ -4,6 +4,7 @@ import Player2 from "./components/Player"
 import BlueDivider from "../../UI/BlueDivider"
 import GameButton from "../../UI/GameButton"
 import Chat from "../../UI/chat/Chat"
+import Header from "../../UI/Header"
 
 const Lobby = ({ gamertag, players, timer, roomCode, startGame, started, isCreator, setPlayerReadyLobby, messages, sendMessage }) => {
 
@@ -28,9 +29,7 @@ const Lobby = ({ gamertag, players, timer, roomCode, startGame, started, isCreat
             
             <Grid container className="lobbyPlayers">
                 <Grid container sm={6} direction="column">
-                    <Grid item>
-                        <h5 style={{color:"#879DFA"}}>Players</h5>
-                    </Grid>
+                    <Grid item><Header size={5}>Players</Header></Grid>
                     {allPlayers}
                     <Grid container style={{marginBottom:20}}>
                         <Grid item>
@@ -54,7 +53,7 @@ const Lobby = ({ gamertag, players, timer, roomCode, startGame, started, isCreat
                         : null
                         }   
                         <Grid item>
-                            <h5 style={{color:"#879DFA"}}>Chat</h5>
+                        <Header size={5}>Chat</Header>
                         </Grid>
                         <Chat gamertag={gamertag} messages={messages} sendMessage={sendMessage}></Chat>
                     </Grid>
