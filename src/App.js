@@ -16,11 +16,15 @@ function App() {
     const [showGame, toggleGame] = useState(false)
     const [pageTitle, setPageTitle] = useState('Welcome to WikiQuiz')
     const [view, setView] = useState('play')
+    const [gamertag, setGamertag] = useState("")
 
     useEffect(() => {
         socket.on("send game", game => {
             setGame(game)
             toggleGame(!showGame)
+        })
+        socket.on("send gamertag", data => {
+            setGamertag(data)
         })
     }, [])
 
@@ -36,12 +40,14 @@ function App() {
   
     function getPage() {
         switch(showGame) {
-            case true: return <Game game={game} setGame={setGame} socket={socket}/>
+            case true: return <Game game={game} setGame={setGame} socket={socket} gamertag={gamertag}/>
             default: return <MainMenu
                 socket={socket}
                 toggleGame={toggleGame}
                 view={view}
                 setView={setView}
+                gamertag={gamertag}
+                setGamertag={setGamertag}
             />
         }
     }

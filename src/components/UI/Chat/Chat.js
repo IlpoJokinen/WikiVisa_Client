@@ -7,7 +7,6 @@ const Chat = ({ gamertag, socket, sendMessage }) => {
     const [messages, setMessages] = useState([])
 
     socket.on("send messages", messages => {
-        console.log("here", messages)
         setMessages(messages)
     })
 

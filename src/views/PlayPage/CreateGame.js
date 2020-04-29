@@ -11,7 +11,7 @@ const blueText = {
     color: '#879DFA'
 }
 
-const CreateGame = ({setView, createGame, setRoomCode, creatingState}) => {
+const CreateGame = ({setView, createGame, setRoomCode, creatingState, gamertag}) => {
     const [selectedCategories, setSelectedCategories] = useState([])
     const [gameProperties, setGameProperties] = useState({
         question: {
@@ -24,7 +24,8 @@ const CreateGame = ({setView, createGame, setRoomCode, creatingState}) => {
         },
         visibility: false,
         losePoints: false,
-        pointsForSpeed: false
+        pointsForSpeed: false,
+        gamertag: gamertag
     })
     console.log(gameProperties)
     console.log('createGame', selectedCategories)

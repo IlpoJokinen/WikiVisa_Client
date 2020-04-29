@@ -6,7 +6,7 @@ import GameEndScreen from './GameEndPage/Index'
 import LobbyScreen from './LobbyPage/Index'
 import Chat from '../components/UI/Chat/Chat'
 
-const Game = ({socket, game, setGame}) => {
+const Game = ({socket, game, setGame, gamertag }) => {
     const [answer, setAnswer] = useState("")
     const [correctAnswer, setCorrectAnswer] = useState({})
 
@@ -21,9 +21,7 @@ const Game = ({socket, game, setGame}) => {
         socket.on("update game view", view => {
             setGame(prevState => ({...prevState, view: view}))
         })
-        socket.on("send gamertag", data => {
-            //setGamertag(data)
-        })
+        
         socket.on('reset timers', data => {
             setGame(prevState => ({...prevState, questionCounter: data.questionCounter, roundEndCounter: data.roundEndCounter}))
         })
@@ -47,11 +45,12 @@ const Game = ({socket, game, setGame}) => {
     }, [])
 
     function setAnswerAndPlayerReady() {
-        socket.emit("set ready", { game_id: game.id, /*gamertag,*/answer, question_id: game.question.id }) 
+        socket.emit("set ready", { game_id: game.id, gamertag, answer, question_id: game.question.id }) 
     }
 
     function setPlayerReadyLobby() {
-        socket.emit("set lobby ready", { game_id: game.id, /*gamertag: gamertag*/ })
+        console.log("whattafuck", gamertag)
+        socket.emit("set lobby ready", { game_id: game.id, gamertag: gamertag })
     }
 
     function startGame() {
@@ -77,7 +76,7 @@ const Game = ({socket, game, setGame}) => {
 
     function sendMessage(message) {
         console.log(message)
-        socket.emit("send lobby message", {/*gamertag: gamertag,*/ message: message, game_id: game.id})
+        socket.emit("send lobby message", {gamertag: gamertag, message: message, game_id: game.id})
     }
 
     function getPage() {
@@ -85,18 +84,18 @@ const Game = ({socket, game, setGame}) => {
             case 1: return <LobbyScreen
             game={game}
             players={game.players} 
-           // gamertag={gamertag} 
+            gamertag={gamertag} 
             timer={game.startGameCounter}
             roomCode={game.roomCode} 
             startGame={startGame}
             started={game.started}
             isCreator={game.creator}
             setPlayerReadyLobby={setPlayerReadyLobby}
-            chat={<Chat socket={socket} setGame={setGame}/* gamertag={gamertag}*/ sendMessage={sendMessage}/>}
+            chat={<Chat socket={socket} setGame={setGame} gamertag={gamertag} sendMessage={sendMessage}/>}
         />
             case 2: return <QuestionScreen 
                 players={game.players} 
-                //gamertag={gamertag} 
+                gamertag={gamertag} 
                 timer={game.questionCounter} 
                 question={game.question}
                 setAnswer={setAnswer} 
@@ -104,13 +103,13 @@ const Game = ({socket, game, setGame}) => {
             />
             case 3: return <RoundEndScreen 
                 answers={getPlayersAnswers()} 
-                //gamertag={gamertag} 
+                gamertag={gamertag} 
                 timer={game.roundEndCounter} 
                 correctAnswer={correctAnswer} 
             />
             case 4: return <GameEndScreen 
                 players={game.players} 
-               // gamertag={gamertag} 
+                gamertag={gamertag} 
             />
             default: return <Button onClick={() => window.location.reload()}>Reload</Button>
         }

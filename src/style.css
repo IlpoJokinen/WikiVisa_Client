@@ -23,7 +23,8 @@ h1, h2, h3, h4, h5, h6, small {
 .radioButton label, /* elementit joilla on luokka radiobutton, niiden sisällä olevat labelit saa nämä tyylit*/
 .checkboxButton label,
 .gameButton,
-.lobbyButton {
+.lobbyButton,
+.welcomeBtn {
   font-size: 16px;
   font-family: IBM Plex Sans;
   font-weight: 400;
@@ -126,7 +127,7 @@ h1, h2, h3, h4, h5, h6, small {
 
 .gamertagLobby {
   padding: 6px 150px 7px 13px;
-  margin: 5px 10px 5px 0px;
+  margin: 5px 0 5px 0;
   border: 1px solid #879dfa;
   border-radius: 6px;
 }
@@ -161,6 +162,24 @@ h1, h2, h3, h4, h5, h6, small {
     user-select: none;
     margin-top: 15px;
     transition: background-color 300ms, color 100ms
+}
+
+.welcomeBtnUpper {
+  font-size: 12px;
+  padding: 8px 6px;
+  background-color: #879dfa;
+  border: 2px solid #a3b4ff;
+  margin-top: 15px;
+  color:#fff;
+}
+
+.welcomeBtnLower {
+  font-size: 12px;
+  padding: 8px 6px;
+  background-color: #879dfa;
+  border: 2px solid #a3b4ff;
+  margin-top: 15px;
+  color:#fff;
 }
 
 .lobbyButton.lobbyReadyButton {

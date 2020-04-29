@@ -5,11 +5,10 @@ import CreateGame from './PlayPage/CreateGame'
 import FindGamePage from './PlayPage/FindGame'
 import LoginPage from './LoginPage/Index'
 
-const MainMenu = ({ toggleGame, view, setView, socket }) => {
+const MainMenu = ({ toggleGame, view, setView, socket, gamertag, setGamertag }) => {
     const [roomCode, setRoomCode] = useState('')
     const [joiningState, setJoiningState] = useState(false)
     const [creatingState, setCreatingState] = useState(false)
-    const [gamertag, setGamertag] = useState("")
     const [publicGames, setPublicGames] = useState([])
 
     function createGame(gameProperties) {
@@ -30,8 +29,8 @@ const MainMenu = ({ toggleGame, view, setView, socket }) => {
     }
     const getPage = () => {
         switch(view){
-            case 'play': return <WelcomePage setView={setView} />
-            case 'play_create': return  <CreateGame createGame={createGame} setView={setView} setRoomCode={setRoomCode} creatingState={creatingState}/>
+            case 'play': return <WelcomePage setView={setView} setGamertag={setGamertag} gamertag={gamertag}/>
+            case 'play_create': return  <CreateGame createGame={createGame} setView={setView} setRoomCode={setRoomCode} creatingState={creatingState} gamertag={gamertag}/>
             case 'play_find': return <FindGamePage setView={setView} joinGame={joinGame} setRoomCode={setRoomCode}/>
             case 'play_quick': return <Box><input type="button" value="GO BACK" onClick={() =>  setView('play')}></input></Box>
             case 'statistics': return <Box><input type="button" value="GO BACK" onClick={() => setView('play')}></input></Box>
