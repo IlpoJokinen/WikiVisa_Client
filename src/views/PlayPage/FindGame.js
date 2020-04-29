@@ -42,7 +42,7 @@ const FindGame = ({ joinGame, setView, setRoomCode }) => {
             <Container>
                 <Grid container spacing={5}>
                     <Grid xs={12} sm={6} item>
-                        <TextField id="roomCodeTextField" label="Type a Room Code" variant="outlined"/>
+                        <TextField id="roomCodeTextField" onChange={e => setRoomCode(e.target.value)}label="Type a Room Code" variant="outlined"/>
                     </Grid>
                     <Grid xs={12} sm={6} item>
                         <GameButton id="joinGameBtn" title="Join Game" onClickFunc={joinGame}/>
