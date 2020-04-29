@@ -12,8 +12,10 @@ const ChatTextField = ({ sendMessage }) => {
     }
 
     function handleClick(message) {
-        sendMessage(message)
-        setMessage("")
+        if(message !== "") {
+            sendMessage(message)
+            setMessage("")
+        }
     }
 
     return (
@@ -22,7 +24,7 @@ const ChatTextField = ({ sendMessage }) => {
                 <TextField value={message}  label="Send Message" variant="outlined" fullWidth multiline size="small" onChange={handleChange} />
             </Grid>
             <Grid item sm={4} xs={4}>
-                <GameButton id="lobbySendMessageButton" title="Send" onClickFunc={() => handleClick(message)}></GameButton>
+                <GameButton className="lobbyButton lobbySendMessageButton" title="Send" onClickFunc={() => handleClick(message)}></GameButton>
             </Grid>
         </Grid>
         

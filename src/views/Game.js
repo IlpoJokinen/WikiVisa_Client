@@ -4,6 +4,7 @@ import QuestionScreen from './QuestionPage/Index'
 import RoundEndScreen from './RoundEndPage/Index'
 import GameEndScreen from './GameEndPage/Index'
 import LobbyScreen from './LobbyPage/Index'
+import Chat from '../components/UI/Chat/Chat'
 
 const Game = ({socket, game, setGame}) => {
     const [answer, setAnswer] = useState("")
@@ -43,9 +44,6 @@ const Game = ({socket, game, setGame}) => {
         socket.on('test3', (data) => {
             console.log('data:', data)
         })
-        socket.on("send messages", messages => {
-            setGame(prevState => ({...prevState, messages: messages}))
-        })
     }, [])
 
     function setAnswerAndPlayerReady() {
@@ -78,24 +76,24 @@ const Game = ({socket, game, setGame}) => {
     }
 
     function sendMessage(message) {
+        console.log(message)
         socket.emit("send lobby message", {/*gamertag: gamertag,*/ message: message, game_id: game.id})
     }
 
     function getPage() {
         switch(game.view) {
             case 1: return <LobbyScreen
-                game={game}
-                players={game.players} 
-               // gamertag={gamertag} 
-                timer={game.startGameCounter}
-                roomCode={game.roomCode} 
-                startGame={startGame}
-                started={game.started}
-                isCreator={game.creator}
-                setPlayerReadyLobby={setPlayerReadyLobby}
-                messages={game.messages}
-                sendMessage={sendMessage}
-            />
+            game={game}
+            players={game.players} 
+           // gamertag={gamertag} 
+            timer={game.startGameCounter}
+            roomCode={game.roomCode} 
+            startGame={startGame}
+            started={game.started}
+            isCreator={game.creator}
+            setPlayerReadyLobby={setPlayerReadyLobby}
+            chat={<Chat socket={socket} setGame={setGame}/* gamertag={gamertag}*/ sendMessage={sendMessage}/>}
+        />
             case 2: return <QuestionScreen 
                 players={game.players} 
                 //gamertag={gamertag} 
