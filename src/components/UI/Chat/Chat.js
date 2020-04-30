@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { Grid } from '@material-ui/core/'
 import ChatTextField from "./ChatTextField"
 import Message from "./Message"
@@ -6,8 +6,14 @@ import Message from "./Message"
 const Chat = ({ gamertag, socket, sendMessage }) => {
     const [messages, setMessages] = useState([])
 
-    socket.on("send messages", messages => {
-        setMessages(messages)
+    useEffect(() => {
+        let mounted = true
+        socket.on("send messages", messages => {
+            if(mounted) {
+                setMessages(messages)
+            }
+        })
+        return () => mounted = false
     })
 
     let messageComponents = messages.map((message, i) => {

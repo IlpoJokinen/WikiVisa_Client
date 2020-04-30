@@ -9,8 +9,8 @@ const Player = ({ gamertag, thisPlayersTag, lobbyReady }) => {
                         <Box className='gamertagLobby'>{thisPlayersTag ? <p style={{fontWeight: "bold"}} className="gamertagTextLobby">{gamertag}</p> : <p  className="gamertagTextLobby">{gamertag}</p>}</Box>
                     </Grid>
                     {lobbyReady 
-                    ? <Grid container xs={2} alignItems="center" justify="center">
-                        <Done className='doneIconLobby' style={{fontSize:40}}></Done>
+                    ? <Grid item xs={2} >
+                        <Done  className='doneIconLobby' style={{fontSize:40, alignSelf:"center"}}></Done>
                     </Grid>
                     :<Grid item xs={2} sm={2}></Grid>}
                     

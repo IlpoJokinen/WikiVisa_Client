@@ -21,11 +21,12 @@ const Lobby = ({ gamertag, players, timer, roomCode, startGame, started, isCreat
             <BlueDivider textCenter>{roomCode}</BlueDivider>
             <Container>
                 <Grid container >
-                    <Grid container sm={6} direction="column">
-                        <Grid item><Header size={5}>Players</Header></Grid>
+                    <Grid item sm={6}>
+                    <Grid container direction="column">
+                        <Grid item sm={6}><Header size={5}>Players</Header></Grid>
                         {allPlayers}
                         <Grid container style={{marginBottom:20}}>
-                            <Grid item>
+                            <Grid item >
                                 <GameButton className="lobbyButton lobbyReadyButton" title="I'm Ready To Play" onClickFunc={setPlayerReadyLobby}></GameButton>
                             </Grid>
                             { isCreator && !started
@@ -36,12 +37,14 @@ const Lobby = ({ gamertag, players, timer, roomCode, startGame, started, isCreat
                             }
                         </Grid>
                     </Grid>
+                    </Grid>
+                   
 
                     <Grid item sm={6} xs={12}>
                         <Grid container direction="column">
                             {started
                             ?<Grid item>
-                                <Timer timeRemaining={timer}></Timer>
+                                <Timer color={"blue"} timeRemaining={timer}></Timer>
                             </Grid>
                             : null
                             }   

@@ -5,11 +5,15 @@ import BlueCheckbox from './BlueCheckbox'
 const CategoryList = ({ selectedCategories, setSelectedCategories }) => {
     const [categories, setCategories] = useState([])
     useEffect(() => {
+        let mounted = true
         fetch('http://localhost:3001/api/categories')
         .then(res => res.json())
         .then(data => {
-            setCategories(data)
+            if (mounted){
+                setCategories(data)
+            }
         })
+        return () => mounted = false
     }, [])
     const addToSelectedCategories = categoryId => {
         let exists = selectedCategories.find((id) => id === categoryId)
