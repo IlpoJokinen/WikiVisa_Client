@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { Grid, FormHelperText, FormControl, InputLabel, Input, FormControlLabel, Switch, Container} from '@material-ui/core'
+import { Grid, FormHelperText, FormControl, InputLabel, Input, FormControlLabel, Switch, Container, Slider} from '@material-ui/core'
 import GameButton from '../../components/UI/GameButton'
 import CategoryList from '../../components/UI/CategoryList'
 import Header from '../../components/UI/Header'
@@ -16,11 +16,11 @@ const CreateGame = ({setView, createGame, setRoomCode, creatingState, gamertag})
     const [gameProperties, setGameProperties] = useState({
         question: {
             categories: [],
-            count: ""
+            count: 5
         },
         counters: {
-            answer: "",
-            roundEnd: ""
+            answer: 5,
+            roundEnd: 5
         },
         visibility: false,
         losePoints: false,
@@ -28,12 +28,14 @@ const CreateGame = ({setView, createGame, setRoomCode, creatingState, gamertag})
         gamertag: gamertag
     })
     console.log(gameProperties)
-    console.log('createGame', selectedCategories)
 
     useEffect(() => {
         setGameProperties({...gameProperties, question: {...gameProperties.question, categories: selectedCategories}})
     },[selectedCategories])
     
+    function selectCounter(props) {
+
+    }
     return <Grid container spacing={4} style={{height: '100%'}}>
                 <BlueDivider textCenter>Setup your personal game</BlueDivider>
                 <Grid item xs={12}>
@@ -81,19 +83,52 @@ const CreateGame = ({setView, createGame, setRoomCode, creatingState, gamertag})
                                     <Grid item xs={12}>
                                         <Grid container spacing={2}>
                                             <Grid item xs={12}><Header size={6}>Question Count</Header></Grid>
-                                            <Grid item xs={12}><RadioSelector id={0} text={'How many questions do you want to answer?'} creatingState={creatingState} setGameProperties={setGameProperties} gameProperties={gameProperties}/></Grid>
+                                            <Grid item xs={12}>
+                                                <Slider
+                                                    defaultValue={5}
+                                                    onChange={(event, value) => setGameProperties({...gameProperties, question: {...gameProperties.question, count: value}})}
+                                                    aria-labelledby="discrete-slider"
+                                                    valueLabelDisplay="auto"
+                                                    step={1}
+                                                    marks
+                                                    min={1}
+                                                    max={30}
+                                                />
+                                            </Grid>
                                         </Grid> 
                                     </Grid>
                                     <Grid item xs={12}>
                                         <Grid container spacing={2}>
                                             <Grid item xs={12}><Header size={6}>Answer Time</Header></Grid>
-                                            <Grid item xs={12}><RadioSelector id={1} text={'Choose answer time.'} creatingState={creatingState} setGameProperties={setGameProperties} gameProperties={gameProperties}/></Grid>
+                                            <Grid item xs={12}>
+                                                <Slider
+                                                    defaultValue={5}
+                                                    onChange={(event, value) => setGameProperties({...gameProperties, counters: {...gameProperties.counters, answer: value }})}
+                                                    aria-labelledby="discrete-slider"
+                                                    valueLabelDisplay="auto"
+                                                    step={1}
+                                                    marks
+                                                    min={1}
+                                                    max={30}
+                                                />
+                                            </Grid>
                                         </Grid> 
                                     </Grid>
                                     <Grid item xs={12}>
                                         <Grid container spacing={2}>
                                             <Grid item xs={12}><Header size={6}>Round End Time</Header></Grid>
-                                            <Grid item xs={12}><RadioSelector id={2} text={'Choose time to view your score between questions.'} creatingState={creatingState} setGameProperties={setGameProperties} gameProperties={gameProperties}/></Grid>
+                                            <Grid item xs={12}>
+                                                <Slider
+                                                    defaultValue={5}
+                                                    onChange={(event, value) => setGameProperties({...gameProperties, counters: {...gameProperties.counters, roundEnd: value }})}
+                                                    aria-labelledby="discrete-slider"
+                                                    valueLabelDisplay="auto"
+                                                    step={1}
+                                                    marks
+                                                    min={1}
+                                                    max={30}
+                                                />
+                                            </Grid>
                                         </Grid> 
                                     </Grid>
                                 </Grid>
