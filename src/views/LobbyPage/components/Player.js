@@ -6,7 +6,7 @@ const Player = ({ gamertag, thisPlayersTag, lobbyReady }) => {
     return (
                 <Grid container>
                     <Grid item xs={10} style={{maxWidth:"80%"}}>
-                        <Box className='gamertagLobby'>{thisPlayersTag ? <b className="gamertagTextLobby">{gamertag}</b> : <p  className="gamertagTextLobby">{gamertag}</p>}</Box>
+                        <Box className='gamertagLobby'>{thisPlayersTag ? <p style={{fontWeight: "bold"}} className="gamertagTextLobby">{gamertag}</p> : <p  className="gamertagTextLobby">{gamertag}</p>}</Box>
                     </Grid>
                     {lobbyReady 
                     ? <Grid container xs={2} alignItems="center" justify="center">
