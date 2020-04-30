@@ -14,7 +14,7 @@ const QuestionInfoBox = ({ question, number, timeRemaining }) => {
         <div style={infoBoxStyle}>
             <QuestionNumber number={number}/>
             <Question question={question}/>
-            <Timer timeRemaining={timeRemaining}/>
+            <Timer color={"#fff"} timeRemaining={timeRemaining}/>
         </div>
     )
 }

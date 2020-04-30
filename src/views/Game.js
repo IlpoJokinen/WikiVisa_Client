@@ -39,9 +39,6 @@ const Game = ({socket, game, setGame, gamertag }) => {
         socket.on("game started", () => {
             setGame(prevState => ({...prevState, started: true}))
         })
-        socket.on('test3', (data) => {
-            console.log('data:', data)
-        })
     }, [])
 
     function setAnswerAndPlayerReady() {
@@ -49,7 +46,6 @@ const Game = ({socket, game, setGame, gamertag }) => {
     }
 
     function setPlayerReadyLobby() {
-        console.log("whattafuck", gamertag)
         socket.emit("set lobby ready", { game_id: game.id, gamertag: gamertag })
     }
 
@@ -75,7 +71,6 @@ const Game = ({socket, game, setGame, gamertag }) => {
     }
 
     function sendMessage(message) {
-        console.log(message)
         socket.emit("send lobby message", {gamertag: gamertag, message: message, game_id: game.id})
     }
 
