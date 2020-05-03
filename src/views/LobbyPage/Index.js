@@ -7,7 +7,7 @@ import Header from "../../components/UI/Header"
 import Timer from "../../components/UI/Timer"
 
 const Lobby = ({ gamertag, players, timer, roomCode, startGame, started, isCreator, setPlayerReadyLobby, chat }) => {
-
+    
     let allPlayers = ""
     document.title = started ? 'Game Is Starting!' : 'Game Lobby'
     if (players.length) {
@@ -44,7 +44,7 @@ const Lobby = ({ gamertag, players, timer, roomCode, startGame, started, isCreat
                         <Grid container direction="column">
                             {started
                             ?<Grid item>
-                                <Timer color={"blue"} timeRemaining={timer}></Timer>
+                                <Timer color={"blue"} timeRemaining={timer}/>
                             </Grid>
                             : null
                             }   

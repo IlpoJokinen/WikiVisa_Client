@@ -6,7 +6,8 @@ import GameEndScreen from './GameEndPage/Index'
 import LobbyScreen from './LobbyPage/Index'
 import Chat from '../components/UI/Chat/Chat'
 
-const Game = ({socket, game, setGame, gamertag }) => {
+const Game = ({getGame, socket, gamertag }) => {
+    const [game, setGame] = useState(getGame())
     const [answer, setAnswer] = useState("")
     const [correctAnswer, setCorrectAnswer] = useState({})
 
@@ -21,7 +22,6 @@ const Game = ({socket, game, setGame, gamertag }) => {
         socket.on("update game view", view => {
             setGame(prevState => ({...prevState, view: view}))
         })
-        
         socket.on('reset timers', data => {
             setGame(prevState => ({...prevState, questionCounter: data.questionCounter, roundEndCounter: data.roundEndCounter}))
         })
@@ -40,7 +40,7 @@ const Game = ({socket, game, setGame, gamertag }) => {
             setGame(prevState => ({...prevState, started: true}))
         })
     }, [])
-
+    
     function setAnswerAndPlayerReady() {
         socket.emit("set ready", { game_id: game.id, gamertag, answer, question_id: game.question.id }) 
     }
@@ -77,23 +77,22 @@ const Game = ({socket, game, setGame, gamertag }) => {
     function getPage() {
         switch(game.view) {
             case 1: return <LobbyScreen
-            game={game}
-            players={game.players} 
-            gamertag={gamertag} 
-            timer={game.startGameCounter}
-            roomCode={game.roomCode} 
-            startGame={startGame}
-            started={game.started}
-            isCreator={game.creator}
-            setPlayerReadyLobby={setPlayerReadyLobby}
-            chat={<Chat socket={socket} setGame={setGame} gamertag={gamertag} sendMessage={sendMessage}/>}
-        />
-            case 2: return <QuestionScreen 
+                game={game}
                 players={game.players} 
                 gamertag={gamertag} 
+                timer={game.startGameCounter}
+                roomCode={game.roomCode} 
+                startGame={startGame}
+                started={game.started}
+                isCreator={game.creator}
+                setPlayerReadyLobby={setPlayerReadyLobby}
+                chat={<Chat socket={socket} gamertag={gamertag} sendMessage={sendMessage}/>}
+            />
+            case 2: return <QuestionScreen 
+                setAnswer={setAnswer} 
                 timer={game.questionCounter} 
                 question={game.question}
-                setAnswer={setAnswer} 
+                players={game.players}
                 setReady={setAnswerAndPlayerReady}
             />
             case 3: return <RoundEndScreen 
