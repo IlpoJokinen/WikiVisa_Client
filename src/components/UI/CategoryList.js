@@ -7,7 +7,7 @@ const CategoryList = ({ selectedCategories, setSelectedCategories }) => {
     useEffect(() => fetchCategories(), [])
     const fetchCategories = () => {
         let mounted = true
-        fetch('http://localhost:3001/api/categories')
+        fetch((process.env.REACT_APP_SOCKET_URL || 'http://localhost:3001') + '/api/categories')
         .then(res => res.json())
         .then(data => {
             if (mounted){
