@@ -1,11 +1,9 @@
-import React, { useState, useEffect } from 'react'
-import { Box } from '@material-ui/core/'
+import React, { useState } from 'react'
 import WelcomePage from './PlayPage/Index'
 import CreateGame from './PlayPage/CreateGame'
 import FindGamePage from './PlayPage/FindGame'
-import LoginPage from './LoginPage/Index'
 
-const MainMenu = ({ socket, toggleGame, view, setView, gamertag, setGamertag }) => {
+const MainMenu = ({ socket, toggleGame, view, setView, gamertag, setGamertag, setShowBackButton }) => {
     const [roomCode, setRoomCode] = useState('')
     const [joiningState, setJoiningState] = useState(false)
     const [creatingState, setCreatingState] = useState(false)
@@ -22,18 +20,18 @@ const MainMenu = ({ socket, toggleGame, view, setView, gamertag, setGamertag }) 
         }
     }
     const getPage = () => {
+        setShowBackButton(false)
         switch(view){
-            case 'play': return <WelcomePage setView={setView} setGamertag={setGamertag} gamertag={gamertag}/>
-            case 'play_create': return <CreateGame createGame={createGame} setView={setView} setRoomCode={setRoomCode} creatingState={creatingState} gamertag={gamertag}/>
-            case 'play_find': return <FindGamePage setView={setView} joinGame={() => joinGame(roomCode)} setRoomCode={setRoomCode}/>
-            case 'play_quick': return <Box><input type="button" value="GO BACK" onClick={() =>  setView('play')}></input></Box>
-            case 'statistics': return <Box><input type="button" value="GO BACK" onClick={() => setView('play')}></input></Box>
-            case 'profile': return <Box><input type="button" value="GO BACK" onClick={() => setView('play')}></input></Box>
-            case 'login': return <LoginPage setView={setView} />
+            case 'play_create': 
+                setShowBackButton(true)
+                return <CreateGame createGame={createGame} setRoomCode={setRoomCode} creatingState={creatingState} />
+            case 'play_find': 
+                setShowBackButton(true)
+                return <FindGamePage joinGame={joinGame} setRoomCode={setRoomCode} />
             default: return <WelcomePage setView={setView} />
         }
     }
-    return getPage()
+    return getPage() 
 }
 
 export default MainMenu

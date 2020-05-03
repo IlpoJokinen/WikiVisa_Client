@@ -10,7 +10,7 @@ const blueText = {
     color: '#879DFA'
 }
 
-const CreateGame = ({setView, createGame, setRoomCode, creatingState, gamertag}) => {
+const CreateGame = ({createGame, setRoomCode, creatingState}) => {
     const [selectedCategories, setSelectedCategories] = useState([])
     const [gameProperties, setGameProperties] = useState({
         question: {
@@ -23,8 +23,7 @@ const CreateGame = ({setView, createGame, setRoomCode, creatingState, gamertag})
         },
         visibility: false,
         losePoints: false,
-        pointsForSpeed: false,
-        gamertag: gamertag
+        pointsForSpeed: false
     })
     useEffect(() => {
         setGameProperties({...gameProperties, question: {...gameProperties.question, categories: selectedCategories}})
@@ -35,21 +34,14 @@ const CreateGame = ({setView, createGame, setRoomCode, creatingState, gamertag})
                     <Container>
                         <Grid container spacing={2}>
                             <Grid item xs={12}>
-                                <GameButton id="createGamePageButton" title="Return" onClickFunc={() => setView('play')}/>
+                                <Header size={4}>Enter Roomcode</Header>
                             </Grid>
                             <Grid item xs={12}>
-                                <Grid container spacing={2}>
-                                    <Grid item xs={12}>
-                                        <Header size={4}>Enter Roomcode</Header>
-                                    </Grid>
-                                    <Grid item xs={12}>
-                                        <FormControl disabled={creatingState}>
-                                            <InputLabel htmlFor="roomcode-input" style={{color: '#879DFA'}}>Enter Roomcode</InputLabel>
-                                            <Input id="roomcode-input" onChange={e => setRoomCode(e.target.value)}/>
-                                            <FormHelperText style={{color: '#879DFA'}}>You can specify a room code or leave it empty to let us generate it for you</FormHelperText>
-                                        </FormControl>
-                                    </Grid>
-                                </Grid>
+                                <FormControl disabled={creatingState}>
+                                    <InputLabel htmlFor="roomcode-input" style={{color: '#879DFA'}}>Enter Roomcode</InputLabel>
+                                    <Input id="roomcode-input" onChange={e => setRoomCode(e.target.value)}/>
+                                    <FormHelperText style={{color: '#879DFA'}}>You can specify a room code or leave it empty to let us generate it for you</FormHelperText>
+                                </FormControl>
                             </Grid>
                         </Grid>
                     </Container>

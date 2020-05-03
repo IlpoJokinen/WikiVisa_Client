@@ -1,9 +1,9 @@
 import React from 'react'
 import { AppBar, Toolbar, IconButton, makeStyles } from '@material-ui/core'
 import Header from './Header'
-import MenuIcon from '@material-ui/icons/Menu'
+import { Menu } from '@material-ui/icons/'
 
-const NavBar = ({ title, toggle }) => {
+const NavBar = ({ title, toggle, previousButton }) => {
     const useStyles = makeStyles((theme) => ({
         menuButton: {
             marginRight: theme.spacing(2)
@@ -18,12 +18,13 @@ const NavBar = ({ title, toggle }) => {
         <Toolbar>
             <IconButton
                 color="inherit"
-                aria-label="open drawer"
+                aria-label="Open Drawer"
                 edge="start"
                 onClick={() => toggle()} 
                 className={classes.menuButton}>
-                <MenuIcon />
+                <Menu />
             </IconButton>
+            { previousButton }
             <Header style={{margin: 0}} size={4} white inline>
                 { title }
             </Header>
