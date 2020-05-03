@@ -42,10 +42,14 @@ function App() {
     }))
 
     const classes = useStyles()
+
+    function getGame() {
+        return game
+    }
   
     function getPage() {
         switch(showGame) {
-            case true: return <Game game={game} setGame={setGame} socket={socket} gamertag={gamertag}/>
+            case true: return <Game getGame={getGame} socket={socket} gamertag={gamertag}/>
             default: return <MainMenu
                 setShowBackButton={setShowBackButton}
                 socket={socket}
@@ -82,7 +86,7 @@ function App() {
             </IconButton> : ''
         } />
         <MyDrawer view={view} setOpenStatus={setOpenStatus} setView={setView} openStatus={openStatus} />
-        <Page>{ getPage() }</Page>
+        <Page>{getPage()}</Page>
     </div>
 }
 

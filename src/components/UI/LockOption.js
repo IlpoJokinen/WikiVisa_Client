@@ -28,7 +28,7 @@ const LockOption = ({ locked, setLocked }) => {
       if(locked) {
           return (
             <div style={divStyle} className={classes.root}>
-                <Button onClick={() => setLocked(false)} variant="outlined">Locked</Button>
+                <Button style={{pointerEvents: "none"}} variant="outlined">Locked</Button>
             </div>
           )
       } else {

@@ -25,6 +25,7 @@ const CreateGame = ({createGame, setRoomCode, creatingState}) => {
         losePoints: false,
         pointsForSpeed: false
     })
+
     useEffect(() => {
         setGameProperties({...gameProperties, question: {...gameProperties.question, categories: selectedCategories}})
     },[selectedCategories])
