@@ -56,14 +56,15 @@ const MyDrawer = ({view, setOpenStatus, setView, openStatus}) => {
         <Divider />
         <List>
             {
-                [{name: 'Play Game', url: 'play'}, 
-                {name: 'Statistics', url: 'statistics'}, 
-                {name: 'Profile', url: 'profile'}, 
-                {name: 'Sign In & Sign Up', url: 'login'}
-            ].map((obj, index) => 
-                    <ListItem button onClick={() => changePage(obj.url)} key={index} className={view === obj.url ? classes.listItemActive : classes.listItem}>
-                        <ListItemText  className={classes.listItemText} primary={obj.name} />
-                    </ListItem>
+                [{name: 'Play Game', url: 'play', state: true}, 
+                {name: 'Statistics', url: 'statistics', state: false}, 
+                {name: 'Profile', url: 'profile', state: false}, 
+                {name: 'Sign In & Sign Up', url: 'login', state: false}
+            ].map((obj, index) => obj.state 
+                ? <ListItem button onClick={() => changePage(obj.url)} key={index} className={view === obj.url ? classes.listItemActive : classes.listItem}>
+                    <ListItemText  className={classes.listItemText} primary={obj.name} /> 
+                </ListItem>
+                : ''
                 )
             }
         </List>
