@@ -4,7 +4,8 @@ import BlueCheckbox from './BlueCheckbox'
 
 const CategoryList = ({ selectedCategories, setSelectedCategories }) => {
     const [categories, setCategories] = useState([])
-    useEffect(() => {
+    useEffect(() => fetchCategories(), [])
+    const fetchCategories = () => {
         let mounted = true
         fetch('http://localhost:3001/api/categories')
         .then(res => res.json())
@@ -12,9 +13,9 @@ const CategoryList = ({ selectedCategories, setSelectedCategories }) => {
             if (mounted){
                 setCategories(data)
             }
-        })
+        }).catch(console.log)
         return () => mounted = false
-    }, [])
+    }
     const addToSelectedCategories = categoryId => {
         let exists = selectedCategories.find((id) => id === categoryId)
         if(exists) {
@@ -31,7 +32,7 @@ const CategoryList = ({ selectedCategories, setSelectedCategories }) => {
                 return <Grid item xs={6} sm={6} md={4} key={i}>
                     <BlueCheckbox label={category.prettyName} name={`category-${i}`} onClick={() => addToSelectedCategories(category.id)} /> 
                 </Grid>
-            }) : ''
+            }) : <Grid item >No Categories Found</Grid>
         }
     </Grid>
 }

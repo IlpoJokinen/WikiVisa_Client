@@ -4,7 +4,6 @@ import GameButton from '../../components/UI/GameButton'
 import CategoryList from '../../components/UI/CategoryList'
 import Header from '../../components/UI/Header'
 import BlueDivider from '../../components/UI/BlueDivider'
-import RadioSelector from '../../components/UI/RadioSelector'
 
 const blueText = {
     fontFamily: 'IBM Plex Sans',
@@ -27,15 +26,9 @@ const CreateGame = ({setView, createGame, setRoomCode, creatingState, gamertag})
         pointsForSpeed: false,
         gamertag: gamertag
     })
-    console.log(gameProperties)
-
     useEffect(() => {
         setGameProperties({...gameProperties, question: {...gameProperties.question, categories: selectedCategories}})
     },[selectedCategories])
-    
-    function selectCounter(props) {
-
-    }
     return <Grid container spacing={4} style={{height: '100%'}}>
                 <BlueDivider textCenter>Setup your personal game</BlueDivider>
                 <Grid item xs={12}>
@@ -74,8 +67,6 @@ const CreateGame = ({setView, createGame, setRoomCode, creatingState, gamertag})
                                                 <CategoryList
                                                     selectedCategories={selectedCategories} 
                                                     setSelectedCategories={setSelectedCategories}
-                                                    setGameProperties={setGameProperties}
-                                                    gameProperties={gameProperties}
                                                 />
                                             </Grid>
                                         </Grid>
