@@ -44,7 +44,7 @@ const Lobby = ({ gamertag, players, timer, roomCode, startGame, started, isCreat
                         <Grid container direction="column">
                             {started
                             ?<Grid item>
-                                <Timer color={"blue"} timeRemaining={timer}/>
+                                <Timer color={"#879dfa"} timeRemaining={timer}/>
                             </Grid>
                             : null
                             }   

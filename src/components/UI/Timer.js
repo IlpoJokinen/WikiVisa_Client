@@ -6,7 +6,8 @@ const Timer = ({ color, timeRemaining }) => {
 
     const divStyle = {
         margin: '0 auto',
-        marginTop: '50px',
+        marginTop: '10px',
+        marginBottom: '10px',
         width: '70px',
         height: '70px',
         border: `2px solid ${color}`,

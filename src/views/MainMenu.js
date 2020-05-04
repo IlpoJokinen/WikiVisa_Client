@@ -28,7 +28,7 @@ const MainMenu = ({ socket, toggleGame, view, setView, gamertag, setGamertag, se
             case 'play_find': 
                 setShowBackButton(true)
                 return <FindGamePage joinGame={joinGame} setRoomCode={setRoomCode} />
-            default: return <WelcomePage setView={setView} />
+            default: return <WelcomePage setView={setView} setGamertag={setGamertag} />
         }
     }
     return getPage() 

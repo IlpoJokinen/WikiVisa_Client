@@ -5,9 +5,11 @@ import Timer from './Timer'
 
 const QuestionInfoBox = ({ question, number, timeRemaining }) => {
     const infoBoxStyle = {
-        height: 300,
+        height: "auto",
         backgroundColor: '#879DFA',
         marginBottom: 70,
+        paddingBottom: 15
+
     }
 
     return (
