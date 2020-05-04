@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react'
-import { IconButton, makeStyles } from '@material-ui/core/'
+import { Container, IconButton, makeStyles } from '@material-ui/core/'
 import { ArrowBack } from '@material-ui/icons/'
-import PropTypes from 'prop-types'
 import MyDrawer from './components/UI/MyDrawer' 
 import NavBar from './components/UI/NavBar'
 import MainMenu from './views/MainMenu'
@@ -38,7 +37,10 @@ function App() {
         backPageButton: {
             marginRight: theme.spacing(2)
         },
-        toolbar: theme.mixins.toolbar
+        toolbar: theme.mixins.toolbar,
+        button: {
+            margin: theme.spacing(1)
+        }
     }))
 
     const classes = useStyles()
@@ -62,21 +64,10 @@ function App() {
         }
     }
 
-    const Page = props => {
-        return <div id="page">
-            <div className={classes.toolbar}></div>
-            { props.children }
-        </div>
-    }
-
-    Page.propTypes = {
-        children: PropTypes.node
-    }
-
     return <div className={classes.root}>
+        { showGame ? '' : 
         <NavBar title={pageTitle} toggle={() => setOpenStatus(!openStatus)} previousButton={
-            showBackButton ? 
-            <IconButton
+            showBackButton ? <IconButton
                 color="inherit"
                 aria-label="Go Back To Previous Page"
                 edge="start"
@@ -84,9 +75,12 @@ function App() {
                 className={classes.backPageButton}>
                 <ArrowBack />
             </IconButton> : ''
-        } />
-        <MyDrawer view={view} setOpenStatus={setOpenStatus} setView={setView} openStatus={openStatus} />
-        <Page>{getPage()}</Page>
+        } /> }
+        { showGame ? '' : <MyDrawer view={view} setOpenStatus={setOpenStatus} setView={setView} openStatus={openStatus} /> }
+        <Container maxWidth={false} style={{padding: 0}} disableGutters>
+            { showGame ? '' : <div className={classes.toolbar}></div> }
+            { getPage() }
+        </Container>
     </div>
 }
 

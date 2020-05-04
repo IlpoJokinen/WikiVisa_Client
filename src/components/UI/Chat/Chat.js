@@ -17,19 +17,23 @@ const Chat = ({ gamertag, socket, sendMessage }) => {
     })
 
     let messageComponents = messages.map((message, i) => {
-        return <Message key={i} gamertag={gamertag} message={message}></Message>
+        return <Message key={i} gamertag={gamertag} message={message} />
     })
 
-    return (
-        <Grid item >
-            <Grid container direction="column" style={{ margin: "4px 0 6px 0" }} className="chatBox">
-                <Grid container direction="column">
-                    {messageComponents}
+    return <Grid container>
+        <Grid item xs={12}>
+            <Grid container>
+                <Grid item xs={12}>
+                    <Grid container direction="column" className="chatBox">
+                        { messageComponents }
+                    </Grid>
+                </Grid>
+                <Grid item xs={12}>
+                    <ChatTextField sendMessage={sendMessage} />
                 </Grid>
             </Grid>
-            <ChatTextField sendMessage={sendMessage}></ChatTextField>
         </Grid>
-    );
-};
+    </Grid>
+}
 
-export default Chat;
+export default Chat

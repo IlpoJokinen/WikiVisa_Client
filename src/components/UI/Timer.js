@@ -6,11 +6,10 @@ const Timer = ({ color, timeRemaining }) => {
 
     const divStyle = {
         margin: '0 auto',
-        marginTop: '50px',
         width: '70px',
         height: '70px',
         border: `2px solid ${color}`,
-        borderRadius: 360,
+        borderRadius: '50%',
     }
     
     const textStyle = {
@@ -30,11 +29,9 @@ const Timer = ({ color, timeRemaining }) => {
         return () => mounted = false
     }, [timer])
 
-    return (
-        <div style={divStyle}>
-            <h4 style={textStyle}>{timer}</h4>
-        </div>
-    )
+    return <div style={divStyle}>
+        <h4 style={textStyle}>{timer}</h4>
+    </div>
 }
 
 export default Timer

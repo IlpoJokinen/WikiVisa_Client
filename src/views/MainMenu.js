@@ -3,7 +3,7 @@ import WelcomePage from './PlayPage/Index'
 import CreateGame from './PlayPage/CreateGame'
 import FindGamePage from './PlayPage/FindGame'
 
-const MainMenu = ({ socket, toggleGame, view, setView, gamertag, setGamertag, setShowBackButton }) => {
+const MainMenu = ({ socket, view, setView, setGamertag, gamertag, setShowBackButton }) => {
     const [roomCode, setRoomCode] = useState('')
     const [joiningState, setJoiningState] = useState(false)
     const [creatingState, setCreatingState] = useState(false)
@@ -28,7 +28,7 @@ const MainMenu = ({ socket, toggleGame, view, setView, gamertag, setGamertag, se
             case 'play_find': 
                 setShowBackButton(true)
                 return <FindGamePage joinGame={joinGame} setRoomCode={setRoomCode} />
-            default: return <WelcomePage setView={setView} />
+            default: return <WelcomePage setView={setView} createGame={createGame} gamertag={gamertag} setGamertag={setGamertag} />
         }
     }
     return getPage() 

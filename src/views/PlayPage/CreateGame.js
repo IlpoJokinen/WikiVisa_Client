@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
-import { Grid, FormHelperText, FormControl, InputLabel, Input, FormControlLabel, Switch, Container, Slider} from '@material-ui/core'
-import GameButton from '../../components/UI/GameButton'
+import { Grid, TextField, Button, FormControlLabel, Switch, Container, Slider} from '@material-ui/core'
+import { ChevronRight } from '@material-ui/icons/'
 import CategoryList from '../../components/UI/CategoryList'
 import Header from '../../components/UI/Header'
 import BlueDivider from '../../components/UI/BlueDivider'
@@ -13,24 +13,26 @@ const blueText = {
 const CreateGame = ({createGame, setRoomCode, creatingState}) => {
     const [selectedCategories, setSelectedCategories] = useState([])
     const [gameProperties, setGameProperties] = useState({
+        type: 'custom',
         question: {
             categories: [],
             count: 5
         },
         counters: {
-            answer: 5,
-            roundEnd: 5
+            answer: 10,
+            roundEnd: 10
         },
         visibility: false,
         losePoints: false,
         pointsForSpeed: false
     })
-
     useEffect(() => {
         setGameProperties({...gameProperties, question: {...gameProperties.question, categories: selectedCategories}})
     },[selectedCategories])
-    return <Grid container spacing={4} style={{height: '100%'}}>
-                <BlueDivider textCenter>Setup your personal game</BlueDivider>
+    return <Grid container>
+        <BlueDivider textCenter>Setup your personal game</BlueDivider>
+        <Grid item xs={12}>
+            <Grid container spacing={4}>
                 <Grid item xs={12}>
                     <Container>
                         <Grid container spacing={2}>
@@ -38,11 +40,7 @@ const CreateGame = ({createGame, setRoomCode, creatingState}) => {
                                 <Header size={4}>Enter Roomcode</Header>
                             </Grid>
                             <Grid item xs={12}>
-                                <FormControl disabled={creatingState}>
-                                    <InputLabel htmlFor="roomcode-input" style={{color: '#879DFA'}}>Enter Roomcode</InputLabel>
-                                    <Input id="roomcode-input" onChange={e => setRoomCode(e.target.value)}/>
-                                    <FormHelperText style={{color: '#879DFA'}}>You can specify a room code or leave it empty to let us generate it for you</FormHelperText>
-                                </FormControl>
+                                <TextField label={'Type a Room Code'} variant="outlined" fullWidth onChange={e => setRoomCode(e.target.value)} />
                             </Grid>
                         </Grid>
                     </Container>
@@ -181,12 +179,18 @@ const CreateGame = ({createGame, setRoomCode, creatingState}) => {
                 </Grid>
                 <Grid item xs={12}>
                     <Container>
-                        <Grid container>
-                            <GameButton id="createGamePageButton" title="Create Game" onClickFunc={() => createGame(gameProperties)}/>   
-                        </Grid>
+                        <Button
+                            variant="contained"
+                            color="primary"
+                            size="large"
+                            onClick={() => createGame(gameProperties)}
+                            startIcon={<ChevronRight />}
+                        >Create & Join</Button>
                     </Container>
                 </Grid>  
+            </Grid>
         </Grid>
+    </Grid>
 }
 
 export default CreateGame
