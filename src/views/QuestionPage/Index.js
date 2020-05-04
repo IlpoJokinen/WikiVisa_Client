@@ -10,13 +10,9 @@ const QuestionView = ({ setAnswer, timer, question, players, setReady  }) => {
     document.title = question.title.toString()
 
     let answerOptionComponents = question.choices.map((choice, i) => {
-        return <AnswerOption key={i} setAnswer={setAnswer} option={choice}/>
+        return <AnswerOption key={i} setAnswer={setAnswer} option={choice} value={i}/>
     })
 
-    if(locked === true) {
-        setReady()
-    }
-   
     return <Grid container spacing={10}>
         <Grid item xs={12}>
             <QuestionInfoBox timeRemaining={timer} number={1} question={question.title}/>
@@ -24,7 +20,7 @@ const QuestionView = ({ setAnswer, timer, question, players, setReady  }) => {
         <Grid item xs={12}>
             <div>
                 {answerOptionComponents}
-                <LockOption locked={locked} setLocked={setLocked}/>
+                <LockOption locked={locked} setLocked={setLocked} setReady={setReady}/>
             </div>
         </Grid>
     </Grid>
