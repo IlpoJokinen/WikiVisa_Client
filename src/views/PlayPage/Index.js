@@ -78,7 +78,7 @@ const WelcomePage = ({setView, setGamertag, gamertag, createGame}) => {
                                     fullWidth
                                     size="large"
                                     className={classes.button}
-                                    onClick={() => createGame({type: 'quick'})}
+                                    onClick={() => createGame({question:"", counters:"", type: 'quick'})}
                                     startIcon={<DoubleArrow />}
                                 >Quick Game</Button>
                                 <Button
