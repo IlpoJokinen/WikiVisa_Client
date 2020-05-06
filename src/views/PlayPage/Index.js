@@ -22,7 +22,8 @@ const WelcomePage = ({setView, setGamertag, gamertag, createGame}) => {
         },
         gridTest: {
             [theme.breakpoints.down('sm')]: {
-                marginTop: '50px'
+                marginTop: '50px',
+                marginBottom: '50px'
             },
             [theme.breakpoints.up('md')]: {
                 marginTop: '80px'

@@ -3,7 +3,9 @@ import Box from '@material-ui/core/Box'
 
 const BlueDivider = props => {
     let textCenter = props.hasOwnProperty('textCenter') ? 'center' : 'left'
-    return <div className="blueDivider"><Box m={2} style={{textAlign: textCenter}}>{ props.children }</Box></div>
+    return <Box className="blueDivider" style={{textAlign: textCenter}}>
+        { props.children }
+    </Box>
 }
 
 export default BlueDivider

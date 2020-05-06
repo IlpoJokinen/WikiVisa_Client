@@ -5,6 +5,11 @@ import BlueCheckbox from './BlueCheckbox'
 const CategoryList = ({ selectedCategories, setSelectedCategories }) => {
     const [categories, setCategories] = useState([])
     useEffect(() => fetchCategories(), [])
+    useEffect(() => {
+        if(!selectedCategories.length) {
+            setCategories(categories)
+        }
+    }, [selectedCategories])
     const fetchCategories = () => {
         let mounted = true
         fetch((process.env.REACT_APP_SOCKET_URL || 'http://localhost:3001') + '/api/categories')

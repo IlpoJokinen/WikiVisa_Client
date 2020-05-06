@@ -1,23 +1,43 @@
 import React from 'react'
-import { List, ListItem, ListItemText, ListItemSecondaryAction, IconButton, Typography } from '@material-ui/core/'
-import { PlayCircleOutlineRounded } from '@material-ui/icons/'
+import { List, ListItem, ListItemText, ListItemSecondaryAction, IconButton, Typography, Chip, Avatar } from '@material-ui/core/'
+import { PlayCircleOutlineRounded, Person } from '@material-ui/icons/'
 
-const GameList = ({ games }) => {
+const GameList = ({ games, joinGame }) => {
+
+
+
     return <List className="gameList">
         {
-            games.map((game, i) => {
-                return <ListItem key={i} dense button divider>
-                    <ListItemText 
-                        primary={<Typography>Room {game.roomCode}</Typography>} 
-                        secondary={<Typography>Players {game.currentPlayers}/{game.maxPlayers}</Typography>} 
-                    />
-                    <ListItemSecondaryAction>
-                        <IconButton aria-label="Join Game">
-                            <PlayCircleOutlineRounded />
-                        </IconButton>
-                    </ListItemSecondaryAction>
-                </ListItem>
-            })
+            games.length ? 
+                games.map((game, i) => {
+                    return <ListItem key={i} dense button divider>
+                        <ListItemText 
+                            primary={<Typography>Room {game.roomCode}</Typography>} 
+                            secondary={<Typography>
+                                <Chip icon={<Person />} 
+                                    size="small"
+                                    label={ game.currentPlayers + "/" + game.maxPlayers }
+                                    style={{marginRight: 5}} 
+                                /> 
+                                <Chip 
+                                    avatar={<Avatar>C</Avatar>}
+                                    size="small"
+                                    label={game.categories.join(", ")}
+                                />
+                            </Typography>} 
+                        />
+                        <ListItemSecondaryAction>
+                            <IconButton aria-label="Join Game" onClick={() => joinGame(game.roomCode)}>
+                                <PlayCircleOutlineRounded />
+                            </IconButton>
+                        </ListItemSecondaryAction>
+                    </ListItem>
+                })
+            : <ListItem key={0} dense>
+                <ListItemText 
+                    primary={<Typography>No Games Found</Typography>} 
+                />
+            </ListItem>
         }
     </List>
 }

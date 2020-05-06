@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { Grid } from '@material-ui/core/'
+import { Box, Container } from '@material-ui/core/'
 import ChatTextField from "./ChatTextField"
 import Message from "./Message"
 
@@ -14,26 +14,22 @@ const Chat = ({ gamertag, socket, sendMessage }) => {
             }
         })
         return () => mounted = false
-    })
+    }, [])
 
     let messageComponents = messages.map((message, i) => {
         return <Message key={i} gamertag={gamertag} message={message} />
     })
 
-    return <Grid container>
-        <Grid item xs={12}>
-            <Grid container>
-                <Grid item xs={12}>
-                    <Grid container direction="column" className="chatBox">
-                        { messageComponents }
-                    </Grid>
-                </Grid>
-                <Grid item xs={12}>
-                    <ChatTextField sendMessage={sendMessage} />
-                </Grid>
-            </Grid>
-        </Grid>
-    </Grid>
+    return <Container disableGutters>
+        <Box>
+            <Container disableGutters className="chatBox">
+                { messageComponents }
+            </Container>
+        </Box>
+        <Box>
+            <ChatTextField sendMessage={sendMessage} />
+        </Box>
+    </Container>
 }
 
 export default Chat
