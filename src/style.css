@@ -74,6 +74,7 @@ h1, h2, h3, h4, h5, h6, small {
 
 .gameList {
     border-radius: 5px;
+    padding: 0;
     border: 2px solid #A3B4FF;
     overflow-y: scroll;
     max-height: 257px;
@@ -118,6 +119,7 @@ h1, h2, h3, h4, h5, h6, small {
     width: 100%;
     margin: 20px auto 20px;
     height: min-content;
+    padding: 15px;
     font-size: 30px
 }
 
@@ -221,37 +223,22 @@ h1, h2, h3, h4, h5, h6, small {
   height: 250px;
   border: 1px solid #a3b4ff;
   border-radius: 6px;
-  margin-bottom: 30px;
-  overflow: auto;
-  overflow-x: hidden;
+  margin-bottom: 17px;
+  padding: 5px;
+  overflow: auto
 }
 
-.message {
+.messageCard {
   border-radius: 6px;
-  min-width: 20%;
-  max-width: 85%;
+  margin: 2px
 }
 
-.messageOwn {
-  align-self: flex-end;
+.messageCard.own {
+  background-color: #9ff58a
 }
 
-.messageOther {
-  align-self: flex-start;
-}
-
-.cardStyleOwn {
-  background-color: #9ff58a;
-  border-radius: 6px;
-  margin: 2px;
-  height: auto;
-}
-
-.cardStyleOther {
-  background-color: #cad2f5;
-  border-radius: 6px;
-  margin: 2px;
-  height: auto;
+.messageCard.other {
+  background-color: #cad2f5
 }
 
 .messageText {

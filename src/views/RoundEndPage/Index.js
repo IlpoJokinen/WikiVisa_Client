@@ -4,8 +4,8 @@ import { makeStyles } from '@material-ui/core/styles'
 import AnswerInfoBox from '../../components/UI/AnswerInfoBox'
 import StandingsRow from '../../components/UI/StandingsRow'
 
-const RoundEndView = () => {
-    const [ correctAnswer, setCorrectAnswer ] = useState('Helsinki')
+const RoundEndView = ({answers, gamertag, timer, correctAnswer}) => {
+
     const useStyles = makeStyles((theme) => ({
         root: {
           flexGrow: 1,
@@ -22,7 +22,7 @@ const RoundEndView = () => {
     const classes = useStyles()
     return <Grid container>
         <Grid item xs={12}>
-            <AnswerInfoBox correctAnswer={correctAnswer}/>
+            <AnswerInfoBox correctAnswer={correctAnswer} timer={timer}/>
         </Grid>
         <Grid item xs={12}>
             <StandingsRow rank={1} pointsAdded={10}/>

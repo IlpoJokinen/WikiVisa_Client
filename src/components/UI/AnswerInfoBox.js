@@ -1,16 +1,17 @@
 import React from 'react'
+import Timer from '../../components/UI/Timer'
 
-const AnswerInfoBox = ({ correctAnswer }) => {
+const AnswerInfoBox = ({ correctAnswer, timer }) => {
     const infoBoxStyle = {
-        height: 300,
+        height: "auto",
         backgroundColor: '#879DFA',
-        marginBottom: 70,
-        marginTop: -16
+        marginBottom: 20,
+        marginTop: -16,
+        paddingBottom: 15
     }
 
     const style = {
         textAlign: 'center',
-        paddingTop: 70,
         color: 'rgb(255, 255, 255)',
         fontFamily: 'IBM Plex Sans'
     }
@@ -34,8 +35,9 @@ const AnswerInfoBox = ({ correctAnswer }) => {
     return (
         <div style={infoBoxStyle}>
             <h5 style={headingStyle}>Round end results</h5>
-            <h3 style={style}>The correct answer is</h3>
-            <h2 style={answerStyle}>{correctAnswer}</h2>
+            <Timer color={"#fff"} timeRemaining={timer}/>
+            <h3 style={style}>{correctAnswer.answerTitle}</h3>
+            <h2 style={answerStyle}>{correctAnswer.name}</h2>
         </div>
     )
 }

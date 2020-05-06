@@ -1,94 +1,109 @@
 import React, { useState } from 'react'
-import { Container, TextField, Grid, Slider, List, ListItem, ListItemText, ListItemSecondaryAction, Typography, IconButton } from '@material-ui/core/'
-import PlayCircleOutlineRoundedIcon from '@material-ui/icons/PlayCircleOutlineRounded'
+import { Container, Box, TextField, Grid, Slider, Button } from '@material-ui/core/'
+import { ChevronRight, Search, HighlightOff } from '@material-ui/icons/'
 import CategoryList from '../../components/UI/CategoryList'
-import GameButton from '../../components/UI/GameButton'
+import GameList from './components/GameList'
 import BlueDivider from '../../components/UI/BlueDivider'
 import Header from '../../components/UI/Header'
 
-const GameList = ({ games }) => {
-    return <List className="gameList">
-        {
-            games.map((game, i) => {
-                return <ListItem key={i} dense button divider>
-                    <ListItemText 
-                        primary={<Typography>Room {game.roomCode}</Typography>} 
-                        secondary={<Typography>Players {game.currentPlayers}/{game.maxPlayers}</Typography>} 
-                    />
-                    <ListItemSecondaryAction>
-                        <IconButton aria-label="Join Game">
-                            <PlayCircleOutlineRoundedIcon />
-                        </IconButton>
-                    </ListItemSecondaryAction>
-                </ListItem>
-            })
-        }
-    </List>
-}
-
-const FindGame = ({ joinGame, setView, setRoomCode }) => {
-    const [maximumQuestionCount, setMaximumQuestionCount] = useState(5)
+const FindGame = ({ joinGame, fetchGames, games, setRoomCode }) => {
+    const [maximumQuestionCount, setMaximumQuestionCount] = useState(30)
     const [selectedCategories, setSelectedCategories] = useState([])
-    const [games, setGames] = useState([
-        {roomCode: '6b2', currentPlayers: 5, maxPlayers: 6},
-        {roomCode: '6b2', currentPlayers: 4, maxPlayers: 5},
-        {roomCode: '6b2', currentPlayers: 3, maxPlayers: 4},
-        {roomCode: '6b2', currentPlayers: 1, maxPlayers: 2},
-        {roomCode: '6b2', currentPlayers: 1, maxPlayers: 4}
-    ])
-    return <Grid container style={{height: '100%'}}>
-        <BlueDivider>Enter Room Name</BlueDivider>
-        <Grid xs={12} item>
-            <Container>
-                <Grid container spacing={5}>
-                    <Grid xs={12} sm={6} item>
-                        <TextField id="roomCodeTextField" onChange={e => setRoomCode(e.target.value)}label="Type a Room Code" variant="outlined"/>
-                    </Grid>
-                    <Grid xs={12} sm={6} item>
-                        <GameButton id="joinGameBtn" title="Join Game" onClickFunc={joinGame}/>
-                    </Grid>
+    function resetFilters() {
+        setMaximumQuestionCount(30)
+        setSelectedCategories([])
+    }
+    return <Container maxWidth disableGutters>
+        <BlueDivider>Join By Room Code</BlueDivider>
+        <Box m={2}>
+            <Grid container spacing={2}>
+                <Grid xs={12} item>
+                    <Header size={3}>Type a Room Code</Header>
                 </Grid>
-            </Container>
-        </Grid>
+                <Grid xs={12} item>
+                    <TextField id="roomCodeTextField" onChange={e => setRoomCode(e.target.value)} fullWidth label="Type a Room Code" variant="outlined"/>
+                </Grid>
+                <Grid xs={12} item>
+                    <Button
+                        variant="contained"
+                        color="primary"
+                        size="large"
+                        onClick={() => joinGame()}
+                        startIcon={<ChevronRight />}
+                    >Join Game</Button>
+                </Grid>
+            </Grid>
+        </Box>
         <BlueDivider>Search a Game</BlueDivider>
-        <Grid xs={12} item>
-            <Container>
-                <Grid container spacing={5}>
-                    <Grid xs={12} sm={6} item>
-                        <Header size={3}>Categories in a Game</Header>
-                        <CategoryList 
-                            selectedCategories={selectedCategories} 
-                            setSelectedCategories={setSelectedCategories} 
-                        />
-                    </Grid>
-                    <Grid xs={12} sm={6} item>
-                        <Header size={3}>Maximum Count of Questions</Header>
-                        <Slider
-                            defaultValue={5}
-                            onChange={(event, value) => setMaximumQuestionCount(value)}
-                            aria-labelledby="discrete-slider"
-                            valueLabelDisplay="auto"
-                            step={1}
-                            marks
-                            min={1}
-                            max={30}
-                        />
+        <Box m={2}>
+            <Grid container spacing={4}>
+                <Grid xs={12} sm={7} item>
+                    <Grid container spacing={2}>
+                        <Grid xs={12} item>
+                            <Header size={3}>Categories in a Game</Header>
+                        </Grid>
+                        <Grid xs={12} item>
+                            <CategoryList 
+                                selectedCategories={selectedCategories} 
+                                setSelectedCategories={setSelectedCategories} 
+                            />
+                        </Grid>
                     </Grid>
                 </Grid>
-            </Container>
-        </Grid>
-        <Grid xs={12} item>
-            <Container>
-                <GameButton id="findGamesBtn" title="Find Games" />
-            </Container>
-        </Grid>
-        <Grid xs={12} item>
-            <Container>
-                <Header size={3}>Found 3 games</Header>
-                <GameList games={games} />
-            </Container>
-        </Grid>       
-    </Grid>
+                <Grid xs={12} sm={5} item>
+                    <Grid container spacing={2}>
+                        <Grid xs={12} item>
+                            <Header size={3}>Maximum Count of Questions: {maximumQuestionCount}</Header>
+                        </Grid>
+                        <Grid xs={12} item>
+                            <Container style={{paddingLeft: 0}}>
+                                <Slider
+                                    value={maximumQuestionCount}
+                                    onChange={(e, value) => setMaximumQuestionCount(value)}
+                                    aria-labelledby="discrete-slider"
+                                    valueLabelDisplay="auto"
+                                    step={1}
+                                    marks
+                                    min={1}
+                                    max={30}
+                                />
+                            </Container>
+                        </Grid>
+                    </Grid>
+                </Grid>
+            </Grid>
+        </Box>
+        <Box m={2}>
+            <Grid container spacing={2}>
+                <Grid item>
+                    <Button
+                        variant="contained"
+                        color="primary"
+                        size="large"
+                        onClick={() => fetchGames({
+                            maximumQuestionCount: maximumQuestionCount,
+                            selectedCategories: selectedCategories
+                        })}
+                        startIcon={<Search />}
+                    >Find Games</Button>
+                </Grid>
+                <Grid item>
+                    <Button
+                        variant="contained"
+                        color="primary"
+                        size="large"
+                        onClick={() => resetFilters()}
+                        startIcon={<HighlightOff />}
+                    >Reset Filters</Button>
+                </Grid>
+            </Grid>
+            
+            
+        </Box>
+        <Box m={2}>  
+            { games.length ? <GameList games={games} joinGame={joinGame} /> : '' }
+        </Box>
+    </Container>
 }
 
 export default FindGame

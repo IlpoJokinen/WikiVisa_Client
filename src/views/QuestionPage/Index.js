@@ -1,24 +1,26 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import QuestionInfoBox from '../../components/UI/QuestionInfoBox'
 import AnswerOption from '../../components/UI/AnswerOption'
 import LockOption from '../../components/UI/LockOption'
 import Grid from '@material-ui/core/Grid';
 
-const QuestionView = () => {
-    const [ answer, setAnswer ] = useState()
+const QuestionView = ({ setAnswer, timer, question, players, setReady  }) => {
+    const [playersReady, setPlayersReady] = useState(0)
     const [ locked, setLocked ] = useState(false)
+    document.title = question.title.toString()
 
-    return <Grid container spacing={12}>
+    let answerOptionComponents = question.choices.map((choice, i) => {
+        return <AnswerOption key={i} setAnswer={setAnswer} option={choice} value={i}/>
+    })
+
+    return <Grid container spacing={10}>
         <Grid item xs={12}>
-            <QuestionInfoBox timeRemaining={4} number={1} question="What is the capital of finland?"/>
+            <QuestionInfoBox timeRemaining={timer} number={1} question={question.title}/>
         </Grid>
         <Grid item xs={12}>
             <div>
-                <AnswerOption setAnswer={setAnswer} option='Stockholm'/>
-                <AnswerOption setAnswer={setAnswer} option='Belgrade'/>
-                <AnswerOption setAnswer={setAnswer} option='Helsinki'/>
-                <AnswerOption setAnswer={setAnswer} option='New York City'/>
-                <LockOption locked={locked} setLocked={setLocked}/>
+                {answerOptionComponents}
+                <LockOption locked={locked} setLocked={setLocked} setReady={setReady}/>
             </div>
         </Grid>
     </Grid>

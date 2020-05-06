@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
-import { makeStyles } from '@material-ui/core/'
-import PropTypes from 'prop-types'
+import { Container, IconButton, makeStyles } from '@material-ui/core/'
+import { ArrowBack } from '@material-ui/icons/'
 import MyDrawer from './components/UI/MyDrawer' 
 import NavBar from './components/UI/NavBar'
 import MainMenu from './views/MainMenu'
@@ -14,10 +14,11 @@ const socket = io(process.env.REACT_APP_SOCKET_URL || 'localhost:3001')
 
 function App() {
     const [game, setGame] = useState({})
+    const [showBackButton, setShowBackButton] = useState(false)
     const [openStatus, setOpenStatus] = useState(false)
     const [showGame, toggleGame] = useState(false)
     const [pageTitle, setPageTitle] = useState('Welcome to WikiQuiz')
-    const [view, setView] = useState('play')
+    const [view, setView] = useState('play_find')
     const [gamertag, setGamertag] = useState("")
 
     useEffect(() => {
@@ -35,15 +36,26 @@ function App() {
             display: 'flex',
             height: '100%'
         },
-        toolbar: theme.mixins.toolbar
+        backPageButton: {
+            marginRight: theme.spacing(2)
+        },
+        toolbar: theme.mixins.toolbar,
+        button: {
+            margin: theme.spacing(1)
+        }
     }))
 
     const classes = useStyles()
+
+    function getGame() {
+        return game
+    }
   
     function getPage() {
         switch(showGame) {
-            case true: return <Game game={game} setGame={setGame} socket={socket} gamertag={gamertag}/>
+            case true: return <Game getGame={getGame} socket={socket} gamertag={gamertag}/>
             default: return <MainMenu
+                setShowBackButton={setShowBackButton}
                 socket={socket}
                 toggleGame={toggleGame}
                 view={view}
@@ -54,19 +66,23 @@ function App() {
         }
     }
 
-    const Page = props => {
-        return <div id="page">
-            <div className={classes.toolbar}></div>
-            { props.children }
-        </div>
-    }
-
-    Page.propTypes = {
-        children: PropTypes.node
-    }
-
     return <div className={classes.root}>
-        <GameEndView />
+        { showGame ? '' : 
+        <NavBar title={pageTitle} toggle={() => setOpenStatus(!openStatus)} previousButton={
+            showBackButton ? <IconButton
+                color="inherit"
+                aria-label="Go Back To Previous Page"
+                edge="start"
+                onClick={() => setView('play')} 
+                className={classes.backPageButton}>
+                <ArrowBack />
+            </IconButton> : ''
+        } /> }
+        { showGame ? '' : <MyDrawer view={view} setOpenStatus={setOpenStatus} setView={setView} openStatus={openStatus} /> }
+        <Container maxWidth={false} style={{padding: 0}} disableGutters>
+            { showGame ? '' : <div className={classes.toolbar}></div> }
+            { getPage() }
+        </Container>
     </div>
 }
 
