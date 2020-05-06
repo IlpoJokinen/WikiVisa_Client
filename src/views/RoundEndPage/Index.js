@@ -20,7 +20,7 @@ const RoundEndView = () => {
         }
     }))
     const classes = useStyles()
-    return <Grid container spacing={12}>
+    return <Grid container>
         <Grid item xs={12}>
             <AnswerInfoBox correctAnswer={correctAnswer}/>
         </Grid>

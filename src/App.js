@@ -8,6 +8,8 @@ import Game from './views/Game'
 import '../src/style.css'
 import io from 'socket.io-client'
 
+import GameEndView from './views/GameEndPage/GameEnd'
+
 const socket = io(process.env.REACT_APP_SOCKET_URL || 'localhost:3001')
 
 function App() {
@@ -64,9 +66,7 @@ function App() {
     }
 
     return <div className={classes.root}>
-        <NavBar title={pageTitle} toggle={() => setOpenStatus(!openStatus)} />
-        <MyDrawer view={view} setOpenStatus={setOpenStatus} setView={setView} openStatus={openStatus} />
-        <Page>{ getPage() }</Page>
+        <GameEndView />
     </div>
 }
 

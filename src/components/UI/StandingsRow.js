@@ -2,7 +2,7 @@ import React from 'react'
 
 import StandingsBox from './StandingsBox'
 
-const StandingsCell = ({ rank, pointsAdded }) => {
+const StandingsCell = ({ rank, pointsAdded, end }) => {
     const cellStyle = {
         display: 'inline-block',
         marginLeft: 22,
@@ -34,15 +34,26 @@ const StandingsCell = ({ rank, pointsAdded }) => {
         color: '#879DFA',
     }
 
-    return (
-        <div style={divStyle}>
-            <StandingsBox rank={rank}/>
-            <div style={cellStyle}>
-                <h5 style={textStyle}>Gamertag goes here</h5>
-                <h6 style={addedPointsStyle}>+ {pointsAdded} points</h6>
-            </div>
+    if(end) {
+        return (
+            <div style={divStyle}>
+                <StandingsBox rank={rank}/>
+                <div style={cellStyle}>
+                    <h5 style={textStyle}>Gamertag goes here</h5>
+                </div>
         </div>
-    )
+        )
+    } else {
+        return (
+            <div style={divStyle}>
+                <StandingsBox rank={rank}/>
+                <div style={cellStyle}>
+                    <h5 style={textStyle}>Gamertag goes here</h5>
+                    <h6 style={addedPointsStyle}>+ {pointsAdded} points</h6>
+                </div>
+            </div>
+        )
+    }
 }
 
 export default StandingsCell
