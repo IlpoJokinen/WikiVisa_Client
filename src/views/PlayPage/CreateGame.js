@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react'
-import { Grid, Box, TextField, Button, FormControlLabel, Switch, Container, Slider} from '@material-ui/core'
+import { Grid, Box, Input, TextField, Button, FormControlLabel, Switch, Container, Slider, makeStyles, Backdrop} from '@material-ui/core'
+import CircularProgress from '@material-ui/core/CircularProgress'
 import { ChevronRight } from '@material-ui/icons/'
 import CategoryList from '../../components/UI/CategoryList'
 import Header from '../../components/UI/Header'
@@ -10,7 +11,14 @@ const blueText = {
     color: '#879DFA'
 }
 
-const CreateGame = ({createGame, setRoomCode, creatingState}) => {
+const useStyles = makeStyles((theme) => ({
+    backdrop: {
+        zIndex: theme.zIndex.drawer + 1,
+        color: '#fff',
+    }
+}))
+
+const CreateGame = ({createGame, setRoomCode, loadingState}) => {
     const [selectedCategories, setSelectedCategories] = useState([])
     const [gameProperties, setGameProperties] = useState({
         type: 'custom',
@@ -22,6 +30,7 @@ const CreateGame = ({createGame, setRoomCode, creatingState}) => {
             answer: 10,
             roundEnd: 10
         },
+        maxPlayers: 6,
         visibility: false,
         losePoints: false,
         pointsForSpeed: false
@@ -29,7 +38,8 @@ const CreateGame = ({createGame, setRoomCode, creatingState}) => {
     useEffect(() => {
         setGameProperties({...gameProperties, question: {...gameProperties.question, categories: selectedCategories}})
     },[selectedCategories])
-    return <Container maxWidth disableGutters>
+    const classes = useStyles()
+    return <Container maxWidth={false} disableGutters>
         <BlueDivider textCenter>Setup your personal game</BlueDivider>
         <Box m={2}>
             <Grid container spacing={4}>
@@ -115,6 +125,14 @@ const CreateGame = ({createGame, setRoomCode, creatingState}) => {
                         <Grid item xs={12}><Header size={4}>Advanced Settings</Header></Grid>
                         <Grid item xs={12}>
                             <Grid container spacing={1}>
+                                <Grid item xs={12}><Header size={6}>Max Players</Header></Grid>
+                                <Grid item xs={12}>
+                                    <Input type="number" value={gameProperties.maxPlayers} onChange={e => setGameProperties({...gameProperties, maxPlayers: e.target.value})} inputProps={{ 'aria-label': 'Max Players' }} />
+                                </Grid>
+                            </Grid>
+                        </Grid>
+                        <Grid item xs={12}>
+                            <Grid container spacing={1}>
                                 <Grid item xs={12}><Header size={6}>Visibility</Header></Grid>
                                 <Grid item xs={12}>
                                     <FormControlLabel
@@ -180,6 +198,9 @@ const CreateGame = ({createGame, setRoomCode, creatingState}) => {
                 startIcon={<ChevronRight />}
             >Create & Join</Button>
         </Box>
+        <Backdrop className={classes.backdrop} open={loadingState}>
+            <CircularProgress color="inherit" />
+        </Backdrop>
     </Container>
 }
 
