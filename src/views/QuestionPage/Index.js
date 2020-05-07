@@ -18,6 +18,7 @@ const CustomGridItem = withStyles((theme) => ({
 const QuestionView = ({ setAnswer, timer, question, players, setReady, questionCount, questionIndex }) => {
     const [playersReady, setPlayersReady] = useState(0)
     const [ locked, setLocked ] = useState(false)
+    const [answerGiven, setAnswerGiven] = useState(false)
     const useStyles = makeStyles((theme) => ({
         button: {
             marginBottom: theme.spacing(2)
@@ -39,7 +40,7 @@ const QuestionView = ({ setAnswer, timer, question, players, setReady, questionC
     }, [players])
 
     let answerOptionComponents = question.choices.map((choice, i) => {
-        return <AnswerOption key={i} setAnswer={setAnswer} option={choice} value={i}/>
+        return <AnswerOption setAnswerGiven={setAnswerGiven} key={i} setAnswer={setAnswer} option={choice} value={i}/>
     })
 
     const classes = useStyles()
@@ -60,28 +61,13 @@ const QuestionView = ({ setAnswer, timer, question, players, setReady, questionC
             <Grid container spacing={3}>
                 <Grid xs={12} item style={{padding:"0 30px", marginBottom: 30}}>
                     {answerOptionComponents}
-                    <LockOption locked={locked} setLocked={setLocked} setReady={setReady}/>
-                </Grid>
-                <Grid xs={12} item >
+                    <LockOption locked={locked} setLocked={setLocked} setReady={setReady} answerGiven={answerGiven}/>
                     <LinearProgress variant="determinate" value={playersReady / players.length * 100} />
                 </Grid>
             </Grid>
         </Container>
     </CustomGridItem>
 </Grid>
-
-    /*return <Grid container spacing={10}>
-        <Grid item xs={12}>
-            <QuestionInfoBox timeRemaining={timer} number={1} question={question.title}/>
-        </Grid>
-        <Grid item xs={12}>
-            <div>
-                <LinearProgress variant="determinate" value={playersReady / players.length * 100} />
-                {answerOptionComponents}
-                <LockOption locked={locked} setLocked={setLocked} setReady={setReady}/>
-            </div>
-        </Grid>
-    </Grid>*/
 }
 
 export default QuestionView

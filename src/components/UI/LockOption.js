@@ -3,7 +3,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
 
 
-const LockOption = ({ locked, setLocked, setReady }) => {
+const LockOption = ({ locked, setLocked, setReady, answerGiven }) => {
     const useStyles = makeStyles((theme) => ({
         root: {
           '& > *': {
@@ -24,16 +24,16 @@ const LockOption = ({ locked, setLocked, setReady }) => {
           textAlign: 'center'
       }
 
-      if(locked) {
+      if(locked || !answerGiven) {
           return (
             <div style={divStyle} className={classes.root}>
-                <Button style={{pointerEvents: "none"}} variant="outlined">Submitted!</Button>
+                <Button style={{pointerEvents: "none"}} variant="outlined">{answerGiven ? "Submitted!" : "Choose Answer"}</Button>
             </div>
           )
       } else {
           return (
             <div style={divStyle} className={classes.root}>
-                <Button onClick={() => {setLocked(true); setReady()}} variant="outlined">Sumbit Answer</Button>
+                <Button onClick={() => {setLocked(true); setReady()}} variant="outlined">Submit Answer</Button>
             </div>
           )
       }

@@ -9,6 +9,7 @@ const RoundEndPlayerList = ({ players, gamertag }) => {
             players
             .sort((a, b) => b.points - a.points)
             .map((player, i) => <RoundEndPlayer 
+                key={i}
                 rank={i + 1} 
                 isCurrentPlayer={gamertag === player.gamertag} 
                 points={player.points} 

@@ -1,26 +1,20 @@
 import React from 'react'
-import { ListItem, ListItemIcon, ListItemText } from '@material-ui/core/'
+import { ListItem, ListItemIcon, ListItemText, Badge } from '@material-ui/core/'
 import { Face } from '@material-ui/icons/'
 
 const RoundEndPlayer = ({ gamertag, isCurrentPlayer, rank, pointsAdded, points }) => {
 
-    if (pointsAdded === undefined) {
-        pointsAdded = 0
-    }
-
     return <ListItem divider>
-        <ListItemText primary={rank} />
+        
         {
             isCurrentPlayer ? <ListItemIcon>
-                <Face />
+                <Face/>
             </ListItemIcon>
-            : ''
+            : <ListItemText primary={rank} />
         }
-        <ListItemText primary={gamertag} />
+        <ListItemText primary={gamertag} style={{paddingRight: 5}}/>
         <ListItemText primary={points}/>
-        <ListItemText primary={`${pointsAdded >= 0 ? "+" : " "} ${pointsAdded} points`}/>
-
+        <ListItemText primary={`${pointsAdded >= 0 ? "+" : " "}${pointsAdded} points`}/>
     </ListItem>
 }
-
 export default RoundEndPlayer

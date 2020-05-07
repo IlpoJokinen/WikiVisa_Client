@@ -18,7 +18,7 @@ function App() {
     const [openStatus, setOpenStatus] = useState(false)
     const [showGame, toggleGame] = useState(false)
     const [pageTitle, setPageTitle] = useState('Welcome to WikiQuiz')
-    const [view, setView] = useState('')
+    const [view, setView] = useState('play')
     const [gamertag, setGamertag] = useState("")
 
     useEffect(() => {

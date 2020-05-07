@@ -1,11 +1,16 @@
 import React from 'react'
 import '../../../src/style.css'
  
-const AnswerOption = ({ option, setAnswer, value }) => {
+const AnswerOption = ({ option, setAnswer, value, setAnswerGiven }) => {
     const id = option
 
+    function handleClick() {
+        setAnswer({value: value, name: option})
+        setAnswerGiven(true)
+    }
+
     return <div className="radioButton">
-            <input onClick={() => setAnswer({value: value, name: option})} id={id} value={option} type="radio" name="option"/>
+            <input onClick={() => handleClick()} id={id} value={option} type="radio" name="option"/>
             <label htmlFor={id}>{option}</label>
         </div>
     }
