@@ -6,6 +6,8 @@ import GameList from './components/GameList'
 import BlueDivider from '../../components/UI/BlueDivider'
 import Header from '../../components/UI/Header'
 
+document.title = 'Find Game'
+
 const FindGame = ({ joinGame, fetchGames, games, setRoomCode }) => {
     const [maximumQuestionCount, setMaximumQuestionCount] = useState(30)
     const [selectedCategories, setSelectedCategories] = useState([])

@@ -1,6 +1,6 @@
 import React from 'react'
 
-const QuestionNumber = ({number}) => {
+const QuestionNumber = ({questionIndex, questionCount}) => {
     const textStyle = {
         textAlign: 'center',
         color: 'white',
@@ -14,7 +14,7 @@ const QuestionNumber = ({number}) => {
 
     return (
         <div>
-            <h3 style={textStyle}>{`${number}/10`}</h3>
+            <h3 style={textStyle}>{`${questionIndex}/${questionCount}`}</h3>
         </div>
     )
 }

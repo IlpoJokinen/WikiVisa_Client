@@ -15,7 +15,7 @@ const CustomGridItem = withStyles((theme) => ({
     },
 }))(Grid)
 
-const QuestionView = ({ setAnswer, timer, question, players, setReady  }) => {
+const QuestionView = ({ setAnswer, timer, question, players, setReady, questionCount, questionIndex }) => {
     const [playersReady, setPlayersReady] = useState(0)
     const [ locked, setLocked ] = useState(false)
     const useStyles = makeStyles((theme) => ({
@@ -49,7 +49,7 @@ const QuestionView = ({ setAnswer, timer, question, players, setReady  }) => {
         <Container maxWidth="xs" className={classes.gridTest}>
             <Grid container>
                 <Grid xs={12} item>
-                    <QuestionInfoBox timeRemaining={timer} number={1} question={question.title}/>
+                    <QuestionInfoBox timeRemaining={timer} questionIndex={questionIndex} question={question.title} questionCount={questionCount}/>
                 </Grid>
                 
             </Grid>

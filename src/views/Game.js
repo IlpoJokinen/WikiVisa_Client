@@ -33,14 +33,14 @@ const Game = ({getGame, socket, gamertag }) => {
             //setJoiningState(false)
             window.alert(`Gamertag '${data} is already taken!'`)
         })
-        socket.on("send question", question => {
-            setGame(prevState => ({...prevState, question: question}))
+        socket.on("send question", data => {
+            setGame(prevState => ({...prevState, question: data.nextQuestion, currentQuestionIndex: data.questionIndex}))
         })
         socket.on("game started", () => {
             setGame(prevState => ({...prevState, started: true}))
         })
     }, [])
-    
+ 
     function setAnswerAndPlayerReady() {
         socket.emit("set ready", { game_id: game.id, gamertag, answer, question_id: game.question.id }) 
     }
@@ -73,7 +73,6 @@ const Game = ({getGame, socket, gamertag }) => {
     function sendMessage(message) {
         socket.emit("send lobby message", {gamertag: gamertag, message: message, game_id: game.id})
     }
-
     function getPage() {
         switch(game.view) {
             case 1: return <LobbyScreen
@@ -88,7 +87,9 @@ const Game = ({getGame, socket, gamertag }) => {
                 setPlayerReadyLobby={setPlayerReadyLobby}
                 chat={<Chat socket={socket} gamertag={gamertag} sendMessage={sendMessage}/>}
             />
-            case 2: return <QuestionScreen 
+            case 2: return <QuestionScreen
+                questionIndex={game.currentQuestionIndex}
+                questionCount={game.numberOfQuestions} 
                 setAnswer={setAnswer} 
                 timer={game.questionCounter} 
                 question={game.question}

@@ -3,7 +3,7 @@ import QuestionNumber from './QuestionNumber'
 import Question from './Question'
 import Timer from './Timer'
 
-const QuestionInfoBox = ({ question, number, timeRemaining }) => {
+const QuestionInfoBox = ({ question, timeRemaining, questionCount, questionIndex }) => {
     const infoBoxStyle = {
         height: "auto",
         backgroundColor: '#879DFA',
@@ -13,9 +13,9 @@ const QuestionInfoBox = ({ question, number, timeRemaining }) => {
 
     return (
         <div style={infoBoxStyle}>
-            <QuestionNumber number={number}/>
-            <Question question={question}/>
             <Timer color={"#fff"} timeRemaining={timeRemaining}/>
+            <QuestionNumber questionCount={questionCount} questionIndex={questionIndex}/>
+            <Question question={question}/>
         </div>
     )
 }

@@ -2,7 +2,12 @@ import React from 'react'
 import { ListItem, ListItemIcon, ListItemText } from '@material-ui/core/'
 import { Face } from '@material-ui/icons/'
 
-const RoundEndPlayer = ({ gamertag, isCurrentPlayer, rank, pointsAdded, points,  }) => {
+const RoundEndPlayer = ({ gamertag, isCurrentPlayer, rank, pointsAdded, points }) => {
+
+    if (pointsAdded === undefined) {
+        pointsAdded = 0
+    }
+
     return <ListItem divider>
         <ListItemText primary={rank} />
         {

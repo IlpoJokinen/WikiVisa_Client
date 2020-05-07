@@ -23,8 +23,11 @@ const Lobby = ({ gamertag, players, timer, roomCode, startGame, started, isCreat
                         </Grid>
 
     if(gameType === "quick"){
-        return <Grid container>
-            <TimerWrapper/>
+        return <Grid container style={{height: '100%'}} alignItems='center' justify='center'>
+                <Grid item>
+                    <Header size={1}>The game is starting in...</Header>
+                    <TimerWrapper/>
+                </Grid>
         </Grid>
     } else {
         return <Grid container>

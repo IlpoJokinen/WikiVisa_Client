@@ -3,6 +3,8 @@ import WelcomePage from './PlayPage/Index'
 import CreateGame from './PlayPage/CreateGame'
 import FindGamePage from './PlayPage/FindGame'
 
+document.title = 'Welcome!'
+
 const MainMenu = ({ socket, view, setView, setGamertag, gamertag, setShowBackButton }) => {
     const [roomCode, setRoomCode] = useState('')
     const [games, setGames] = useState([])
@@ -25,10 +27,11 @@ const MainMenu = ({ socket, view, setView, setGamertag, gamertag, setShowBackBut
             socket.emit("join game", { gamertag, roomCode: roomcodeGiven })
         }
     }
+    
     function fetchGames(filters) {
-        console.log(filters)
         socket.emit("get games", filters)
     }
+
     const getPage = () => {
         setShowBackButton(false)
         switch(view){
