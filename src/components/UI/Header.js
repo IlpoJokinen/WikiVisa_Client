@@ -8,7 +8,7 @@ const Header = props => {
     if(props.hasOwnProperty('style')) {
         styles = Object.assign({}, styles, props.style)
     }
-    const HeadingValue = `h${props.size}`
+    const HeadingValue = `h${props.hasOwnProperty("size") ? props.size : 2}`
     return <HeadingValue style={styles}>{props.children}</HeadingValue>
 }
 

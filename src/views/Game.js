@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import Button from '@material-ui/core/Button'
 import QuestionScreen from './QuestionPage/Index'
 import RoundEndScreen from './RoundEndPage/Index'
-import GameEndScreen from './GameEndPage/Index'
+import GameEndScreen from './GameEndPage/GameEnd'
 import LobbyScreen from './LobbyPage/Index'
 import Chat from '../components/UI/Chat/Chat'
 
@@ -64,7 +64,7 @@ const Game = ({getGame, socket, gamertag }) => {
                 }
             })
             if(!answeredThisRound){
-                answers[p.gamertag] = {name: "No answer for this round"}
+                answers[p.gamertag] = {noAnswer: true}
             }
         })
         return answers
@@ -77,7 +77,7 @@ const Game = ({getGame, socket, gamertag }) => {
     function getPage() {
         switch(game.view) {
             case 1: return <LobbyScreen
-                game={game}
+                gameType={game.type}
                 players={game.players} 
                 gamertag={gamertag} 
                 timer={game.startGameCounter}
@@ -96,6 +96,7 @@ const Game = ({getGame, socket, gamertag }) => {
                 setReady={setAnswerAndPlayerReady}
             />
             case 3: return <RoundEndScreen 
+                players={game.players}   
                 answers={getPlayersAnswers()} 
                 gamertag={gamertag} 
                 timer={game.roundEndCounter} 

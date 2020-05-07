@@ -6,6 +6,7 @@ const QuestionNumber = ({number}) => {
         color: 'white',
         marginTop: -16,
         paddingTop: 50,
+        margin: "0 5px 0 5px",
         fontFamily: 'IBM Plex Sans',
         fontWeight: 600,
         fontSize: '20px'

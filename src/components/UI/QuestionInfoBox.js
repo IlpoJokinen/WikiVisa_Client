@@ -7,7 +7,6 @@ const QuestionInfoBox = ({ question, number, timeRemaining }) => {
     const infoBoxStyle = {
         height: "auto",
         backgroundColor: '#879DFA',
-        marginBottom: 70,
         paddingBottom: 15
 
     }

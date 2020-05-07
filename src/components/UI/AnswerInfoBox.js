@@ -1,45 +1,20 @@
 import React from 'react'
 import Timer from '../../components/UI/Timer'
+import { Box } from '@material-ui/core/'
+import Header from '../../components/UI/Header'
 
-const AnswerInfoBox = ({ correctAnswer, timer }) => {
-    const infoBoxStyle = {
-        height: "auto",
-        backgroundColor: '#879DFA',
-        marginBottom: 20,
-        marginTop: -16,
-        paddingBottom: 15
-    }
+const AnswerInfoBox = ({ answers, correctAnswer, timer, gamertag }) => {
 
-    const style = {
-        textAlign: 'center',
-        color: 'rgb(255, 255, 255)',
-        fontFamily: 'IBM Plex Sans'
-    }
-
-    const answerStyle = {
-        textAlign: 'center',
-        color: 'rgb(255, 255, 255)',
-        fontWeight: 600,
-        fontFamily: 'IBM Plex Sans'
-    }
-
-    const headingStyle = {
-        textAlign: 'center',
-        fontFamily: 'IBM Plex Sans',
-        color: 'rgb(255, 255, 255)',
-        fontWeight: 600,
-        paddingTop: 30
-    }
-
-
-    return (
-        <div style={infoBoxStyle}>
-            <h5 style={headingStyle}>Round end results</h5>
-            <Timer color={"#fff"} timeRemaining={timer}/>
-            <h3 style={style}>{correctAnswer.answerTitle}</h3>
-            <h2 style={answerStyle}>{correctAnswer.name}</h2>
-        </div>
-    )
+    return <Box style={{textAlign: "center"}}>
+                <Box m={2}><Timer color={"#fff"} timeRemaining={timer}/></Box>
+                <Box m={2}>{correctAnswer.value === answers[gamertag].value 
+                    ? <Header size={3}white >Your answer was correct</Header>
+                    : <Header size={3}white>Your answer <strong>{answers[gamertag].name}</strong> was incorrect</Header>
+                    }</Box>
+                <Box m={2}><Header size={4} white>{correctAnswer.answerTitle} <strong>{correctAnswer.name}</strong></Header></Box>
+            </Box>
+        
+    
 }
 
 export default AnswerInfoBox

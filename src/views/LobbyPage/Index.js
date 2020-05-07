@@ -6,7 +6,7 @@ import BlueDivider from "../../components/UI/BlueDivider"
 import Header from "../../components/UI/Header"
 import Timer from "../../components/UI/Timer"
 
-const Lobby = ({ gamertag, players, timer, roomCode, startGame, started, isCreator, setPlayerReadyLobby, chat }) => {
+const Lobby = ({ gamertag, players, timer, roomCode, startGame, started, isCreator, setPlayerReadyLobby, chat, gameType }) => {
     document.title = started ? 'Game Is Starting!' : 'Game Lobby'
     const useStyles = makeStyles((theme) => ({
         button: {
@@ -15,14 +15,22 @@ const Lobby = ({ gamertag, players, timer, roomCode, startGame, started, isCreat
         }
     }))
     const classes = useStyles()
-    return <Grid container>
+
+    let TimerWrapper = () => <Grid item xs={12} style={{marginTop: 25, marginBottom: 50}}>
+                            <Container>
+                                <Timer color={"blue"} timeRemaining={timer} />
+                            </Container>
+                        </Grid>
+
+    if(gameType === "quick"){
+        return <Grid container>
+            <TimerWrapper/>
+        </Grid>
+    } else {
+        return <Grid container>
         <BlueDivider textCenter>{roomCode}</BlueDivider>
         { 
-            started ? <Grid item xs={12} style={{marginTop: 25, marginBottom: 50}}>
-                <Container>
-                    <Timer color={"blue"} timeRemaining={timer} />
-                </Container>
-            </Grid> : null
+            started ? <TimerWrapper/> : null
         }  
         <Grid item xs={12}>
             <Container>
@@ -74,6 +82,9 @@ const Lobby = ({ gamertag, players, timer, roomCode, startGame, started, isCreat
             </Container>
         </Grid>
     </Grid>
+    }
+
+    
 }
 
 export default Lobby

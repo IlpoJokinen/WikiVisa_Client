@@ -59,10 +59,10 @@ const CreateGame = ({createGame, setRoomCode, creatingState}) => {
                         </Grid>
                         <Grid item xs={12}>
                             <Grid container spacing={2}>
-                                <Grid item xs={12}><Header size={6}>Question Count</Header></Grid>
+                                <Grid item xs={12}><Header size={6}>Question Count: {gameProperties.question.count}</Header></Grid>
                                 <Grid item xs={12}>
                                     <Slider
-                                        defaultValue={5}
+                                        value={gameProperties.question.count}
                                         onChange={(event, value) => setGameProperties({...gameProperties, question: {...gameProperties.question, count: value}})}
                                         aria-labelledby="discrete-slider"
                                         valueLabelDisplay="auto"
@@ -76,10 +76,10 @@ const CreateGame = ({createGame, setRoomCode, creatingState}) => {
                         </Grid>
                         <Grid item xs={12}>
                             <Grid container spacing={2}>
-                                <Grid item xs={12}><Header size={6}>Answer Time</Header></Grid>
+                                <Grid item xs={12}><Header size={6}>Answer Time: {gameProperties.counters.answer}</Header></Grid>
                                 <Grid item xs={12}>
                                     <Slider
-                                        defaultValue={5}
+                                        value={gameProperties.counters.answer}
                                         onChange={(event, value) => setGameProperties({...gameProperties, counters: {...gameProperties.counters, answer: value }})}
                                         aria-labelledby="discrete-slider"
                                         valueLabelDisplay="auto"
@@ -93,10 +93,10 @@ const CreateGame = ({createGame, setRoomCode, creatingState}) => {
                         </Grid>
                         <Grid item xs={12}>
                             <Grid container spacing={2}>
-                                <Grid item xs={12}><Header size={6}>Round End Time</Header></Grid>
+                                <Grid item xs={12}><Header size={6}>Round End Time: {gameProperties.counters.roundEnd}</Header></Grid>
                                 <Grid item xs={12}>
                                     <Slider
-                                        defaultValue={5}
+                                        value={gameProperties.counters.roundEnd}
                                         onChange={(event, value) => setGameProperties({...gameProperties, counters: {...gameProperties.counters, roundEnd: value }})}
                                         aria-labelledby="discrete-slider"
                                         valueLabelDisplay="auto"

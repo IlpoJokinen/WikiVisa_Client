@@ -1,8 +1,7 @@
 import React from 'react'
-
 import StandingsBox from './StandingsBox'
 
-const StandingsCell = ({ rank, pointsAdded, end }) => {
+const StandingsCell = ({ rank, points,  pointsAdded, gamertag, end }) => {
     const cellStyle = {
         display: 'inline-block',
         marginLeft: 22,
@@ -29,8 +28,6 @@ const StandingsCell = ({ rank, pointsAdded, end }) => {
     const addedPointsStyle = {
         display: 'inline-block',
         fontFamily: 'IBM Plex Sans',
-        marginLeft: 80,
-        marginRight: 20,
         color: '#879DFA',
     }
 
@@ -49,7 +46,8 @@ const StandingsCell = ({ rank, pointsAdded, end }) => {
                 <StandingsBox rank={rank}/>
                 <div style={cellStyle}>
                     <h5 style={textStyle}>Gamertag goes here</h5>
-                    <h6 style={addedPointsStyle}>+ {pointsAdded} points</h6>
+                    <h6>{points}</h6>
+                    <h6 style={addedPointsStyle}>{pointsAdded >= 0 ? "+" : " "} {pointsAdded} points</h6>
                 </div>
             </div>
         )

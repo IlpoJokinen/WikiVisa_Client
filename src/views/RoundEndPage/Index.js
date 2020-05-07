@@ -1,10 +1,20 @@
-import React, { useState } from 'react'
-import Grid from '@material-ui/core/Grid'
-import { makeStyles } from '@material-ui/core/styles'
+import React from 'react'
 import AnswerInfoBox from '../../components/UI/AnswerInfoBox'
-import StandingsRow from '../../components/UI/StandingsRow'
+import { Grid, withStyles, Container, makeStyles } from '@material-ui/core/'
+import RoundEndPlayerList from "./components/RoundEndPlayerList.js"
 
-const RoundEndView = ({answers, gamertag, timer, correctAnswer}) => {
+const CustomGridItem = withStyles((theme) => ({
+    root: {
+        [theme.breakpoints.down('sm')]: {
+            height: 'auto'
+        },
+        [theme.breakpoints.up('md')]: {
+            height: '100%'
+        }
+    },
+}))(Grid)
+
+const RoundEndView = ({answers, gamertag, timer, correctAnswer, players}) => {
 
     const useStyles = makeStyles((theme) => ({
         root: {
@@ -17,21 +27,44 @@ const RoundEndView = ({answers, gamertag, timer, correctAnswer}) => {
         },
         standings: {
             textAlign: 'center',
-        }
+        },
+        button: {
+            marginBottom: theme.spacing(2)
+        },
+        gridTest: {
+            [theme.breakpoints.down('sm')]: {
+                marginTop: '50px'
+            },
+            [theme.breakpoints.up('md')]: {
+                marginTop: '80px'
+            }
+        },
     }))
     const classes = useStyles()
-    return <Grid container>
-        <Grid item xs={12}>
-            <AnswerInfoBox correctAnswer={correctAnswer} timer={timer}/>
-        </Grid>
-        <Grid item xs={12}>
-            <StandingsRow rank={1} pointsAdded={10}/>
-            <StandingsRow rank={2} pointsAdded={8}/>
-            <StandingsRow rank={3} pointsAdded={6}/>
-            <StandingsRow rank={4} pointsAdded={4}/>
-            <StandingsRow rank={5} pointsAdded={2}/>
-        </Grid>
-    </Grid>
-}
 
+    function getBackgroundColor() {
+        let backgroundColor = ""
+        if(correctAnswer.value === answers[gamertag].value) {
+            backgroundColor = "#60FA9F"
+        } else if (answers[gamertag].noAnswer) {
+            backgroundColor = '#879DFA'
+        } else {
+            backgroundColor = "#EB7972"
+        }
+        return backgroundColor
+    }
+
+    return <Grid container style={{height: '100%'}}>
+        <CustomGridItem style={{backgroundColor: getBackgroundColor(), color: '#ffffff'}} item xs={12} md={7}>
+            <Container maxWidth="xs" className={classes.gridTest}>
+                <AnswerInfoBox gamertag={gamertag} answers={answers} correctAnswer={correctAnswer} timer={timer}/>
+            </Container>
+        </CustomGridItem>
+        <CustomGridItem item xs={12} md={5}>
+            <Container maxWidth="xs" className={classes.gridTest}>
+                <RoundEndPlayerList gamertag={gamertag} players={players}/>
+            </Container>
+        </CustomGridItem>
+    </Grid>                    
+}
 export default RoundEndView
