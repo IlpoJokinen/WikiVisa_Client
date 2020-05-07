@@ -3,7 +3,7 @@ import { List } from '@material-ui/core'
 import RoundEndPlayer from './RoundEndPlayer'
 
 const RoundEndPlayerList = ({ players, gamertag }) => {
-
+    
     return <List>
         {
             players

@@ -1,5 +1,4 @@
-import React, { useState } from 'react'
-
+import React from 'react'
 import { makeStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
 
@@ -28,13 +27,13 @@ const LockOption = ({ locked, setLocked, setReady }) => {
       if(locked) {
           return (
             <div style={divStyle} className={classes.root}>
-                <Button style={{pointerEvents: "none"}} variant="outlined">Locked</Button>
+                <Button style={{pointerEvents: "none"}} variant="outlined">Submitted!</Button>
             </div>
           )
       } else {
           return (
             <div style={divStyle} className={classes.root}>
-                <Button onClick={() => {setLocked(true); setReady()}} variant="outlined">Lock</Button>
+                <Button onClick={() => {setLocked(true); setReady()}} variant="outlined">Sumbit Answer</Button>
             </div>
           )
       }

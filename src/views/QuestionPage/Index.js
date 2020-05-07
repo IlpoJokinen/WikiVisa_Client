@@ -58,12 +58,13 @@ const QuestionView = ({ setAnswer, timer, question, players, setReady, questionC
     <CustomGridItem item xs={12} md={5}>
         <Container maxWidth="xs" className={classes.gridTest}>
             <Grid container spacing={3}>
-                <Grid xs={12} item style={{padding:"0 30px"}}>
+                <Grid xs={12} item style={{padding:"0 30px", marginBottom: 30}}>
                     {answerOptionComponents}
                     <LockOption locked={locked} setLocked={setLocked} setReady={setReady}/>
+                </Grid>
+                <Grid xs={12} item >
                     <LinearProgress variant="determinate" value={playersReady / players.length * 100} />
                 </Grid>
-                
             </Grid>
         </Container>
     </CustomGridItem>
