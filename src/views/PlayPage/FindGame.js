@@ -1,21 +1,30 @@
 import React, { useState } from 'react'
-import { Container, Box, TextField, Grid, Slider, Button } from '@material-ui/core/'
+import { Container, Box, TextField, Grid, Slider, Button, makeStyles, Backdrop } from '@material-ui/core/'
+import CircularProgress from '@material-ui/core/CircularProgress'
 import { ChevronRight, Search, HighlightOff } from '@material-ui/icons/'
 import CategoryList from '../../components/UI/CategoryList'
 import GameList from './components/GameList'
 import BlueDivider from '../../components/UI/BlueDivider'
 import Header from '../../components/UI/Header'
 
+const useStyles = makeStyles((theme) => ({
+    backdrop: {
+        zIndex: theme.zIndex.drawer + 1,
+        color: '#fff',
+    }
+}))
+
 document.title = 'Find Game'
 
-const FindGame = ({ joinGame, fetchGames, games, setRoomCode }) => {
+const FindGame = ({ joinGame, loadingState, fetchGames, games, setRoomCode }) => {
     const [maximumQuestionCount, setMaximumQuestionCount] = useState(30)
     const [selectedCategories, setSelectedCategories] = useState([])
+    const classes = useStyles()
     function resetFilters() {
         setMaximumQuestionCount(30)
         setSelectedCategories([])
     }
-    return <Container maxWidth disableGutters>
+    return <Container maxWidth={false} disableGutters>
         <BlueDivider>Join By Room Code</BlueDivider>
         <Box m={2}>
             <Grid container spacing={2}>
@@ -102,9 +111,12 @@ const FindGame = ({ joinGame, fetchGames, games, setRoomCode }) => {
             
             
         </Box>
-        <Box m={2}>  
+        <Box m={2}>
             { games.length ? <GameList games={games} joinGame={joinGame} /> : '' }
         </Box>
+        <Backdrop className={classes.backdrop} open={loadingState}>
+            <CircularProgress color="inherit" />
+        </Backdrop>
     </Container>
 }
 
