@@ -18,13 +18,13 @@ const Lobby = ({ gamertag, players, timer, roomCode, startGame, started, isCreat
 
     let TimerWrapper = () => <Grid item xs={12} style={{marginTop: 25, marginBottom: 50}}>
                             <Container>
-                                <Timer color={"blue"} timeRemaining={timer} />
+                                <Timer color={"#a3b4ff"} timeRemaining={timer} />
                             </Container>
                         </Grid>
 
     if(gameType === "quick"){
         return <Grid container style={{height: '100%'}} alignItems='center' justify='center'>
-                <Grid item>
+                <Grid item style={{textAlign:"center"}}>
                     <Header size={1}>The game is starting in...</Header>
                     <TimerWrapper/>
                 </Grid>

@@ -4,12 +4,9 @@ import { Face, Done } from '@material-ui/icons/'
 
 const Player = ({ gamertag, isCurrentPlayer, lobbyReady }) => {
     return <ListItem divider>
-        {
-            isCurrentPlayer ? <ListItemIcon>
-                <Face />
-            </ListItemIcon>
-            : ''
-        }
+        <ListItemIcon>
+            <Face style={{display: isCurrentPlayer ? "" : "none"}}/>
+        </ListItemIcon>
         <ListItemText primary={gamertag} />
         {
             lobbyReady ? <ListItemIcon>
