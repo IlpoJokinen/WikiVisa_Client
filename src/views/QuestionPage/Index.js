@@ -25,7 +25,8 @@ const QuestionView = ({ setAnswer, timer, question, players, setReady, questionC
         },
         gridTest: {
             [theme.breakpoints.down('sm')]: {
-                marginTop: '50px'
+                marginTop: '50px',
+                paddingBottom: '50px'
             },
             [theme.breakpoints.up('md')]: {
                 marginTop: '80px'
@@ -48,23 +49,14 @@ const QuestionView = ({ setAnswer, timer, question, players, setReady, questionC
     return <Grid container style={{height: '100%'}}>
     <CustomGridItem style={{backgroundColor: '#879DFA', color: '#ffffff'}} item xs={12} md={7}>
         <Container maxWidth="xs" className={classes.gridTest}>
-            <Grid container>
-                <Grid xs={12} item>
-                    <QuestionInfoBox timeRemaining={timer} questionIndex={questionIndex} question={question.title} questionCount={questionCount}/>
-                </Grid>
-                
-            </Grid>
+            <QuestionInfoBox timeRemaining={timer} questionIndex={questionIndex} question={question.title} questionCount={questionCount}/>
         </Container>
     </CustomGridItem>
     <CustomGridItem item xs={12} md={5}>
         <Container maxWidth="xs" className={classes.gridTest}>
-            <Grid container spacing={3}>
-                <Grid xs={12} item style={{padding:"0 30px", marginBottom: 30}}>
-                    {answerOptionComponents}
-                    <LockOption locked={locked} setLocked={setLocked} setReady={setReady} answerGiven={answerGiven}/>
-                    <LinearProgress variant="determinate" value={playersReady / players.length * 100} />
-                </Grid>
-            </Grid>
+            {answerOptionComponents}
+            <LinearProgress variant="determinate" value={playersReady / players.length * 100} />
+            <LockOption locked={locked} setLocked={setLocked} setReady={setReady} answerGiven={answerGiven}/>
         </Container>
     </CustomGridItem>
 </Grid>

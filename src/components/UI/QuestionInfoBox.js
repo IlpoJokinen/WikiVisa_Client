@@ -1,22 +1,16 @@
 import React from 'react'
-import QuestionNumber from './QuestionNumber'
-import Question from './Question'
 import Timer from './Timer'
+import Header from './Header'
+import { Box } from '@material-ui/core/'
 
-const QuestionInfoBox = ({ question, timeRemaining, questionCount, questionIndex }) => {
-    const infoBoxStyle = {
-        height: "auto",
-        backgroundColor: '#879DFA',
-        paddingBottom: 15
-
-    }
-
+const QuestionInfoBox = ({ question, questionCount, timeRemaining, questionIndex }) => {
+   
     return (
-        <div style={infoBoxStyle}>
-            <Timer color={"#fff"} timeRemaining={timeRemaining}/>
-            <QuestionNumber questionCount={questionCount} questionIndex={questionIndex}/>
-            <Question question={question}/>
-        </div>
+        <Box style={{textAlign: "center"}}>
+            <Box m={2}><Timer color={"#fff"} timeRemaining={timeRemaining}/></Box>
+            <Box m={2}><Header white size={6}>{questionIndex}/{questionCount}</Header></Box>
+            <Box m={2}><Header white size={3}>{question}</Header></Box>
+        </Box>
     )
 }
 
