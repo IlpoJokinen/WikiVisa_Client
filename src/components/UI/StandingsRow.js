@@ -1,7 +1,7 @@
 import React from 'react'
 import StandingsBox from './StandingsBox'
 
-const StandingsCell = ({ rank, points,  pointsAdded, gamertag, end }) => {
+const StandingsCell = ({ rank, player }) => {
     const cellStyle = {
         display: 'inline-block',
         marginLeft: 22,
@@ -31,27 +31,17 @@ const StandingsCell = ({ rank, points,  pointsAdded, gamertag, end }) => {
         color: '#879DFA',
     }
 
-    if(end) {
+    
         return (
             <div style={divStyle}>
                 <StandingsBox rank={rank}/>
                 <div style={cellStyle}>
-                    <h5 style={textStyle}>Gamertag goes here</h5>
+                    <h5 style={textStyle}>{player.gamertag}</h5>
                 </div>
         </div>
         )
-    } else {
-        return (
-            <div style={divStyle}>
-                <StandingsBox rank={rank}/>
-                <div style={cellStyle}>
-                    <h5 style={textStyle}>Gamertag goes here</h5>
-                    <h6>{points}</h6>
-                    <h6 style={addedPointsStyle}>{pointsAdded >= 0 ? "+" : " "} {pointsAdded} points</h6>
-                </div>
-            </div>
-        )
-    }
+   
+    
 }
 
 export default StandingsCell

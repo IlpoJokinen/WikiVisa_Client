@@ -1,34 +1,29 @@
 import React from 'react'
 
-import Grid from '@material-ui/core/Grid'
+import { Grid, Button } from '@material-ui/core/'
+import Header from './Header'
 
 import StandingsTrophy from './StandingsTrophy'
 
-const GameEndInfoBox = ({ firstPlace, secondPlace, thirdPlace }) => {
-    
-    const infoBoxStyle = {
-        height: 300,
-        backgroundColor: '#879DFA',
-        marginBottom: 70,
-        marginTop: -16,
-    }
-
-    const headingStyle = {
-        color: 'rgb(255, 255, 255)',
-        marginTop: 30,
-    }
+const GameEndInfoBox = (props) => {
+    const { firstPlace, secondPlace, thirdPlace } = props
 
     return (
-        <div style={infoBoxStyle}>
             <Grid container>
-                <Grid item xs={12}>
-                    <h5 style={headingStyle}>Game end results</h5>
+                <Grid item xs={12} style={{textAlign:"center", marginTop: 30, marginBottom: 30 }}>
+                    <Header white size={3}>Game End Results</Header>
                 </Grid>
-                <StandingsTrophy secondPlace={secondPlace} standing={2}/>
-                <StandingsTrophy firstPlace={firstPlace} standing={1}/>
-                <StandingsTrophy thirdPlace={thirdPlace} standing={3}/>
+                <Grid item xs={12}>
+                    <StandingsTrophy player={firstPlace} standing={1}/>
+                </Grid>
+                <Grid item xs={12}>
+                    <Grid container>
+                        <Grid item xs={6}>{props.secondPlace ? <StandingsTrophy player={secondPlace} standing={2}/> : null}</Grid>
+                        <Grid item xs={6}>{props.thirdPlace ? <StandingsTrophy player={thirdPlace} standing={3}/> : null}</Grid>
+                    </Grid>
+                </Grid>
+                <Grid style={{textAlign: "center", margin: "20px 0"}} item xs={12}><Button variant="outlined" size="large" style={{color: "#fff", border: "1px solid #fff"}} onClick={() => window.location.reload()}>Return to Main Menu</Button></Grid>
             </Grid>
-        </div>
     )
 }
 

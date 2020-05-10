@@ -5,70 +5,39 @@ import Grid from '@material-ui/core/Grid'
 import firstPlaceTrophy from '../../assets/trophies/firstPlace.svg'
 import secondPlaceTrophy from '../../assets/trophies/secondPlace.svg'
 import thirdPlaceTrophy from '../../assets/trophies/thirdPlace.svg'
+import Header from "./Header"
 
 
-const StandingsTrophy = ({ standing, firstPlace, secondPlace, thirdPlace }) => {
-
-    const firstPlaceStyle = {
+const StandingsTrophy = ({ standing, player }) => {
+    console.log("trophyssa", player)
+    const imageStyle = {
         width: 70,
         height: 70,
-        marginTop: 40,
-        display:'inline-block',
+        display: "block",
+        margin: "0 auto 10px auto"
     }
 
-    const secondPlaceStyle = {
-        width: 70,
-        height: 70,
+    const divStyle = {
+        textAlign: "center"
     }
 
-    const thirdPlaceStyle = {
-        width: 70,
-        height: 70,
+    const getImage = () => {
+        let image;
+        switch(standing) {
+            case 1:  image = firstPlaceTrophy; break;
+            case 2:  image = secondPlaceTrophy; break;
+            case 3:  image = thirdPlaceTrophy; break;
+            default: image = firstPlaceTrophy; break;
+        }
+        return <img style={imageStyle} alt="trophyImage" src={image} />
     }
 
-    const secondPlaceDivStyle = {
-        float: 'right',
-        marginTop: 70,
-    }
-
-    const thirdPlaceDivStyle = {
-        float: 'left',
-        marginTop: 70,
-    }
-
-    const textStyle = {
-        color: 'rgb(255, 255, 255)',
-        marginTop: 20
-    }
-
-    if(standing === 1) {
-        return (
-            <Grid item xs={4}>
-                <div>
-                    <img style={firstPlaceStyle} alt="firstPlaceTrophyIcon" src={firstPlaceTrophy} />
-                    <h6 style={textStyle}>{firstPlace}</h6>
-                </div>
-            </Grid>
-        )
-    } else if (standing === 2) {
-        return (
-            <Grid item xs={4}>
-                <div style={secondPlaceDivStyle}>
-                    <img style={secondPlaceStyle} alt="secondPlaceTrophyIcon" src={secondPlaceTrophy} />
-                    <h6 style={textStyle}>{secondPlace}</h6>
-                </div>
-            </Grid>
-        )
-    } else if (standing === 3) {
-        return (
-            <Grid item xs={4}>
-                <div style={thirdPlaceDivStyle}>
-                    <img style={thirdPlaceStyle} alt="thirdPlaceTrophyIcon" src={thirdPlaceTrophy} />
-                    <h6 style={textStyle}>{thirdPlace}</h6>
-                </div>
-            </Grid>
-        )
-    }
+ 
+    return <div style={divStyle}>
+        {getImage()}
+        <Header style={{display:"block"}} white size={5}>{player.gamertag}</Header>
+        <Header style={{display:"block"}} white size={3}><strong>{player.points}</strong></Header>
+    </div>
 }
 
 export default StandingsTrophy

@@ -1,34 +1,69 @@
-import React, { useState } from 'react'
-
-import Grid from '@material-ui/core/Grid'
-
+import React from 'react'
+import { Grid, withStyles, Container, makeStyles } from '@material-ui/core/'
 import GameEndInfoBox from '../../components/UI/GameEndInfoBox'
-import StandingsRow from '../../components/UI/StandingsRow'
+import GameEndPlayerList from "./components/GameEndPlayerList"
 
-const GameEnd = ({ gamertag, players }) => {
-    const [ end, setEnd ] = useState(true)
+const CustomGridItem = withStyles((theme) => ({
+    root: {
+        [theme.breakpoints.down('sm')]: {
+            height: 'auto'
+        },
+        [theme.breakpoints.up('md')]: {
+            height: '100%'
+        }
+    },
+}))(Grid)
 
-    const divStyle = {
-        textAlign: 'center',
-        width: '100%'
-    }
+const GameEnd = ({ gamertag, players }) => {
 
-    return (
-        <div style={divStyle}>
-            <Grid container>
-                <Grid item xs={12}>
-                    <GameEndInfoBox firstPlace={'PlayerX'} secondPlace={'PlayerY'} thirdPlace={'PlayerZ'}/>
+    const useStyles = makeStyles((theme) => ({
+        root: {
+            flexGrow: 1,
+        },
+        paper: {
+            padding: theme.spacing(2),
+            textAlign: 'center',
+            color: theme.palette.text.secondary,
+        },
+        standings: {
+            textAlign: 'center',
+        },
+        gridTest: {
+            [theme.breakpoints.down('sm')]: {
+                marginTop: '50px'
+            },
+            [theme.breakpoints.up('md')]: {
+                marginTop: '80px'
+            }
+        },
+    }))
+    const classes = useStyles()
+
+    return players.length > 3 ? <Grid container style={{ height: '100%' }}>
+                <CustomGridItem style={{ backgroundColor: "#879DFA", color: '#ffffff' }} item xs={12} md={7}>
+                    <Container textAlign="center" maxWidth="xs" className={classes.gridTest}>
+                        <GameEndInfoBox
+                            firstPlace={players[0]}
+                            secondPlace={players.length > 1 ? players[1] : null}
+                            thirdPlace={players.length > 2 ? players[2] : null} />
+                    </Container>
+                </CustomGridItem>
+                <CustomGridItem item xs={12} md={5}>
+                    <Container maxWidth="xs" className={classes.gridTest}>
+                        <GameEndPlayerList players={players} gamertag={gamertag}/>
+                    </Container>
+                </CustomGridItem>
+            </Grid> :
+                <Grid container style={{ height: '100%' }}>
+                    <CustomGridItem style={{ backgroundColor: "#879DFA", color: '#ffffff' }} item xs={12}>
+                        <Container textAlign="center" maxWidth="xs" className={classes.gridTest}>
+                            <GameEndInfoBox
+                                firstPlace={players[0]}
+                                secondPlace={players.length > 1 ? players[1] : null}
+                                thirdPlace={players.length > 2 ? players[2] : null} />
+                        </Container>
+                    </CustomGridItem>
                 </Grid>
-                <Grid item xs={12}>
-                    <StandingsRow rank={4} end={end}/>
-                    <StandingsRow rank={5} end={end}/>
-                    <StandingsRow rank={6} end={end}/>
-                    <StandingsRow rank={7} end={end}/>
-                    <StandingsRow rank={8} end={end}/>
-                </Grid>
-            </Grid>
-        </div>
-    )
 }
 
 export default GameEnd
