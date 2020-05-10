@@ -49,29 +49,6 @@ function App() {
         return game
     }
 
-    function joinGame(roomcodeGiven = undefined) {
-        setJoiningState(true)
-        if(roomcodeGiven === undefined) {
-            socket.emit("join game", { gamertag, roomCode })
-        } else {
-            socket.emit("join game", { gamertag, roomCode: roomcodeGiven })
-        }
-    }
-
-    function createGame(gameProperties) {
-        setCreatingState(true)
-        socket.emit('create game', { gamertag, roomCode, gameProperties })
-    }
-
-    function setAnswerAndPlayerReady() {
-        let timestamp = Date.now()
-        socket.emit("set ready", { game_id: game.id, gamertag, answer, question_id: game.question.id, time: timestamp }) 
-    }
-
-    function startGame() {
-        socket.emit("start game", { game_id: game.id })
-    }
-
     function getPage() {
         switch(showGame) {
             case true: return <Game getGame={getGame} socket={socket} gamertag={gamertag}/>
