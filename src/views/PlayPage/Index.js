@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { Grid, withStyles, Container, TextField, Button, makeStyles } from '@material-ui/core/'
 import { Build, DoubleArrow, Search } from '@material-ui/icons/'
 import Header from '../../components/UI/Header'
@@ -16,6 +16,21 @@ const CustomGridItem = withStyles((theme) => ({
 
 const WelcomePage = ({setView, setGamertag, gamertag, createGame}) => {
     const [tag, setTag] = useState("")
+    const deleteGamertag = () => {
+        setTag("")
+        setGamertag("")
+        localStorage.removeItem("gamertag")
+    }
+    const saveGamertag = string => {
+        if(string.length > 30) {
+            alert("Gamertag is too long. Gamertag's max length is 30 characters.")
+            return false
+        }
+        if(string.length > 0 && string.length < 29) {
+            localStorage.setItem("gamertag", string)
+            setGamertag(string)
+        }
+    }
     const useStyles = makeStyles((theme) => ({
         button: {
             marginBottom: theme.spacing(2)
@@ -53,17 +68,26 @@ const WelcomePage = ({setView, setGamertag, gamertag, createGame}) => {
                                 <Header size={2}>Set Your Gamertag</Header>
                             </Grid>
                             <Grid xs={12} item>
-                                <TextField value={tag} label={gamertag ? "Your gamertag is set" : "Give Gamertag" } variant="outlined" fullWidth onChange={e => setTag(e.target.value)} />
+                                <TextField 
+                                    value={tag}
+                                    label={gamertag ? "Your gamertag is set" : "Give Gamertag" }
+                                    variant="outlined"
+                                    disabled={gamertag.length > 0}
+                                    fullWidth
+                                    onChange={e => setTag(e.target.value)}
+                                />
                             </Grid>
                             <Grid xs={12} item>
                                 <Button
                                     variant="contained"
-                                    color="primary"
+                                    color={gamertag ? "secondary" : "primary"}
                                     fullWidth
                                     size="large"
                                     className={classes.button}
-                                    onClick={() => setGamertag(tag)}
-                                >Set Gamertag</Button>
+                                    onClick={gamertag 
+                                        ? () => deleteGamertag() 
+                                        : () => saveGamertag(tag)}
+                                >{gamertag ? 'Reset Gamertag' : 'Set Gamertag'}</Button>
                             </Grid>
                         </Grid>
                     </Grid>

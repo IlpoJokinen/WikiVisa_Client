@@ -17,7 +17,7 @@ function App() {
     const [showGame, toggleGame] = useState(false)
     const [pageTitle, setPageTitle] = useState('Welcome to WikiQuiz')
     const [view, setView] = useState('play')
-    const [gamertag, setGamertag] = useState("")
+    const [gamertag, setGamertag] = useState(localStorage.getItem("gamertag") || '')
 
     useEffect(() => {
         socket.on("send game", game => {
