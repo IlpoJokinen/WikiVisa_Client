@@ -4,13 +4,31 @@ import { Face, Done } from '@material-ui/icons/'
 
 const Player = ({ gamertag, isCurrentPlayer, lobbyReady }) => {
     return <ListItem divider>
-        <ListItemText primary={gamertag} />
+        { isCurrentPlayer ? 
+            <ListItemIcon>
+                <Face />
+            </ListItemIcon> 
+        : '' }
+        <ListItemText 
+            disableTypography={true}
+            inset={!isCurrentPlayer} 
+            primary={<span 
+                style={{
+                    margin: "0 20px 0 0",
+                    paddingRight: 5,
+                    whiteSpace: "nowrap",
+                    overflow: "hidden",
+                    textOverflow: "ellipsis",
+                    display: 'block'
+                }}>
+                {gamertag}
+            </span>}
+        />
         <ListItemIcon>
-            <Face style={{display: isCurrentPlayer ? "" : "none"}}/>
+            <Done style={
+                lobbyReady ? { color: "#2ECC40" } : { color: "#ccc", opacity: "0.5"} 
+            }/>
         </ListItemIcon>
-        <ListItemIcon>
-                <Done color={"primary"} style={{display: lobbyReady ? "" : "none"}}/>
-            </ListItemIcon>
     </ListItem>
 }
 
