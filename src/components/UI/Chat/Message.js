@@ -1,5 +1,5 @@
 import React from 'react'
-import { Grid, Box, Container, Typography, Card, CardContent } from '@material-ui/core/'
+import { Box, Typography, Card, CardContent } from '@material-ui/core/'
 
 const Message = ({ gamertag, message }) => {
     const ownMessage = gamertag === message.gamertag

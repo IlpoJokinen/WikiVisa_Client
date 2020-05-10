@@ -1,13 +1,11 @@
 import React from 'react'
 
 import { Grid, Button } from '@material-ui/core/'
-import Header from './Header'
-
+import Header from '../../../components/UI/Header'
 import StandingsTrophy from './StandingsTrophy'
 
 const GameEndInfoBox = (props) => {
     const { firstPlace, secondPlace, thirdPlace } = props
-
     return (
             <Grid container>
                 <Grid item xs={12} style={{textAlign:"center", marginTop: 30, marginBottom: 30 }}>

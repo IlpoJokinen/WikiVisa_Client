@@ -8,8 +8,6 @@ import Game from './views/Game'
 import '../src/style.css'
 import io from 'socket.io-client'
 
-import GameEndView from './views/GameEndPage/GameEnd'
-
 const socket = io(process.env.REACT_APP_SOCKET_URL || 'localhost:3001')
 
 function App() {

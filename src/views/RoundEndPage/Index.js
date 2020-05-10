@@ -1,7 +1,7 @@
 import React from 'react'
-import AnswerInfoBox from '../../components/UI/AnswerInfoBox'
+import AnswerInfoBox from './components/AnswerInfoBox'
 import { Grid, withStyles, Container, makeStyles } from '@material-ui/core/'
-import RoundEndPlayerList from "./components/RoundEndPlayerList.js"
+import RoundEndPlayerList from "./components/RoundEndPlayerList"
 
 const CustomGridItem = withStyles((theme) => ({
     root: {

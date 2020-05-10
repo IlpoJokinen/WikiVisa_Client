@@ -1,5 +1,5 @@
 import React from 'react'
-import '../../../src/style.css'
+import '../../../style.css'
  
 const AnswerOption = ({ option, setAnswer, value, setAnswerGiven }) => {
     const id = option

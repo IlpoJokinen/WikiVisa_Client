@@ -11,12 +11,10 @@ const QuestionNumber = ({questionIndex, questionCount}) => {
         fontWeight: 600,
         fontSize: '20px'
     }
-
-    return (
-        <div>
-            <h3 style={textStyle}>{`${questionIndex}/${questionCount}`}</h3>
-        </div>
-    )
+    return <div>
+        <h3 style={textStyle}>{`${questionIndex}/${questionCount}`}</h3>
+    </div>
+    
 }
 
 export default QuestionNumber

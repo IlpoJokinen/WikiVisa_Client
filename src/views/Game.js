@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import Button from '@material-ui/core/Button'
 import QuestionScreen from './QuestionPage/Index'
 import RoundEndScreen from './RoundEndPage/Index'
-import GameEndScreen from './GameEndPage/GameEnd'
+import GameEndScreen from './GameEndPage/Index'
 import LobbyScreen from './LobbyPage/Index'
 import Chat from '../components/UI/Chat/Chat'
 

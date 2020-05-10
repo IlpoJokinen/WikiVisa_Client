@@ -1,26 +1,16 @@
 import React from 'react'
-
-import Grid from '@material-ui/core/Grid'
-
-import firstPlaceTrophy from '../../assets/trophies/firstPlace.svg'
-import secondPlaceTrophy from '../../assets/trophies/secondPlace.svg'
-import thirdPlaceTrophy from '../../assets/trophies/thirdPlace.svg'
-import Header from "./Header"
-
+import firstPlaceTrophy from '../../../assets/trophies/firstPlace.svg'
+import secondPlaceTrophy from '../../../assets/trophies/secondPlace.svg'
+import thirdPlaceTrophy from '../../../assets/trophies/thirdPlace.svg'
+import Header from "../../../components/UI/Header"
 
 const StandingsTrophy = ({ standing, player }) => {
-    console.log("trophyssa", player)
     const imageStyle = {
         width: 70,
         height: 70,
         display: "block",
         margin: "0 auto 10px auto"
     }
-
-    const divStyle = {
-        textAlign: "center"
-    }
-
     const getImage = () => {
         let image;
         switch(standing) {
@@ -31,9 +21,9 @@ const StandingsTrophy = ({ standing, player }) => {
         }
         return <img style={imageStyle} alt="trophyImage" src={image} />
     }
-
- 
-    return <div style={divStyle}>
+    return <div style={{
+        textAlign: "center"
+    }}>
         {getImage()}
         <Header style={{display:"block"}} white size={5}>{player.gamertag}</Header>
         <Header style={{display:"block"}} white size={3}><strong>{player.points}</strong></Header>

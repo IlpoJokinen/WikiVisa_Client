@@ -1,6 +1,6 @@
 import React from 'react'
-import Timer from './Timer'
-import Header from './Header'
+import Timer from '../../../components/UI/Timer'
+import Header from '../../../components/UI/Header'
 import { Box } from '@material-ui/core/'
 
 const QuestionInfoBox = ({ question, questionCount, timeRemaining, questionIndex }) => {
