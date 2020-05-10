@@ -1,195 +1,87 @@
-import React, { useState, useEffect} from 'react'
-import { Container, Row, Col, InputGroup } from 'react-bootstrap'
-import WelcomeScreen from './components/WelcomeScreen' 
-import StartScreen from './components/StartScreen'
-import QuestionScreen from './components/QuestionScreen'
-import RoundEndScreen from './components/RoundEndScreen'
-import GameEndScreen from './components/GameEndScreen'
-import LoginScreen from './components/LoginScreen'
-import PageHeader from './components/UI/PageHeader' 
+import React, { useState, useEffect } from 'react'
+import { Container, IconButton, makeStyles } from '@material-ui/core/'
+import { ArrowBack } from '@material-ui/icons/'
+import MyDrawer from './components/UI/MyDrawer' 
+import NavBar from './components/UI/NavBar'
+import MainMenu from './views/MainMenu'
+import Game from './views/Game'
+import '../src/style.css'
 import io from 'socket.io-client'
-import './App.css'
-import './style.css'
 
 const socket = io(process.env.REACT_APP_SOCKET_URL || 'localhost:3001')
 
 function App() {
-    const [pageTitle, setPageTitle] = useState("")
     const [game, setGame] = useState({})
-    const [publicGames, setPublicGames] = useState([])
-    const [gamertag, setGamertag] = useState("")
-    const [roomCode, setRoomCode] = useState("")
-    const [answer, setAnswer] = useState("")
-    const [correctAnswer, setCorrectAnswer] = useState({})
-    const [joiningState, setJoiningState] = useState(false)
-    const [creatingState, setCreatingState] = useState(false)
-
-    window.onresize = () => centerizeWrapper()
-    window.onload = () => centerizeWrapper()
+    const [showBackButton, setShowBackButton] = useState(false)
+    const [openStatus, setOpenStatus] = useState(false)
+    const [showGame, toggleGame] = useState(false)
+    const [pageTitle, setPageTitle] = useState('Welcome to WikiQuiz')
+    const [view, setView] = useState('play')
+    const [gamertag, setGamertag] = useState(localStorage.getItem("gamertag") || '')
 
     useEffect(() => {
-        socket.on("send players", players => {
-            setGame(prevState => ({...prevState, players: players}))
-        })
         socket.on("send game", game => {
             setGame(game)
-        })
-        socket.on("send timer", timer => {
-            let timerName = Object.keys(timer)[0];
-            setGame(prevState => ({...prevState, [timerName]: timer[timerName]}))
-        })
-        socket.on("update game view", view => {
-            setGame(prevState => ({...prevState, view: view}))
+            toggleGame(!showGame)
         })
         socket.on("send gamertag", data => {
             setGamertag(data)
         })
-        socket.on('reset timers', data => {
-            setGame(prevState => ({...prevState, questionCounter: data.questionCounter, roundEndCounter: data.roundEndCounter}))
-        })
-        socket.on("get correct answer", data => {
-            setCorrectAnswer(data)
-        })
-        socket.on("gamertag taken", data => {
-            setGamertag(data)
-            setJoiningState(false)
-            window.alert(`Gamertag '${data} is already taken!'`)
-        })
-        socket.on("error while joining", error => {
-            setJoiningState(false)
-            window.alert(error)
-        })
-        socket.on("send question", question => {
-            setGame(prevState => ({...prevState, question: question}))
-        })
-        socket.on("game started", () => {
-            setGame(prevState => ({...prevState, started: true}))
-        })
-        socket.on("send public games", games => {
-           /* games.forEach(game => {
-                game.join = () => joinGame(game.roomCode)
-            })*/
-            setPublicGames(games)
-        })
     }, [])
 
-    function centerizeWrapper() {
-        let wrapper = document.getElementById("wrapper"),
-            root = document.getElementById("root"),
-            wrapperWidth = wrapper.offsetWidth, 
-            wrapperHeight = wrapper.offsetHeight,
-            viewportWidth = Math.max(document.documentElement.clientWidth, window.innerWidth || 0),
-            viewportHeight = Math.max(document.documentElement.clientHeight, window.innerHeight || 0),
-            wrapperCenter = "centerizedWrapper";
-
-        if(wrapperWidth > viewportWidth || wrapperHeight > viewportHeight) {
-            root.classList.remove(wrapperCenter)
-        } else {
-            root.classList.add(wrapperCenter)
+    const useStyles = makeStyles((theme) => ({
+        root: {
+            display: 'flex',
+            height: '100%'
+        },
+        backPageButton: {
+            marginRight: theme.spacing(2)
+        },
+        toolbar: theme.mixins.toolbar,
+        button: {
+            margin: theme.spacing(1)
         }
-    }
+    }))
 
-    function getPublicGames() {
-        socket.emit('get public games')
-    }
-    
-    function getQuestionByQuestionId(question_id) {
-        let question = false
-        game.questions.forEach(q => {
-            if(q.question_id === question_id) {
-                question = q
-            }
-        }) 
-        return question
-    }
+    const classes = useStyles()
 
-    function getPlayersAnswers() {
-        let answers = {}
-        game.players.forEach(p => {
-            let answeredThisRound = false
-            p.answers.forEach(a => {
-                if(a.question_id === game.question.id) {
-                    answers[p.gamertag] = a.answer
-                    answeredThisRound = true
-                }
-            })
-            if(!answeredThisRound){
-                answers[p.gamertag] = {name: "No answer for this round"}
-            }
-        })
-        return answers
-    }
-
-    function joinGame(roomcodeGiven = undefined) {
-        setJoiningState(true)
-        if(roomcodeGiven === undefined) {
-            socket.emit("join game", { gamertag, roomCode })
-        } else {
-            socket.emit("join game", { gamertag, roomCode: roomcodeGiven })
-        }
-    }
-
-    function createGame(gameProperties) {
-        setCreatingState(true)
-        socket.emit('create game', { gamertag, roomCode, gameProperties })
-    }
-
-    function setAnswerAndPlayerReady() {
-        socket.emit("set ready", { game_id: game.id, gamertag, answer, question_id: game.question.id }) 
-    }
-
-    function startGame() {
-        socket.emit("start game", { game_id: game.id })
+    function getGame() {
+        return game
     }
 
     function getPage() {
-        switch(game.view) {
-            case 1: return <StartScreen 
-                players={game.players} 
-                gamertag={gamertag} 
-                timer={game.startGameCounter}
-                roomCode={game.roomCode} 
-                startGame={startGame}
-                started={game.started}
-                isCreator={game.creator}
-            />
-            case 2: return <QuestionScreen 
-                players={game.players} 
-                gamertag={gamertag} 
-                timer={game.questionCounter} 
-                question={game.question}
-                setAnswer={setAnswer} 
-                setReady={setAnswerAndPlayerReady}
-            />
-            case 3: return <RoundEndScreen 
-                answers={getPlayersAnswers()} 
-                gamertag={gamertag} 
-                timer={game.roundEndCounter} 
-                correctAnswer={correctAnswer} 
-            />
-            case 4: return <GameEndScreen 
-                players={game.players} 
-                gamertag={gamertag} 
-            />
-            default: return <WelcomeScreen
-                setRoomCode={setRoomCode}
-                setGamertag={setGamertag}
+        switch(showGame) {
+            case true: return <Game getGame={getGame} socket={socket} gamertag={gamertag}/>
+            default: return <MainMenu
+                setShowBackButton={setShowBackButton}
+                socket={socket}
+                toggleGame={toggleGame}
+                view={view}
+                setView={setView}
                 gamertag={gamertag}
-                roomCode={roomCode}
-                joiningState={joiningState}
-                joinGame={joinGame}
-                createGame={createGame}
-                creatingState={creatingState}
-                getPublicGames={getPublicGames}
-                publicGames={publicGames}
+                setGamertag={setGamertag}
             />
         }
     }
 
-    return <Container id="wrapper" fluid>
-        <PageHeader title={pageTitle} />
-        { getPage() }
-    </Container>
+    return <div className={classes.root}>
+        { showGame ? '' : 
+        <NavBar title={pageTitle} toggle={() => setOpenStatus(!openStatus)} previousButton={
+            showBackButton ? <IconButton
+                color="inherit"
+                aria-label="Go Back To Previous Page"
+                edge="start"
+                onClick={() => setView('play')} 
+                className={classes.backPageButton}>
+                <ArrowBack />
+            </IconButton> : ''
+        } /> }
+        { showGame ? '' : <MyDrawer view={view} setOpenStatus={setOpenStatus} setView={setView} openStatus={openStatus} /> }
+        <Container maxWidth={false} style={{padding: 0}} disableGutters>
+            { showGame ? '' : <div className={classes.toolbar}></div> }
+            { getPage() }
+        </Container>
+    </div>
 }
 
 export default App
