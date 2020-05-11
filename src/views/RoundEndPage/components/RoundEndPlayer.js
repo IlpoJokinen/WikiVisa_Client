@@ -34,7 +34,7 @@ const RoundEndPlayer = ({ gamertag, isCurrentPlayer, rank, pointsAdded, points }
                 />
                 { pointsAdded !== 0 ?
                     <Chip 
-                        style={{marginLeft: 5, backgroundColor: '#60FA9F'}} 
+                        style={{marginLeft: 5, backgroundColor: pointsAdded > 0 ? '#60FA9F' : '#EB7972'}} 
                         component="span"
                         size="small"
                         label={(pointsAdded > 0 ? '+ ' : '') + pointsAdded}
