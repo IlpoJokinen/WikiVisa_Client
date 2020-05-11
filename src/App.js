@@ -15,7 +15,7 @@ function App() {
     const [showBackButton, setShowBackButton] = useState(false)
     const [openStatus, setOpenStatus] = useState(false)
     const [showGame, toggleGame] = useState(false)
-    const [pageTitle, setPageTitle] = useState('Welcome to WikiQuiz')
+    const [pageTitle, setPageTitle] = useState('Welcome to WikiVisa')
     const [view, setView] = useState('play')
     const [gamertag, setGamertag] = useState(localStorage.getItem("gamertag") || '')
 

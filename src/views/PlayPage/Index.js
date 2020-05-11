@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import { Grid, withStyles, Container, TextField, Button, makeStyles } from '@material-ui/core/'
 import { Build, DoubleArrow, Search } from '@material-ui/icons/'
 import Header from '../../components/UI/Header'
+import WikipediaWhiteLogo from '../../assets/wikipedia_white_logo.png'
 
 const CustomGridItem = withStyles((theme) => ({
     root: {
@@ -51,11 +52,17 @@ const WelcomePage = ({setView, setGamertag, gamertag, createGame}) => {
         <CustomGridItem style={{backgroundColor: '#879DFA', color: '#ffffff'}} item xs={12} md={7}>
             <Container maxWidth="xs" className={classes.gridTest}>
                 <Grid container>
-                    <Grid xs={12} item>
-                        <Header white size={1}>Welcome to WikiQuiz!</Header>
+                    <Grid xs={12} item style={{marginBottom: 10}}>
+                        <Header white size={1}>Welcome to WikiVisa!</Header>
                     </Grid>
                     <Grid xs={12} item>
-                        <p>At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi</p>
+                        <p>
+                            Questions are created using our question generator which utilizes Wikipedia's wikidata api for generating it's choices.  
+                        </p>
+                        <p>
+                            Powered by
+                            <img style={{maxWidth: 220, width: '100%'}} src={WikipediaWhiteLogo} />
+                        </p>
                     </Grid>
                 </Grid>
             </Container>

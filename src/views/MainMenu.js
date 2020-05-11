@@ -3,7 +3,7 @@ import WelcomePage from './PlayPage/Index'
 import CreateGame from './PlayPage/CreateGame'
 import FindGamePage from './PlayPage/FindGame'
 
-document.title = 'Welcome!'
+document.title = 'Welcome to WikiVisa!'
 
 const MainMenu = ({ socket, view, setView, setGamertag, gamertag, setShowBackButton }) => {
     const [roomCode, setRoomCode] = useState('')
