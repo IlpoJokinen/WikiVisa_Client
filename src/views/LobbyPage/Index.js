@@ -55,6 +55,7 @@ const Lobby = ({ gamertag, players, timer, roomCode, startGame, started, isCreat
                                     <Button
                                         variant="contained"
                                         color="primary"
+                                        disabled={players.find(p => p.gamertag === gamertag).lobbyReady}
                                         className={classes.button}
                                         onClick={setPlayerReadyLobby}
                                         startIcon={<DoneOutline />}

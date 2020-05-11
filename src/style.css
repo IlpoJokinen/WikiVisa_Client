@@ -228,9 +228,15 @@ h1, h2, h3, h4, h5, h6, small {
   overflow: auto
 }
 
+.message {
+  margin: 0 5px
+}
+
 .messageCard {
   border-radius: 6px;
-  margin: 2px
+  margin: 2px;
+  white-space: pre-wrap;
+  text-align: left
 }
 
 .messageCard.own {

@@ -11,6 +11,8 @@ const Chat = ({ gamertag, socket, sendMessage }) => {
         socket.on("send messages", messages => {
             if(mounted) {
                 setMessages(messages)
+                let chatBoxElement = document.getElementsByClassName('chatBox')[0]
+                chatBoxElement.scrollTo(0, chatBoxElement.scrollHeight)
             }
         })
         return () => mounted = false

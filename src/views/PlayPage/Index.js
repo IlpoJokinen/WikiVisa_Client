@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
 import { Grid, withStyles, Container, TextField, Button, makeStyles } from '@material-ui/core/'
 import { Build, DoubleArrow, Search } from '@material-ui/icons/'
 import Header from '../../components/UI/Header'
@@ -21,12 +21,13 @@ const WelcomePage = ({setView, setGamertag, gamertag, createGame}) => {
         setGamertag("")
         localStorage.removeItem("gamertag")
     }
-    const saveGamertag = string => {
+    const saveGamertag = data => {
+        let string = data.toString()
         if(string.length > 30) {
             alert("Gamertag is too long. Gamertag's max length is 30 characters.")
             return false
         }
-        if(string.length > 0 && string.length < 29) {
+        if(string.length > 0 && string.length <= 30) {
             localStorage.setItem("gamertag", string)
             setGamertag(string)
         }
@@ -70,7 +71,7 @@ const WelcomePage = ({setView, setGamertag, gamertag, createGame}) => {
                             <Grid xs={12} item>
                                 <TextField 
                                     value={tag}
-                                    label={gamertag ? "Your gamertag is set" : "Give Gamertag" }
+                                    label={gamertag ? gamertag : "Give Gamertag" }
                                     variant="outlined"
                                     disabled={gamertag.length > 0}
                                     fullWidth
